@@ -1,0 +1,27 @@
+body {
+	position:absolute;
+	margin-left:10%;
+	width:80%;
+	height:100%;
+}
+nav ul {
+	margin:auto;
+	text-align:center;
+	display:table;
+	list-style-type:none;
+	padding:0;
+	background-color:red;
+}
+nav li {
+	padding:0 1em;
+	display:inline;
+}
+nav li:hover {
+	background-color:blue;
+	padding:0 1em;
+	display:inline;
+}
+
+footer p{
+	text-align:center;
+}

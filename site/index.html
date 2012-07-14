@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Object Query</title>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<link href="prettify/prettify.css" rel="stylesheet" type="text/css" />
+		<script src="prettify/prettify.js" type="text/javascript"></script>
+	</head>
+	<body onload="prettyPrint()">
+		<header>
+			<h1>Object Query</h1>
+			<nav>
+				<ul>
+					<li>Overview</li>
+					<li>Install</li>
+					<li>Build A Query </li>
+					<li>Query Language Support</li>
+				</ul>
+			</nav>
+		</header>
+		<section>
+			<header>
+				<h2>Overview</h2>
+			</header>
+			<p>
+				Object Query is a simple query builder thinked for java, that allow to write TypeSafe and Refactor Resistent query,Without bond to persistence engine.
+			</p>
+		</section>
+		<section>
+			<header> 
+				<h2>Install</h2>
+			<header>
+			<p>
+				use maven to install or otherwise download the jar here:????
+			</p>
+		<section>
+		<section>
+			<header>
+				<h2>Build A query</h2>
+			</header>
+
+			<article>
+				<header>
+					<h3>Requirements</h3>
+				</header>
+				<p>
+					The requirements for build a query with query builder is an java Object Oriented "Domain" that rapresent an group of persisted objects.
+				</p>
+			</article>
+			<article>
+				<header>
+					<h3>Domain</h3>
+				</header>
+				<p>
+<pre class="prettyprint lang-java">
+public class Dog {
+	private String name;
+	private Person owner;
+	private Home home;
+	...gets sets...
+};
+</pre>
+<pre class="prettyprint lang-java">
+public class Person {
+	private String name;
+	private List&lt;Person&gt; friends;
+	private Person mum;
+	private Person dud;
+	private Home home;
+	private Dog dog;
+	...gets sets...
+}
+</pre>
+<pre class="prettyprint lang-java">
+public class Home {
+	public enum HomeType {KENNEL,HOUSE};
+	private String address;
+	private HomeType type;
+	private int weight;
+	private double price;
+	...gets sets...
+}
+</pre>
+				</p>
+			</article>
+			<article>
+				<header>
+					<h3>Query Building</h3>
+				</header>
+				<p>
+					Search All person that live in "rue d'anton" with a mum with name "elisabeth" and order by name.
+				</p>
+<pre class="prettyprint lang-java">
+ObjectQuery<Person> query = ...//Persistence dependent query factory.
+Person toSearch = query.target();
+query.eq(toSearch.getHome().getAddress(),"rue d'anton");
+query.eq(toSearch.getMum().getName(),"elisabeth");
+query.order(toSearch.getName());
+<pre>
+			</article>
+		</section>
+		<footer>
+			<p>Object Query the Java Mode to build query</p>
+		</footer>
+	</body>
+</html>
