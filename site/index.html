@@ -5,20 +5,42 @@
 		<link href="style.css" rel="stylesheet" type="text/css" />
 		<link href="prettify/prettify.css" rel="stylesheet" type="text/css" />
 		<script src="prettify/prettify.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			var globalPages= {};
+			function initPages()
+			{
+				var bd = document.getElementById("root");
+				var els=  bd.childNodes;
+				for(var i = 0;i<els.length; i++)
+				{
+					if(els.item(i).localName == "section")
+						globalPages[els.item(i).getAttribute("id")]=els.item(i);
+				}
+				selectPage("overview");
+			}
+			function selectPage(pageId)
+			{
+				for(var pr in globalPages) {
+					globalPages[pr].setAttribute("class","");
+				}
+				globalPages[pageId].setAttribute("class","active");
+				
+			}
+		</script>
 	</head>
-	<body onload="prettyPrint()">
+	<body onload="prettyPrint();initPages();" id="root">
 		<header>
 			<h1>Object Query</h1>
 			<nav>
 				<ul>
-					<li>Overview</li>
-					<li>Install</li>
-					<li>Build A Query </li>
-					<li>Query Language Support</li>
+					<li onclick="selectPage('overview')">Overview</li>
+					<li onclick="selectPage('install')">Install</li>
+					<li onclick="selectPage('build-query')" >Build A Query </li>
+					<li onclick="selectPage('query-language')">Query Language Support</li>
 				</ul>
 			</nav>
 		</header>
-		<section>
+		<section id="overview">
 			<header>
 				<h2>Overview</h2>
 			</header>
@@ -26,15 +48,15 @@
 				Object Query is a simple query builder thinked for java, that allow to write TypeSafe and Refactor Resistent query,Without bond to persistence engine.
 			</p>
 		</section>
-		<section>
+		<section id="install">
 			<header> 
 				<h2>Install</h2>
-			<header>
+			</header>
 			<p>
 				use maven to install or otherwise download the jar here:????
 			</p>
-		<section>
-		<section>
+		</section>
+		<section id="build-query">
 			<header>
 				<h2>Build A query</h2>
 			</header>
@@ -98,6 +120,8 @@ query.eq(toSearch.getMum().getName(),"elisabeth");
 query.order(toSearch.getName());
 <pre>
 			</article>
+		</section>
+		<section id="query-language" >
 		</section>
 		<footer>
 			<p>Object Query the Java Mode to build query</p>

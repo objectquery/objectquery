@@ -4,6 +4,13 @@ body {
 	width:80%;
 	height:100%;
 }
+body > section {
+	display:none;
+}
+body > section.active {
+	display:block;
+}
+
 nav ul {
 	margin:auto;
 	text-align:center;
@@ -25,3 +32,4 @@ nav li:hover {
 footer p{
 	text-align:center;
 }
+
