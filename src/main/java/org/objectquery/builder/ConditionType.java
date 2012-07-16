@@ -5,5 +5,5 @@ package org.objectquery.builder;
  * 
  */
 public enum ConditionType {
-	EQUALS, NOT_EQUALS, MIN, MIN_EQUALS, MAX, MAX_EQUALS, IN, CONTAINS
+	EQUALS, NOT_EQUALS, MIN, MIN_EQUALS, MAX, MAX_EQUALS, IN, CONTAINS, LIKE
 }
