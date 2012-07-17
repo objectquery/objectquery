@@ -54,8 +54,8 @@ public class AbstractObjectQueryTest {
 		Assert.assertEquals("There is more conditions than expected", builder.getConditions().size(), 2);
 		Assert.assertEquals("There is more orders than expected", builder.getOrders().size(), 1);
 
-		Assert.assertTrue("Not present expected condition", builder.getConditions().contains("home.address EQUALS rue d'anton"));
-		Assert.assertTrue("Not present expected condition", builder.getConditions().contains("mum.name EQUALS elisabeth"));
+		Assert.assertTrue("Not present expected condition", builder.getConditions().contains(".home.address EQUALS rue d'anton"));
+		Assert.assertTrue("Not present expected condition", builder.getConditions().contains(".mum.name EQUALS elisabeth"));
 	}
 
 }

@@ -1,5 +1,8 @@
 package org.objectquery.builder;
 
+import java.util.IdentityHashMap;
+import java.util.Map;
+
 import javassist.util.proxy.ProxyFactory;
 import javassist.util.proxy.ProxyObject;
 
@@ -7,8 +10,25 @@ public class AbstractObjectQuery<T> implements ObjectQuery<T> {
 
 	private T target;
 	private InternalQueryBuilder builder;
+	private Map<Object, PathItem> unproxable = new IdentityHashMap<Object, PathItem>();
+	private Class<?> primitiveToBox;
 
 	public Object proxy(Class<?> clazz, ObjectQueryHandler parent, String name) {
+		if (clazz.isPrimitive()) {
+			Object result = PrimitiveFactory.newNumberInstance(clazz, (byte) 0);
+			primitiveToBox = clazz;
+			return result;
+		}
+		if (String.class.isAssignableFrom(clazz)) {
+			String s = new String();
+			unproxable.put(s, new PathItem(clazz, parent, name));
+			return s;
+		} else if (Number.class.isAssignableFrom(clazz) || Character.class.isAssignableFrom(clazz) || Boolean.class.isAssignableFrom(clazz)) {
+			Object result = PrimitiveFactory.newNumberInstance(clazz, (byte) 0);
+			unproxable.put(result, new PathItem(clazz, parent, name));
+			return result;
+		}
+		// TODO:manage array;
 		try {
 			ProxyFactory pf = new ProxyFactory();
 			pf.setSuperclass(clazz);
@@ -30,30 +50,59 @@ public class AbstractObjectQuery<T> implements ObjectQuery<T> {
 	}
 
 	public void projection(Object projection) {
-		if (!(projection instanceof ProxyObject))
-			throw new ObjectQueryException("The given object as projection isn't a proxy, use target() method for start to take object for query", null);
+		PathItem item = null;
+		if (!(projection instanceof ProxyObject)) {
+			if ((item = unproxable.get(projection)) == null)
+				throw new ObjectQueryException("The given object as projection isn't a proxy, use target() method for start to take object for query", null);
+			else
+				builder.projection(item);
+		} else
+			builder.projection((PathItem) ((ProxyObject) projection).getHandler());
 	}
 
 	public void projection(Object projection, ProjectionType type) {
-		if (!(projection instanceof ProxyObject))
-			throw new ObjectQueryException("The given object as projection isn't a proxy, use target() method for start to take object for query", null);
+		PathItem item = null;
+		if (!(projection instanceof ProxyObject)) {
+			if ((item = unproxable.get(projection)) == null)
+				throw new ObjectQueryException("The given object as projection isn't a proxy, use target() method for start to take object for query", null);
+			else
+				builder.projection(item, type);
+		} else
+			builder.projection((PathItem) ((ProxyObject) projection).getHandler(), type);
 	}
 
-	public <C> void condition(C target, ConditionType type, C value) {
-		if (!(target instanceof ProxyObject))
-			throw new ObjectQueryException("The given object as condition isn't a proxy, use target() method for start to take object for query", null);
+	public <C> void condition(C base, ConditionType type, C value) {
+		PathItem item = null;
+		if (!(base instanceof ProxyObject)) {
+			if ((item = unproxable.get(base)) == null)
+				throw new ObjectQueryException("The given object as condition isn't a proxy, use target() method for start to take object for query", null);
+		} else
+			item = (PathItem) ((ProxyObject) base).getHandler();
 		if (type == null)
 			throw new ObjectQueryException("The given type of condition is null", null);
+		builder.condition(item, type, value);
 	}
 
 	public void order(Object order) {
-		if (!(order instanceof ProxyObject))
-			throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query", null);
+		PathItem item = null;
+		if (!(order instanceof ProxyObject)) {
+			if ((item = unproxable.get(order)) == null)
+				throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query", null);
+			else
+				builder.order(item);
+		} else
+			builder.order((PathItem) ((ProxyObject) order).getHandler());
 	}
 
 	public void order(Object order, OrderType type) {
-		if (!(order instanceof ProxyObject))
-			throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query", null);
+		PathItem item = null;
+		if (!(order instanceof ProxyObject)) {
+			if ((item = unproxable.get(order)) == null)
+				throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query", null);
+			else
+				builder.order(item, type);
+		} else
+			builder.order((PathItem) ((ProxyObject) order).getHandler(), type);
 	}
 
 }

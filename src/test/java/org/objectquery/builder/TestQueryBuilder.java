@@ -3,7 +3,7 @@ package org.objectquery.builder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestQueryBuilder implements InternalQueryBuilder {
+public class TestQueryBuilder extends AbstractInternalQueryBuilder {
 
 	private List<String> conditions = new ArrayList<String>();
 	private List<String> projections = new ArrayList<String>();
@@ -14,19 +14,15 @@ public class TestQueryBuilder implements InternalQueryBuilder {
 	}
 
 	public void projection(String projection, ProjectionType type) {
-		projections.add(projection + " " + type.name());
+		projections.add(projection + " " + (type == null ? "" : type.name()));
 	}
 
 	public void condition(String target, ConditionType type, Object value) {
-		conditions.add(target + " " + type.name() + " " + value);
-	}
-
-	public void order(String order) {
-		order(order, OrderType.ASC);
+		conditions.add(target + " " + (type == null ? "" : type.name()) + " " + value);
 	}
 
 	public void order(String order, OrderType type) {
-		orders.add(order + " " + type.name());
+		orders.add(order + " " + (type == null ? "" : type.name()));
 	}
 
 	public List<String> getConditions() {

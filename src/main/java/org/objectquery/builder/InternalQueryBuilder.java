@@ -9,49 +9,49 @@ public interface InternalQueryBuilder {
 	/**
 	 * Add a projection to query.
 	 * 
-	 * @param projection
+	 * @param item
 	 *            the projection object to add.
 	 */
-	void projection(String projection);
+	void projection(PathItem item);
 
 	/**
 	 * Add a projection to query with an operator.
 	 * 
-	 * @param projection
+	 * @param item
 	 *            the projection object to add.
 	 * @param type
 	 *            the type of projection to add.
 	 */
-	void projection(String projection, ProjectionType type);
+	void projection(PathItem item, ProjectionType type);
 
 	/**
 	 * Add a condition between two values
 	 * 
-	 * @param target
+	 * @param item
 	 *            the base operation target.
 	 * @param type
 	 *            the operation type.
 	 * @param value
 	 *            the operation expected value.
 	 */
-	void condition(String target, ConditionType type, Object value);
+	void condition(PathItem item, ConditionType type, Object value);
 
 	/**
 	 * Add an order condition to query.
 	 * 
-	 * @param order
+	 * @param pathItem
 	 *            the order to add.
 	 */
-	void order(String order);
+	void order(PathItem pathItem);
 
 	/**
 	 * Add an order to query.
 	 * 
-	 * @param order
+	 * @param item
 	 *            the order to add.
 	 * @param type
 	 *            the type of order.
 	 */
-	void order(String order, OrderType type);
+	void order(PathItem item, OrderType type);
 
 }

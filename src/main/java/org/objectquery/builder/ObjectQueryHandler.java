@@ -4,17 +4,13 @@ import java.lang.reflect.Method;
 
 import javassist.util.proxy.MethodHandler;
 
-public class ObjectQueryHandler implements MethodHandler {
+public class ObjectQueryHandler extends PathItem implements MethodHandler {
 
 	private AbstractObjectQuery<?> abstractObjectQuery;
-	private ObjectQueryHandler parent;
-	private Class<?> clazz;
-	private String name;
 
 	public ObjectQueryHandler(Class<?> clazz, AbstractObjectQuery<?> abstractObjectQuery, ObjectQueryHandler parent, String name) {
+		super(clazz, parent, name);
 		this.abstractObjectQuery = abstractObjectQuery;
-		this.parent = parent;
-		this.clazz = clazz;
 	}
 
 	public Object invoke(Object self, Method thisMethod, Method proceed, Object[] args) throws Throwable {
@@ -30,15 +26,4 @@ public class ObjectQueryHandler implements MethodHandler {
 		return returnValue;
 	}
 
-	public ObjectQueryHandler getParent() {
-		return parent;
-	}
-
-	public Class<?> getClazz() {
-		return clazz;
-	}
-
-	public String getName() {
-		return name;
-	}
 }
