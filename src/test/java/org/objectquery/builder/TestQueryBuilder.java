@@ -5,36 +5,43 @@ import java.util.List;
 
 public class TestQueryBuilder extends AbstractInternalQueryBuilder {
 
-	private List<String> conditions = new ArrayList<String>();
-	private List<String> projections = new ArrayList<String>();
-	private List<String> orders = new ArrayList<String>();
+	private List<String> conditionsString = new ArrayList<String>();
+	private List<String> projectionsString = new ArrayList<String>();
+	private List<String> ordersString = new ArrayList<String>();
 
-	public void projection(String projection) {
-		projections.add(projection);
+	public void build() {
+		for (ConditionElement cond : getConditions()) {
+			if (cond instanceof ConditionItem) {
+				StringBuilder sb = new StringBuilder();
+				buildPath(((ConditionItem) cond).getItem(), sb);
+				sb.append(" ").append(((ConditionItem) cond).getType()).append(" ").append(((ConditionItem) cond).getValue());
+				conditionsString.add(sb.toString());
+			}
+		}
+		for (Order ord : getOrders()) {
+			StringBuilder sb = new StringBuilder();
+			buildPath(ord.getItem(), sb);
+			if (ord.getType() != null)
+				sb.append(" ").append(ord.getType());
+			ordersString.add(sb.toString());
+		}
+		for (Projection proj : getProjections()) {
+			StringBuilder sb = new StringBuilder();
+			buildPath(proj.getItem(), sb);
+			sb.append(" ").append(proj.getType());
+			projectionsString.add(sb.toString());
+		}
 	}
 
-	public void projection(String projection, ProjectionType type) {
-		projections.add(projection + " " + (type == null ? "" : type.name()));
+	public List<String> getConditionsString() {
+		return conditionsString;
 	}
 
-	public void condition(String target, ConditionType type, Object value) {
-		conditions.add(target + " " + (type == null ? "" : type.name()) + " " + value);
+	public List<String> getOrdersString() {
+		return ordersString;
 	}
 
-	public void order(String order, OrderType type) {
-		orders.add(order + " " + (type == null ? "" : type.name()));
+	public List<String> getProjectionsString() {
+		return projectionsString;
 	}
-
-	public List<String> getConditions() {
-		return conditions;
-	}
-
-	public List<String> getOrders() {
-		return orders;
-	}
-
-	public List<String> getProjections() {
-		return projections;
-	}
-
 }

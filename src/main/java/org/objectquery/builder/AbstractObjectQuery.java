@@ -6,11 +6,11 @@ import java.util.Map;
 import javassist.util.proxy.ProxyFactory;
 import javassist.util.proxy.ProxyObject;
 
-public class AbstractObjectQuery<T> implements ObjectQuery<T> {
+public class AbstractObjectQuery<T> extends QueryConditionImpl implements ObjectQuery<T> {
 
 	private T target;
-	private InternalQueryBuilder builder;
-	private Map<Object, PathItem> unproxable = new IdentityHashMap<Object, PathItem>();
+	InternalQueryBuilder builder;
+	Map<Object, PathItem> unproxable = new IdentityHashMap<Object, PathItem>();
 	private Class<?> primitiveToBox;
 
 	public Object proxy(Class<?> clazz, ObjectQueryHandler parent, String name) {
@@ -41,6 +41,7 @@ public class AbstractObjectQuery<T> implements ObjectQuery<T> {
 
 	@SuppressWarnings("unchecked")
 	public AbstractObjectQuery(InternalQueryBuilder builder, Class<T> clazz) {
+		super(builder);
 		this.builder = builder;
 		this.target = (T) proxy(clazz, null, "");
 	}
@@ -69,18 +70,6 @@ public class AbstractObjectQuery<T> implements ObjectQuery<T> {
 				builder.projection(item, type);
 		} else
 			builder.projection((PathItem) ((ProxyObject) projection).getHandler(), type);
-	}
-
-	public <C> void condition(C base, ConditionType type, C value) {
-		PathItem item = null;
-		if (!(base instanceof ProxyObject)) {
-			if ((item = unproxable.get(base)) == null)
-				throw new ObjectQueryException("The given object as condition isn't a proxy, use target() method for start to take object for query", null);
-		} else
-			item = (PathItem) ((ProxyObject) base).getHandler();
-		if (type == null)
-			throw new ObjectQueryException("The given type of condition is null", null);
-		builder.condition(item, type, value);
 	}
 
 	public void order(Object order) {

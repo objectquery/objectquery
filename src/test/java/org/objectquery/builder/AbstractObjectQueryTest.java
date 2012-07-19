@@ -41,7 +41,7 @@ public class AbstractObjectQueryTest {
 		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
 		query.condition(query.target(), null, null);
 	}
-	
+
 	@Test
 	public void testSimpleQueryBuild() {
 		TestQueryBuilder builder = new TestQueryBuilder();
@@ -50,12 +50,14 @@ public class AbstractObjectQueryTest {
 		query.condition(toSearch.getHome().getAddress(), ConditionType.EQUALS, "rue d'anton");
 		query.condition(toSearch.getMum().getName(), ConditionType.EQUALS, "elisabeth");
 		query.order(toSearch.getName());
+		
+		builder.build();
+		Assert.assertEquals("There is more conditions than expected", builder.getConditionsString().size(), 2);
+		Assert.assertEquals("There is more orders than expected", builder.getOrdersString().size(), 1);
 
-		Assert.assertEquals("There is more conditions than expected", builder.getConditions().size(), 2);
-		Assert.assertEquals("There is more orders than expected", builder.getOrders().size(), 1);
-
-		Assert.assertTrue("Not present expected condition", builder.getConditions().contains(".home.address EQUALS rue d'anton"));
-		Assert.assertTrue("Not present expected condition", builder.getConditions().contains(".mum.name EQUALS elisabeth"));
+		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("home.address EQUALS rue d'anton"));
+		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("mum.name EQUALS elisabeth"));
+		Assert.assertTrue("Not present expected order", builder.getOrdersString().contains("name"));
 	}
 
 }
