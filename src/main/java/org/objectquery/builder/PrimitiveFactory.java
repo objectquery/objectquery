@@ -2,6 +2,7 @@ package org.objectquery.builder;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -24,6 +25,8 @@ public class PrimitiveFactory {
 			return new BigDecimal(val);
 		} else if (BigInteger.class.equals(clazz)) {
 			return new BigInteger(new Byte(val).toString());
+		} else if (AtomicBoolean.class.equals(clazz)) {
+			return new AtomicBoolean(val > 0);
 		} else if (AtomicInteger.class.equals(clazz)) {
 			return new AtomicInteger(val);
 		} else if (AtomicLong.class.equals(clazz)) {

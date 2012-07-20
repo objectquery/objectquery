@@ -11,12 +11,17 @@ public class AbstractObjectQuery<T> extends QueryConditionImpl implements Object
 	private T target;
 	InternalQueryBuilder builder;
 	Map<Object, PathItem> unproxable = new IdentityHashMap<Object, PathItem>();
-	private Class<?> primitiveToBox;
+	private Class<?> primitiveToBoxType;
+	private Object primitiveToBoxValue;
+	private PathItem primitiveToBoxPath;
 
 	public Object proxy(Class<?> clazz, ObjectQueryHandler parent, String name) {
 		if (clazz.isPrimitive()) {
 			Object result = PrimitiveFactory.newNumberInstance(clazz, (byte) 0);
-			primitiveToBox = clazz;
+			primitiveToBoxType = clazz;
+			primitiveToBoxValue = result;
+			unproxable.put(result, new PathItem(clazz, parent, name));
+			primitiveToBoxPath = new PathItem(clazz, parent, name);
 			return result;
 		}
 		if (String.class.isAssignableFrom(clazz)) {
@@ -92,6 +97,49 @@ public class AbstractObjectQuery<T> extends QueryConditionImpl implements Object
 				builder.order(item, type);
 		} else
 			builder.order((PathItem) ((ProxyObject) order).getHandler(), type);
+	}
+
+	@SuppressWarnings("unchecked")
+	private <Z> Z box(Class<Z> clazz, Object value) {
+		if (primitiveToBoxType == null || primitiveToBoxValue == null || primitiveToBoxPath == null)
+			throw new ObjectQueryException("not present a primitive call to box.", null);
+		if (!clazz.equals(primitiveToBoxType))
+			throw new ObjectQueryException("present a wrong primitive type that not match with call to box.", null);
+
+		unproxable.put(primitiveToBoxValue, primitiveToBoxPath);
+		return (Z) primitiveToBoxValue;
+	}
+
+	public Boolean box(boolean b) {
+		return box(Boolean.TYPE, b);
+	}
+
+	public Byte box(byte b) {
+		return box(Byte.TYPE, b);
+	}
+
+	public Character box(char c) {
+		return box(Character.TYPE, c);
+	}
+
+	public Double box(double d) {
+		return box(Double.TYPE, d);
+	}
+
+	public Float box(float f) {
+		return box(Float.TYPE, f);
+	}
+
+	public Integer box(int i) {
+		return box(Integer.TYPE, i);
+	}
+
+	public Long box(long l) {
+		return box(Long.TYPE, l);
+	}
+
+	public Short box(short s) {
+		return box(Short.TYPE, s);
 	}
 
 }

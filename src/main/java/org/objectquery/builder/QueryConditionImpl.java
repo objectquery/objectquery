@@ -18,14 +18,23 @@ public class QueryConditionImpl implements QueryCondition {
 	}
 
 	public <C> void condition(C base, ConditionType type, C value) {
+		if (base == null)
+			throw new ObjectQueryException("The given object as condition is null", null);
 		PathItem item = null;
+		Class<?> baseType = base.getClass();
 		if (!(base instanceof ProxyObject)) {
 			if ((item = objectQuery.unproxable.get(base)) == null)
 				throw new ObjectQueryException("The given object as condition isn't a proxy, use target() method for start to take object for query", null);
-		} else
+		} else {
 			item = (PathItem) ((ProxyObject) base).getHandler();
+			baseType = base.getClass().getSuperclass();
+		}
 		if (type == null)
 			throw new ObjectQueryException("The given type of condition is null", null);
+
+		if (value != null && !baseType.isAssignableFrom(value.getClass()))
+			throw new ObjectQueryException("The given object value is not assignabled to gived condition", null);
+
 		group.condition(item, type, value);
 
 	}

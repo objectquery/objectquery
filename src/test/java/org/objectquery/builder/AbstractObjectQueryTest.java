@@ -42,6 +42,18 @@ public class AbstractObjectQueryTest {
 		query.condition(query.target(), null, null);
 	}
 
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongNullCondition() {
+		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		query.condition(null, null, null);
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongValueTypeCondition() {
+		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		query.condition((Object) query.target(), ConditionType.EQUALS, new Object());
+	}
+
 	@Test
 	public void testSimpleQueryBuild() {
 		TestQueryBuilder builder = new TestQueryBuilder();
@@ -50,7 +62,7 @@ public class AbstractObjectQueryTest {
 		query.condition(toSearch.getHome().getAddress(), ConditionType.EQUALS, "rue d'anton");
 		query.condition(toSearch.getMum().getName(), ConditionType.EQUALS, "elisabeth");
 		query.order(toSearch.getName());
-		
+
 		builder.build();
 		Assert.assertEquals("There is more conditions than expected", builder.getConditionsString().size(), 2);
 		Assert.assertEquals("There is more orders than expected", builder.getOrdersString().size(), 1);
