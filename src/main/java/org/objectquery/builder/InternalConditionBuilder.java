@@ -15,23 +15,11 @@ public interface InternalConditionBuilder {
 	void condition(PathItem item, ConditionType type, Object value);
 
 	/**
-	 * Create an and group.
+	 * Build a condition group of a type.
 	 * 
-	 * @return the and group.
+	 * @param type
+	 *            the type of group.
+	 * @return the new group.
 	 */
-	ConditionGroup and();
-
-	/**
-	 * Create an not group.
-	 * 
-	 * @return the not group.
-	 */
-	ConditionGroup not();
-
-	/**
-	 * Create an or group.
-	 * 
-	 * @return the or group.
-	 */
-	ConditionGroup or();
+	public ConditionGroup newGroup(GroupType type);
 }

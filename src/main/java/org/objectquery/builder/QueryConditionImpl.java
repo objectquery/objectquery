@@ -40,15 +40,15 @@ public class QueryConditionImpl implements QueryCondition {
 	}
 
 	public QueryCondition and() {
-		return new QueryConditionImpl(objectQuery, objectQuery.builder.and());
+		return new QueryConditionImpl(objectQuery, objectQuery.builder.newGroup(GroupType.AND));
 	}
 
 	public QueryCondition not() {
-		return new QueryConditionImpl(objectQuery, objectQuery.builder.not());
+		return new QueryConditionImpl(objectQuery, objectQuery.builder.newGroup(GroupType.NOT));
 	}
 
 	public QueryCondition or() {
-		return new QueryConditionImpl(objectQuery, objectQuery.builder.or());
+		return new QueryConditionImpl(objectQuery, objectQuery.builder.newGroup(GroupType.OR));
 	}
 
 }

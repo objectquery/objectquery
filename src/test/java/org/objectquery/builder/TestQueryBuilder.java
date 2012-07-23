@@ -1,20 +1,52 @@
 package org.objectquery.builder;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class TestQueryBuilder extends AbstractInternalQueryBuilder {
+
+	public TestQueryBuilder() {
+		super(GroupType.AND);
+	}
 
 	private List<String> conditionsString = new ArrayList<String>();
 	private List<String> projectionsString = new ArrayList<String>();
 	private List<String> ordersString = new ArrayList<String>();
 
+	private void stringfyGroup(ConditionGroup group, StringBuilder builder) {
+		if (!group.getConditions().isEmpty()) {
+			builder.append(" ( ");
+			Iterator<ConditionElement> eli = group.getConditions().iterator();
+			while (eli.hasNext()) {
+				ConditionElement el = eli.next();
+				if (el instanceof ConditionItem) {
+					stringfyCondition((ConditionItem) el, builder);
+				} else if (el instanceof ConditionGroup) {
+					stringfyGroup((ConditionGroup) el, builder);
+				}
+				if (eli.hasNext()) {
+					builder.append(" ").append(group.getType().toString()).append(" ");
+				}
+			}
+			builder.append(" ) ");
+		}
+	}
+
+	private void stringfyCondition(ConditionItem cond, StringBuilder sb) {
+		buildPath(((ConditionItem) cond).getItem(), sb);
+		sb.append(" ").append(((ConditionItem) cond).getType()).append(" ").append(((ConditionItem) cond).getValue());
+	}
+
 	public void build() {
 		for (ConditionElement cond : getConditions()) {
 			if (cond instanceof ConditionItem) {
 				StringBuilder sb = new StringBuilder();
-				buildPath(((ConditionItem) cond).getItem(), sb);
-				sb.append(" ").append(((ConditionItem) cond).getType()).append(" ").append(((ConditionItem) cond).getValue());
+				stringfyCondition((ConditionItem) cond, sb);
+				conditionsString.add(sb.toString());
+			} else if (cond instanceof ConditionGroup) {
+				StringBuilder sb = new StringBuilder();
+				stringfyGroup((ConditionGroup) cond, sb);
 				conditionsString.add(sb.toString());
 			}
 		}

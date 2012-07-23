@@ -8,8 +8,8 @@ public abstract class AbstractInternalQueryBuilder extends ConditionGroup implem
 	private List<Order> orders = new ArrayList<Order>();
 	private List<Projection> projections = new ArrayList<Projection>();
 
-	public AbstractInternalQueryBuilder() {
-		super(GroupType.AND);
+	protected AbstractInternalQueryBuilder(GroupType type) {
+		super(type);
 	}
 
 	public static void buildPath(PathItem item, StringBuilder builder) {

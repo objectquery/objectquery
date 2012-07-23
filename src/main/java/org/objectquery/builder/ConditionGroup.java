@@ -5,10 +5,6 @@ import java.util.List;
 
 public class ConditionGroup implements ConditionElement, InternalConditionBuilder {
 
-	public enum GroupType {
-		AND, OR, NOT
-	};
-
 	private List<ConditionElement> conditions = new ArrayList<ConditionElement>();
 	private GroupType type;
 
@@ -30,6 +26,12 @@ public class ConditionGroup implements ConditionElement, InternalConditionBuilde
 
 	public void condition(PathItem item, ConditionType type, Object value) {
 		addCondition(new ConditionItem(item, type, value));
+	}
+
+	public ConditionGroup newGroup(GroupType type) {
+		ConditionGroup cg = new ConditionGroup(type);
+		addCondition(cg);
+		return cg;
 	}
 
 	public ConditionGroup and() {
