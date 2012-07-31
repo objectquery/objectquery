@@ -12,7 +12,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the operation expected value.
 	 */
-	<C> void condition(C target, ConditionType type, C value);
+	<C, T extends C> void condition(C target, ConditionType type, T value);
 
 	/**
 	 * Create a condition group or.
@@ -28,10 +28,4 @@ public interface QueryCondition {
 	 */
 	QueryCondition and();
 
-	/**
-	 * Create a condition group negate.
-	 * 
-	 * @return the condition group.
-	 */
-	QueryCondition not();
 }

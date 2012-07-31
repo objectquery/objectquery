@@ -33,23 +33,4 @@ public class ConditionGroup implements ConditionElement, InternalConditionBuilde
 		addCondition(cg);
 		return cg;
 	}
-
-	public ConditionGroup and() {
-		ConditionGroup cg = new ConditionGroup(GroupType.AND);
-		addCondition(cg);
-		return cg;
-	}
-
-	public ConditionGroup or() {
-		ConditionGroup cg = new ConditionGroup(GroupType.OR);
-		addCondition(cg);
-		return cg;
-	}
-
-	public ConditionGroup not() {
-		ConditionGroup cg = new ConditionGroup(GroupType.NOT);
-		addCondition(cg);
-		return cg;
-	}
-
 }

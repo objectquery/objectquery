@@ -17,7 +17,7 @@ public class QueryConditionImpl implements QueryCondition {
 		this.group = group;
 	}
 
-	public <C> void condition(C base, ConditionType type, C value) {
+	public <C, T extends C> void condition(C base, ConditionType type, T value) {
 		if (base == null)
 			throw new ObjectQueryException("The given object as condition is null", null);
 		PathItem item = null;
@@ -41,10 +41,6 @@ public class QueryConditionImpl implements QueryCondition {
 
 	public QueryCondition and() {
 		return new QueryConditionImpl(objectQuery, objectQuery.builder.newGroup(GroupType.AND));
-	}
-
-	public QueryCondition not() {
-		return new QueryConditionImpl(objectQuery, objectQuery.builder.newGroup(GroupType.NOT));
 	}
 
 	public QueryCondition or() {
