@@ -16,7 +16,6 @@
 					if(els.item(i).localName == "section")
 						globalPages[els.item(i).getAttribute("id")]=els.item(i);
 				}
-				selectPage("overview");
 			}
 			function selectPage(pageId)
 			{
@@ -24,7 +23,6 @@
 					globalPages[pr].setAttribute("class","");
 				}
 				globalPages[pageId].setAttribute("class","active");
-				
 			}
 		</script>
 	</head>
@@ -33,14 +31,14 @@
 			<h1>Object Query</h1>
 			<nav>
 				<ul>
-					<li onclick="selectPage('overview')">Overview</li>
-					<li onclick="selectPage('install')">Install</li>
-					<li onclick="selectPage('build-query')" >Build A Query </li>
-					<li onclick="selectPage('query-language')">Query Language Support</li>
+					<li onclick="selectPage('overview')"><a href="?page=overview">Overview</a></li>
+					<li onclick="selectPage('install')"><a href="?page=install">Install</a></li>
+					<li onclick="selectPage('build-query')" ><a href="?page=build-query">Build A Query</a></li>
+					<li onclick="selectPage('query-language')"><a href="?page=build-language">Query Language Support</a></li>
 				</ul>
 			</nav>
 		</header>
-		<section id="overview">
+		<section id="overview" <?echo($_GET["page"]=="overview"||!isset($_GET["page"])?'class="active"':'')?>>
 			<header>
 				<h2>Overview</h2>
 			</header>
@@ -48,7 +46,7 @@
 				Object Query is a simple query builder thinked for java, that allow to write TypeSafe and Refactor Resistent query,Without bond to persistence engine.
 			</p>
 		</section>
-		<section id="install">
+		<section id="install"  <?echo($_GET["page"]=="install"?'class="active"':'')?>>
 			<header> 
 				<h2>Install</h2>
 			</header>
@@ -56,7 +54,7 @@
 				use maven to install or otherwise download the jar here:????
 			</p>
 		</section>
-		<section id="build-query">
+		<section id="build-query" <?echo($_GET["page"]=="build-query"?'class="active"':'')?>>
 			<header>
 				<h2>Build A query</h2>
 			</header>
@@ -121,7 +119,7 @@ query.order(toSearch.getName());
 <pre>
 			</article>
 		</section>
-		<section id="query-language" >
+		<section id="query-language"  <?echo($_GET["page"]=="query-language"?'class="active"':'')?> >
 		</section>
 		<footer>
 			<p>Object Query the Java Mode to build query</p>
