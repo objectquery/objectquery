@@ -35,16 +35,23 @@ public class QueryConditionImpl implements QueryCondition {
 		if (value != null && !baseType.isAssignableFrom(value.getClass()))
 			throw new ObjectQueryException("The given object value is not assignabled to gived condition", null);
 
-		group.condition(item, type, value);
+		Object curValue = null;
+
+		if (curValue instanceof ProxyObject)
+			curValue = ((ProxyObject) curValue).getHandler();
+		else if ((curValue = objectQuery.unproxable.get(value)) == null)
+			curValue = value;
+
+		group.condition(item, type, curValue);
 
 	}
 
 	public QueryCondition and() {
-		return new QueryConditionImpl(objectQuery, objectQuery.builder.newGroup(GroupType.AND));
+		return new QueryConditionImpl(objectQuery, group.newGroup(GroupType.AND));
 	}
 
 	public QueryCondition or() {
-		return new QueryConditionImpl(objectQuery, objectQuery.builder.newGroup(GroupType.OR));
+		return new QueryConditionImpl(objectQuery, group.newGroup(GroupType.OR));
 	}
 
 }
