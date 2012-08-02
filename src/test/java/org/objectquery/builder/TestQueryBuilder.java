@@ -64,7 +64,8 @@ public class TestQueryBuilder extends AbstractInternalQueryBuilder {
 		for (Projection proj : getProjections()) {
 			StringBuilder sb = new StringBuilder();
 			buildPath(proj.getItem(), sb);
-			sb.append(" ").append(proj.getType());
+			if (proj.getType() != null)
+				sb.append(" ").append(proj.getType());
 			projectionsString.add(sb.toString());
 		}
 	}
