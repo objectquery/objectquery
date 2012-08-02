@@ -44,12 +44,8 @@ public class AbstractObjectQuery<T> extends QueryConditionImpl implements Object
 
 	}
 
-	public AbstractObjectQuery(InternalQueryBuilder builder, Class<T> clazz) {
-		this(builder, clazz, null);
-	}
-
 	@SuppressWarnings("unchecked")
-	public AbstractObjectQuery(InternalQueryBuilder builder, Class<T> clazz, GroupType type) {
+	public AbstractObjectQuery(InternalQueryBuilder builder, Class<T> clazz) {
 		super(builder);
 		this.builder = builder;
 		this.target = (T) proxy(clazz, null, "");
@@ -146,4 +142,7 @@ public class AbstractObjectQuery<T> extends QueryConditionImpl implements Object
 		return box(Short.TYPE, s);
 	}
 
+	public InternalQueryBuilder getBuilder() {
+		return builder;
+	}
 }
