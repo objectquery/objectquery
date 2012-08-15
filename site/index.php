@@ -28,15 +28,15 @@
 	</head>
 	<body onload="prettyPrint();initPages();" id="root">
 		<header>
-			<h1>Object Query</h1>
 			<nav>
 				<ul>
 					<li onclick="selectPage('overview')"><a href="?page=overview">Overview</a></li>
 					<li onclick="selectPage('install')"><a href="?page=install">Install</a></li>
 					<li onclick="selectPage('build-query')" ><a href="?page=build-query">Build A Query</a></li>
-					<li onclick="selectPage('query-language')"><a href="?page=build-language">Query Language Support</a></li>
+					<li onclick="selectPage('query-language')"><a href="?page=query-language">Query Language Support</a></li>
 				</ul>
 			</nav>
+			<img src="img/logo.png">
 		</header>
 		<section id="overview" <?echo($_GET["page"]=="overview"||!isset($_GET["page"])?'class="active"':'')?>>
 			<header>
@@ -120,6 +120,12 @@ query.order(toSearch.getName());
 			</article>
 		</section>
 		<section id="query-language"  <?echo($_GET["page"]=="query-language"?'class="active"':'')?> >
+			<header> 
+				<h2>List of Supported languages</h2>
+			</header>
+			<p>
+				nothing...........
+			</p>
 		</section>
 		<footer>
 			<p>Object Query the Java Mode to build query</p>
