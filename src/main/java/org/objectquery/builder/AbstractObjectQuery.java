@@ -9,6 +9,7 @@ import javassist.util.proxy.ProxyObject;
 public class AbstractObjectQuery<T> extends QueryConditionImpl implements ObjectQuery<T> {
 
 	private T target;
+	private Class<T> targetClass;
 	InternalQueryBuilder builder;
 	Map<Object, PathItem> unproxable = new IdentityHashMap<Object, PathItem>();
 	private Class<?> primitiveToBoxType;
@@ -49,6 +50,7 @@ public class AbstractObjectQuery<T> extends QueryConditionImpl implements Object
 		super(builder);
 		this.builder = builder;
 		this.target = (T) proxy(clazz, null, "");
+		this.targetClass = clazz;
 	}
 
 	public T target() {
@@ -144,5 +146,9 @@ public class AbstractObjectQuery<T> extends QueryConditionImpl implements Object
 
 	public InternalQueryBuilder getBuilder() {
 		return builder;
+	}
+
+	protected Class<T> getTargetClass() {
+		return targetClass;
 	}
 }

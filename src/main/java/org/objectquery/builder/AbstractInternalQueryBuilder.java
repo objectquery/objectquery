@@ -13,9 +13,13 @@ public abstract class AbstractInternalQueryBuilder extends ConditionGroup implem
 	}
 
 	public static void buildPath(PathItem item, StringBuilder builder) {
+		buildPath(item, builder, ".");
+	}
+
+	public static void buildPath(PathItem item, StringBuilder builder, String separator) {
 		if (item.getParent().getParent() != null) {
 			buildPath(item.getParent(), builder);
-			builder.append(".");
+			builder.append(separator);
 		}
 		builder.append(item.getName());
 	}
