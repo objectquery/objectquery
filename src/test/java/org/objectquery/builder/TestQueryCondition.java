@@ -12,15 +12,17 @@ public class TestQueryCondition {
 		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.condition(toSearch.getHome().getAddress(), ConditionType.EQUALS, toSearch.getDog().getHome().getAddress());
+		query.condition(toSearch.getDud().getHome(), ConditionType.EQUALS, toSearch.getDog().getHome());
 		query.condition(toSearch.getMum().getName(), ConditionType.EQUALS, toSearch.getDog().getOwner().getName());
 		query.order(toSearch.getName());
 
 		builder.build();
-		Assert.assertEquals("There is more conditions than expected", builder.getConditionsString().size(), 2);
+		Assert.assertEquals("There is more conditions than expected", builder.getConditionsString().size(), 3);
 		Assert.assertEquals("There is more orders than expected", builder.getOrdersString().size(), 1);
 
 		Assert.assertEquals("Not present expected condition", "home.address EQUALS dog.home.address", builder.getConditionsString().get(0));
-		Assert.assertEquals("Not present expected condition", "mum.name EQUALS dog.owner.name", builder.getConditionsString().get(1));
+		Assert.assertEquals("Not present expected condition", "dud.home EQUALS dog.home", builder.getConditionsString().get(1));
+		Assert.assertEquals("Not present expected condition", "mum.name EQUALS dog.owner.name", builder.getConditionsString().get(2));
 		Assert.assertEquals("Not present expected order", builder.getOrdersString().get(0), "name");
 	}
 
