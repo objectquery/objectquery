@@ -34,12 +34,12 @@ public class TestQueryBuilder extends AbstractInternalQueryBuilder {
 	}
 
 	private void stringfyCondition(ConditionItem cond, StringBuilder sb) {
-		buildPath(((ConditionItem) cond).getItem(), sb);
-		sb.append(" ").append(((ConditionItem) cond).getType()).append(" ");
-		if (((ConditionItem) cond).getValue() instanceof PathItem)
-			buildPath((PathItem) ((ConditionItem) cond).getValue(), sb);
+		buildPath(cond.getItem(), sb);
+		sb.append(" ").append(cond.getType()).append(" ");
+		if (cond.getValue() instanceof PathItem)
+			buildPath((PathItem) cond.getValue(), sb);
 		else
-			sb.append(((ConditionItem) cond).getValue());
+			sb.append(cond.getValue());
 	}
 
 	public void build() {
