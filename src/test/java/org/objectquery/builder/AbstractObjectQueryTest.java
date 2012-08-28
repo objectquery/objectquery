@@ -8,80 +8,80 @@ public class AbstractObjectQueryTest {
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectCondition() {
-		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.condition(new Object(), null, null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectProjection() {
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.prj(new Object());
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectProjectionType() {
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.prj(new Object(), null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectOrder() {
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.order(new Object());
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectOrderType() {
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.order(new Object(), null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongTypeCondition() {
-		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.condition(query.target(), null, null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongNullCondition() {
-		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.condition(null, null, null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongValueTypeCondition() {
-		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.eq((Object) query.target(), new Object());
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testInWrongValueTypeCondition() {
-		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.condition(query.target(), ConditionType.IN, new Object());
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testNotInWrongValueTypeCondition() {
-		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.condition(query.target(), ConditionType.NOT_IN, new Object());
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testContainsWrongValueTypeCondition() {
-		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.condition(query.target(), ConditionType.CONTAINS, new Object());
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testNotContainsWrongValueTypeCondition() {
-		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.condition(query.target(), ConditionType.NOT_CONTAINS, new Object());
 	}
 
 	@Test
 	public void testSimpleQueryBuild() {
 		TestQueryBuilder builder = new TestQueryBuilder();
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(builder, Person.class);
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.eq(toSearch.getHome().getAddress(), "rue d'anton");
 		query.eq(toSearch.getMum().getName(), "elisabeth");

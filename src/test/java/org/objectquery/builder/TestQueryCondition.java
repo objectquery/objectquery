@@ -9,7 +9,7 @@ public class TestQueryCondition {
 	@Test
 	public void testPathValueQueryBuild() {
 		TestQueryBuilder builder = new TestQueryBuilder();
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(builder, Person.class);
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.eq(toSearch.getHome().getAddress(), toSearch.getDog().getHome().getAddress());
 		query.eq(toSearch.getDud().getHome(), toSearch.getDog().getHome());
@@ -29,7 +29,7 @@ public class TestQueryCondition {
 	@Test
 	public void testConditionsTypes() {
 		TestQueryBuilder builder = new TestQueryBuilder();
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(builder, Person.class);
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.eq(toSearch.getMum().getName(), toSearch.getDud().getName());
 		query.contains(toSearch.getFriends(), toSearch.getDud());

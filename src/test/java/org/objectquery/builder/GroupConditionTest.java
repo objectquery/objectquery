@@ -9,7 +9,7 @@ public class GroupConditionTest {
 	@Test
 	public void conditionPlainAnd() {
 		TestQueryBuilder tqb = new TestQueryBuilder();
-		ObjectQuery<Person> oq = new AbstractObjectQuery<Person>(tqb, Person.class);
+		ObjectQuery<Person> oq = new GenericObjectQuery<Person>(tqb, Person.class);
 		Person pers = oq.target();
 		QueryCondition cond = oq.and();
 		cond.eq(pers.getName(), "mary");
@@ -24,7 +24,7 @@ public class GroupConditionTest {
 	@Test
 	public void conditionNestedAnd() {
 		TestQueryBuilder tqb = new TestQueryBuilder();
-		ObjectQuery<Person> oq = new AbstractObjectQuery<Person>(tqb, Person.class);
+		ObjectQuery<Person> oq = new GenericObjectQuery<Person>(tqb, Person.class);
 		Person pers = oq.target();
 		QueryCondition cond = oq.and();
 		QueryCondition and1 = cond.and();
@@ -45,7 +45,7 @@ public class GroupConditionTest {
 	@Test
 	public void conditionNestedOr() {
 		TestQueryBuilder tqb = new TestQueryBuilder();
-		ObjectQuery<Person> oq = new AbstractObjectQuery<Person>(tqb, Person.class);
+		ObjectQuery<Person> oq = new GenericObjectQuery<Person>(tqb, Person.class);
 		Person pers = oq.target();
 		QueryCondition cond = oq.or();
 		QueryCondition and1 = cond.or();
@@ -66,7 +66,7 @@ public class GroupConditionTest {
 	@Test
 	public void conditionNestedMixed() {
 		TestQueryBuilder tqb = new TestQueryBuilder();
-		ObjectQuery<Person> oq = new AbstractObjectQuery<Person>(tqb, Person.class);
+		ObjectQuery<Person> oq = new GenericObjectQuery<Person>(tqb, Person.class);
 		Person pers = oq.target();
 		QueryCondition cond = oq.or();
 		QueryCondition and1 = cond.and();
@@ -87,7 +87,7 @@ public class GroupConditionTest {
 	@Test
 	public void conditionPlainOr() {
 		TestQueryBuilder tqb = new TestQueryBuilder();
-		ObjectQuery<Person> oq = new AbstractObjectQuery<Person>(tqb, Person.class);
+		ObjectQuery<Person> oq = new GenericObjectQuery<Person>(tqb, Person.class);
 		Person pers = oq.target();
 		QueryCondition cond = oq.or();
 		cond.eq(pers.getName(), "mary");

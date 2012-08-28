@@ -9,7 +9,7 @@ public class PrimitiveTypeTest {
 	@Test
 	public void testPrimitiveType() {
 		TestQueryBuilder qb = new TestQueryBuilder();
-		ObjectQuery<PrimitiveDomain> query = new AbstractObjectQuery<PrimitiveDomain>(qb, PrimitiveDomain.class);
+		ObjectQuery<PrimitiveDomain> query = new GenericObjectQuery<PrimitiveDomain>(qb, PrimitiveDomain.class);
 		PrimitiveDomain pd = query.target();
 		query.eq(query.box(pd.isBool()), false);
 		query.eq(query.box(pd.getInte()), 0);

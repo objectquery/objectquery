@@ -9,7 +9,7 @@ public class TestQueryProjection {
 	@Test
 	public void addProjectionTest() {
 		TestQueryBuilder builder = new TestQueryBuilder();
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(builder, Person.class);
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.prj(toSearch.getMum().getName());
 		query.prj(toSearch.getMum().getName(), ProjectionType.COUNT);

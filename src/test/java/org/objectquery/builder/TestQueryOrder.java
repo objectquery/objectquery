@@ -10,7 +10,7 @@ public class TestQueryOrder {
 	@Test
 	public void testOrders() {
 		TestQueryBuilder builder = new TestQueryBuilder();
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(builder, Person.class);
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 
 		query.order(toSearch.getDog().getName());

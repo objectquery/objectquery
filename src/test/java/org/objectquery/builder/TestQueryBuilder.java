@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class TestQueryBuilder extends AbstractInternalQueryBuilder {
+public class TestQueryBuilder extends GenericInternalQueryBuilder {
 
 	public TestQueryBuilder() {
 		super(GroupType.AND);

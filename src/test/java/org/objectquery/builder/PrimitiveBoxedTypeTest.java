@@ -15,7 +15,7 @@ public class PrimitiveBoxedTypeTest {
 	@Test
 	public void testPrimitiveBoxedType() {
 		TestQueryBuilder qb = new TestQueryBuilder();
-		ObjectQuery<BoxedPrimitiveDomain> bpd = new AbstractObjectQuery<BoxedPrimitiveDomain>(qb, BoxedPrimitiveDomain.class);
+		ObjectQuery<BoxedPrimitiveDomain> bpd = new GenericObjectQuery<BoxedPrimitiveDomain>(qb, BoxedPrimitiveDomain.class);
 		BoxedPrimitiveDomain pd = bpd.target();
 		bpd.eq(pd.getAtomicBoolean(), new AtomicBoolean(false));
 		bpd.eq(pd.getAtomicLong(), new AtomicLong(0));

@@ -6,15 +6,15 @@ import javassist.util.proxy.ProxyObject;
 
 public class QueryConditionImpl implements QueryCondition {
 
-	private AbstractObjectQuery<?> objectQuery;
+	private GenericObjectQuery<?> objectQuery;
 	private InternalConditionBuilder group;
 
 	protected QueryConditionImpl(InternalConditionBuilder group) {
-		this.objectQuery = (AbstractObjectQuery<?>) this;
+		this.objectQuery = (GenericObjectQuery<?>) this;
 		this.group = group;
 	}
 
-	public QueryConditionImpl(AbstractObjectQuery<?> objectQuery, ConditionGroup group) {
+	public QueryConditionImpl(GenericObjectQuery<?> objectQuery, ConditionGroup group) {
 		this.objectQuery = objectQuery;
 		this.group = group;
 	}

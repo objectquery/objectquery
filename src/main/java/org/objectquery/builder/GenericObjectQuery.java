@@ -6,7 +6,7 @@ import java.util.Map;
 import javassist.util.proxy.ProxyFactory;
 import javassist.util.proxy.ProxyObject;
 
-public class AbstractObjectQuery<T> extends QueryConditionImpl implements ObjectQuery<T> {
+public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQuery<T> {
 
 	private T target;
 	private Class<T> targetClass;
@@ -49,8 +49,12 @@ public class AbstractObjectQuery<T> extends QueryConditionImpl implements Object
 
 	}
 
+	public GenericObjectQuery(Class<T> clazz) {
+		this(new GenericInternalQueryBuilder(GroupType.AND), clazz);
+	}
+
 	@SuppressWarnings("unchecked")
-	public AbstractObjectQuery(InternalQueryBuilder builder, Class<T> clazz) {
+	public GenericObjectQuery(InternalQueryBuilder builder, Class<T> clazz) {
 		super(builder);
 		this.builder = builder;
 		this.target = (T) proxy(clazz, null, "");
@@ -152,7 +156,7 @@ public class AbstractObjectQuery<T> extends QueryConditionImpl implements Object
 		return builder;
 	}
 
-	protected Class<T> getTargetClass() {
+	public Class<T> getTargetClass() {
 		return targetClass;
 	}
 }

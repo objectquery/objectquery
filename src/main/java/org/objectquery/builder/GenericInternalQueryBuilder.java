@@ -3,12 +3,12 @@ package org.objectquery.builder;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractInternalQueryBuilder extends ConditionGroup implements InternalQueryBuilder {
+public class GenericInternalQueryBuilder extends ConditionGroup implements InternalQueryBuilder {
 
 	private List<Order> orders = new ArrayList<Order>();
 	private List<Projection> projections = new ArrayList<Projection>();
 
-	protected AbstractInternalQueryBuilder(GroupType type) {
+	public GenericInternalQueryBuilder(GroupType type) {
 		super(type);
 	}
 
