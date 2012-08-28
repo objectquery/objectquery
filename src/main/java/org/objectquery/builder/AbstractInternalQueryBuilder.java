@@ -17,7 +17,7 @@ public abstract class AbstractInternalQueryBuilder extends ConditionGroup implem
 	}
 
 	public static void buildPath(PathItem item, StringBuilder builder, String separator) {
-		if (item.getParent().getParent() != null) {
+		if (item.getParent() != null && item.getParent().getParent() != null) {
 			buildPath(item.getParent(), builder);
 			builder.append(separator);
 		}
