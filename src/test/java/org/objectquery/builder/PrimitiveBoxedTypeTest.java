@@ -17,19 +17,19 @@ public class PrimitiveBoxedTypeTest {
 		TestQueryBuilder qb = new TestQueryBuilder();
 		ObjectQuery<BoxedPrimitiveDomain> bpd = new AbstractObjectQuery<BoxedPrimitiveDomain>(qb, BoxedPrimitiveDomain.class);
 		BoxedPrimitiveDomain pd = bpd.target();
-		bpd.condition(pd.getAtomicBoolean(), ConditionType.EQUALS, new AtomicBoolean(false));
-		bpd.condition(pd.getAtomicLong(), ConditionType.EQUALS, new AtomicLong(0));
-		bpd.condition(pd.getAtomicInteger(), ConditionType.EQUALS, new AtomicInteger(0));
-		bpd.condition(pd.getBool(), ConditionType.EQUALS, new Boolean(false));
-		bpd.condition(pd.getBigDecimal(), ConditionType.EQUALS, new BigDecimal(0));
-		bpd.condition(pd.getBigInteger(), ConditionType.EQUALS, new BigInteger("0"));
-		bpd.condition(pd.getInte(), ConditionType.EQUALS, new Integer(0));
-		bpd.condition(pd.getLonge(), ConditionType.EQUALS, new Long(0));
-		bpd.condition(pd.getBytee(), ConditionType.EQUALS, new Byte((byte) 0));
-		bpd.condition(pd.getChare(), ConditionType.EQUALS, new Character('A'));
-		bpd.condition(pd.getDoublee(), ConditionType.EQUALS, new Double(0));
-		bpd.condition(pd.getFloate(), ConditionType.EQUALS, new Float(0));
-		bpd.condition(pd.getShorte(), ConditionType.EQUALS, new Short((short) 0));
+		bpd.eq(pd.getAtomicBoolean(), new AtomicBoolean(false));
+		bpd.eq(pd.getAtomicLong(), new AtomicLong(0));
+		bpd.eq(pd.getAtomicInteger(), new AtomicInteger(0));
+		bpd.eq(pd.getBool(), new Boolean(false));
+		bpd.eq(pd.getBigDecimal(), new BigDecimal(0));
+		bpd.eq(pd.getBigInteger(), new BigInteger("0"));
+		bpd.eq(pd.getInte(), new Integer(0));
+		bpd.eq(pd.getLonge(), new Long(0));
+		bpd.eq(pd.getBytee(), new Byte((byte) 0));
+		bpd.eq(pd.getChare(), new Character('A'));
+		bpd.eq(pd.getDoublee(), new Double(0));
+		bpd.eq(pd.getFloate(), new Float(0));
+		bpd.eq(pd.getShorte(), new Short((short) 0));
 
 		qb.build();
 

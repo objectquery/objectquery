@@ -15,7 +15,7 @@ public interface ObjectQuery<T> extends QueryCondition {
 	 * @param projection
 	 *            the projection object to add.
 	 */
-	void projection(Object projection);
+	void prj(Object projection);
 
 	/**
 	 * Add a projection to query with an operator.
@@ -25,7 +25,7 @@ public interface ObjectQuery<T> extends QueryCondition {
 	 * @param type
 	 *            the type of projection to add.
 	 */
-	void projection(Object projection, ProjectionType type);
+	void prj(Object projection, ProjectionType type);
 
 	/**
 	 * Add an order condition to query.

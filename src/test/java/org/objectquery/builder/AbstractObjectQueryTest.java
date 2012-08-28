@@ -8,20 +8,20 @@ public class AbstractObjectQueryTest {
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectCondition() {
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
 		query.condition(new Object(), null, null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectProjection() {
 		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
-		query.projection(new Object());
+		query.prj(new Object());
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectProjectionType() {
 		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
-		query.projection(new Object(), null);
+		query.prj(new Object(), null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
@@ -38,20 +38,44 @@ public class AbstractObjectQueryTest {
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongTypeCondition() {
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
 		query.condition(query.target(), null, null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongNullCondition() {
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
 		query.condition(null, null, null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongValueTypeCondition() {
-		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
-		query.condition((Object) query.target(), ConditionType.EQUALS, new Object());
+		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		query.eq((Object) query.target(), new Object());
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testInWrongValueTypeCondition() {
+		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		query.condition(query.target(), ConditionType.IN, new Object());
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testNotInWrongValueTypeCondition() {
+		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		query.condition(query.target(), ConditionType.NOT_IN, new Object());
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testContainsWrongValueTypeCondition() {
+		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		query.condition(query.target(), ConditionType.CONTAINS, new Object());
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testNotContainsWrongValueTypeCondition() {
+		AbstractObjectQuery<Person> query = new AbstractObjectQuery<Person>(null, Person.class);
+		query.condition(query.target(), ConditionType.NOT_CONTAINS, new Object());
 	}
 
 	@Test
@@ -59,8 +83,8 @@ public class AbstractObjectQueryTest {
 		TestQueryBuilder builder = new TestQueryBuilder();
 		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
-		query.condition(toSearch.getHome().getAddress(), ConditionType.EQUALS, "rue d'anton");
-		query.condition(toSearch.getMum().getName(), ConditionType.EQUALS, "elisabeth");
+		query.eq(toSearch.getHome().getAddress(), "rue d'anton");
+		query.eq(toSearch.getMum().getName(), "elisabeth");
 		query.order(toSearch.getName());
 
 		builder.build();

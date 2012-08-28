@@ -11,14 +11,14 @@ public class PrimitiveTypeTest {
 		TestQueryBuilder qb = new TestQueryBuilder();
 		ObjectQuery<PrimitiveDomain> query = new AbstractObjectQuery<PrimitiveDomain>(qb, PrimitiveDomain.class);
 		PrimitiveDomain pd = query.target();
-		query.condition(query.box(pd.isBool()), ConditionType.EQUALS, false);
-		query.condition(query.box(pd.getInte()), ConditionType.EQUALS, 0);
-		query.condition(query.box(pd.getLonge()), ConditionType.EQUALS, 0L);
-		query.condition(query.box(pd.getBytee()), ConditionType.EQUALS, (byte) 0);
-		query.condition(query.box(pd.getChare()), ConditionType.EQUALS, 'A');
-		query.condition(query.box(pd.getDoublee()), ConditionType.EQUALS, 0D);
-		query.condition(query.box(pd.getFloate()), ConditionType.EQUALS, 0F);
-		query.condition(query.box(pd.getShorte()), ConditionType.EQUALS, (short) 0);
+		query.eq(query.box(pd.isBool()), false);
+		query.eq(query.box(pd.getInte()), 0);
+		query.eq(query.box(pd.getLonge()), 0L);
+		query.eq(query.box(pd.getBytee()), (byte) 0);
+		query.eq(query.box(pd.getChare()), 'A');
+		query.eq(query.box(pd.getDoublee()), 0D);
+		query.eq(query.box(pd.getFloate()), 0F);
+		query.eq(query.box(pd.getShorte()), (short) 0);
 
 		qb.build();
 

@@ -37,7 +37,11 @@ public class AbstractObjectQuery<T> extends QueryConditionImpl implements Object
 		// TODO:manage array;
 		try {
 			ProxyFactory pf = new ProxyFactory();
-			pf.setSuperclass(clazz);
+			if (clazz.isInterface())
+				pf.setInterfaces(new Class[] { clazz });
+			else
+				pf.setSuperclass(clazz);
+
 			return pf.create(new Class[0], new Object[0], new ObjectQueryHandler(clazz, this, parent, name));
 		} catch (Exception e) {
 			throw new ObjectQueryException("Error on creating object proxy", e);
@@ -57,7 +61,7 @@ public class AbstractObjectQuery<T> extends QueryConditionImpl implements Object
 		return target;
 	}
 
-	public void projection(Object projection) {
+	public void prj(Object projection) {
 		PathItem item = null;
 		if (!(projection instanceof ProxyObject)) {
 			if ((item = unproxable.get(projection)) == null)
@@ -68,7 +72,7 @@ public class AbstractObjectQuery<T> extends QueryConditionImpl implements Object
 			builder.projection((PathItem) ((ProxyObject) projection).getHandler());
 	}
 
-	public void projection(Object projection, ProjectionType type) {
+	public void prj(Object projection, ProjectionType type) {
 		PathItem item = null;
 		if (!(projection instanceof ProxyObject)) {
 			if ((item = unproxable.get(projection)) == null)

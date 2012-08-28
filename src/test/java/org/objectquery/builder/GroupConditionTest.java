@@ -12,8 +12,8 @@ public class GroupConditionTest {
 		ObjectQuery<Person> oq = new AbstractObjectQuery<Person>(tqb, Person.class);
 		Person pers = oq.target();
 		QueryCondition cond = oq.and();
-		cond.condition(pers.getName(), ConditionType.EQUALS, "mary");
-		cond.condition(pers.getDog().getName(), ConditionType.EQUALS, "mary");
+		cond.eq(pers.getName(), "mary");
+		cond.eq(pers.getDog().getName(), "mary");
 		tqb.build();
 
 		Assert.assertEquals(1, tqb.getConditionsString().size());
@@ -28,11 +28,11 @@ public class GroupConditionTest {
 		Person pers = oq.target();
 		QueryCondition cond = oq.and();
 		QueryCondition and1 = cond.and();
-		and1.condition(pers.getName(), ConditionType.EQUALS, "mary");
-		and1.condition(pers.getDog().getName(), ConditionType.EQUALS, "mary");
+		and1.eq(pers.getName(), "mary");
+		and1.eq(pers.getDog().getName(), "mary");
 		QueryCondition and2 = cond.and();
-		and2.condition(pers.getName(), ConditionType.EQUALS, "miry");
-		and2.condition(pers.getDog().getName(), ConditionType.EQUALS, "miry");
+		and2.eq(pers.getName(), "miry");
+		and2.eq(pers.getDog().getName(), "miry");
 
 		tqb.build();
 
@@ -49,11 +49,11 @@ public class GroupConditionTest {
 		Person pers = oq.target();
 		QueryCondition cond = oq.or();
 		QueryCondition and1 = cond.or();
-		and1.condition(pers.getName(), ConditionType.EQUALS, "mary");
-		and1.condition(pers.getDog().getName(), ConditionType.EQUALS, "mary");
+		and1.eq(pers.getName(), "mary");
+		and1.eq(pers.getDog().getName(), "mary");
 		QueryCondition and2 = cond.or();
-		and2.condition(pers.getName(), ConditionType.EQUALS, "miry");
-		and2.condition(pers.getDog().getName(), ConditionType.EQUALS, "miry");
+		and2.eq(pers.getName(), "miry");
+		and2.eq(pers.getDog().getName(), "miry");
 
 		tqb.build();
 
@@ -70,17 +70,17 @@ public class GroupConditionTest {
 		Person pers = oq.target();
 		QueryCondition cond = oq.or();
 		QueryCondition and1 = cond.and();
-		and1.condition(pers.getName(), ConditionType.EQUALS, "mary");
-		and1.condition(pers.getDog().getName(), ConditionType.EQUALS, "mary");
+		and1.eq(pers.getName(), "mary");
+		and1.eq(pers.getDog().getName(), "mary");
 		QueryCondition and2 = cond.and();
-		and2.condition(pers.getName(), ConditionType.EQUALS, "miry");
-		and2.condition(pers.getDog().getName(), ConditionType.EQUALS, "miry");
+		and2.eq(pers.getName(), "miry");
+		and2.eq(pers.getDog().getName(), "miry");
 
 		tqb.build();
 
 		Assert.assertEquals(1, tqb.getConditionsString().size());
-		Assert.assertEquals(" (  ( name EQUALS mary AND dog.name EQUALS mary )  OR  ( name EQUALS miry AND dog.name EQUALS miry )  ) ", tqb.getConditionsString()
-				.get(0));
+		Assert.assertEquals(" (  ( name EQUALS mary AND dog.name EQUALS mary )  OR  ( name EQUALS miry AND dog.name EQUALS miry )  ) ", tqb
+				.getConditionsString().get(0));
 
 	}
 
@@ -90,8 +90,8 @@ public class GroupConditionTest {
 		ObjectQuery<Person> oq = new AbstractObjectQuery<Person>(tqb, Person.class);
 		Person pers = oq.target();
 		QueryCondition cond = oq.or();
-		cond.condition(pers.getName(), ConditionType.EQUALS, "mary");
-		cond.condition(pers.getDog().getName(), ConditionType.EQUALS, "mary");
+		cond.eq(pers.getName(), "mary");
+		cond.eq(pers.getDog().getName(), "mary");
 		tqb.build();
 
 		Assert.assertEquals(1, tqb.getConditionsString().size());

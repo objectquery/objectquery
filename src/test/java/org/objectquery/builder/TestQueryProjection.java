@@ -11,11 +11,11 @@ public class TestQueryProjection {
 		TestQueryBuilder builder = new TestQueryBuilder();
 		ObjectQuery<Person> query = new AbstractObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
-		query.projection(toSearch.getMum().getName());
-		query.projection(toSearch.getMum().getName(), ProjectionType.COUNT);
-		query.projection(toSearch.getMum().getName(), ProjectionType.AVG);
-		query.projection(toSearch.getMum().getName(), ProjectionType.MAX);
-		query.projection(toSearch.getMum().getName(), ProjectionType.MIN);
+		query.prj(toSearch.getMum().getName());
+		query.prj(toSearch.getMum().getName(), ProjectionType.COUNT);
+		query.prj(toSearch.getMum().getName(), ProjectionType.AVG);
+		query.prj(toSearch.getMum().getName(), ProjectionType.MAX);
+		query.prj(toSearch.getMum().getName(), ProjectionType.MIN);
 		builder.build();
 
 		Assert.assertEquals(5, builder.getProjectionsString().size());

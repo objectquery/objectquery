@@ -17,7 +17,7 @@ public class TestQueryOrder {
 		query.order(toSearch.getDog().getName(), OrderType.ASC);
 		query.order(toSearch.getDog().getName(), OrderType.DESC);
 		builder.build();
-		
+
 		Assert.assertEquals(3, builder.getOrdersString().size());
 		Assert.assertEquals("dog.name", builder.getOrdersString().get(0));
 		Assert.assertEquals("dog.name ASC", builder.getOrdersString().get(1));
