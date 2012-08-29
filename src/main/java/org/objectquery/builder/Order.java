@@ -3,10 +3,12 @@ package org.objectquery.builder;
 public class Order {
 
 	private PathItem item;
+	private ProjectionType projectionType;
 	private OrderType type;
 
-	public Order(PathItem item, OrderType type) {
+	public Order(PathItem item, ProjectionType projectionType, OrderType type) {
 		this.item = item;
+		this.projectionType = projectionType;
 		this.type = type;
 	}
 
@@ -16,5 +18,9 @@ public class Order {
 
 	public OrderType getType() {
 		return type;
+	}
+
+	public ProjectionType getProjectionType() {
+		return projectionType;
 	}
 }

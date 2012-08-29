@@ -66,21 +66,19 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 	}
 
 	public void prj(Object projection) {
-		PathItem item = null;
-		if (!(projection instanceof ProxyObject)) {
-			if ((item = unproxable.get(projection)) == null)
-				throw new ObjectQueryException("The given object as projection isn't a proxy, use target() method for start to take object for query", null);
-			else
-				builder.projection(item);
-		} else
-			builder.projection((PathItem) ((ProxyObject) projection).getHandler());
+		prj(projection, null);
 	}
 
 	public void prj(Object projection, ProjectionType type) {
+		if (projection == null)
+			throw new ObjectQueryException("The given object as projection is null", null);
 		PathItem item = null;
 		if (!(projection instanceof ProxyObject)) {
 			if ((item = unproxable.get(projection)) == null)
-				throw new ObjectQueryException("The given object as projection isn't a proxy, use target() method for start to take object for query", null);
+				if (isPrimitive(projection.getClass()))
+					throw new ObjectQueryException("The given object is an primitive type autoboxed use box() function to box primitive values", null);
+				else
+					throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query", null);
 			else
 				builder.projection(item, type);
 		} else
@@ -88,25 +86,33 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 	}
 
 	public void order(Object order) {
-		PathItem item = null;
-		if (!(order instanceof ProxyObject)) {
-			if ((item = unproxable.get(order)) == null)
-				throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query", null);
-			else
-				builder.order(item);
-		} else
-			builder.order((PathItem) ((ProxyObject) order).getHandler());
+		order(order, null, null);
 	}
 
 	public void order(Object order, OrderType type) {
+		order(order, null, type);
+	}
+
+	public void order(Object order, ProjectionType projectionType, OrderType type) {
+		if (order == null)
+			throw new ObjectQueryException("The given object as order is null", null);
+
 		PathItem item = null;
 		if (!(order instanceof ProxyObject)) {
-			if ((item = unproxable.get(order)) == null)
-				throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query", null);
-			else
-				builder.order(item, type);
+			if ((item = unproxable.get(order)) == null) {
+				if (isPrimitive(order.getClass()))
+					throw new ObjectQueryException("The given object is an primitive type autoboxed use box() function to box primitive values", null);
+				else
+					throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query", null);
+			} else
+				builder.order(item, projectionType, type);
 		} else
-			builder.order((PathItem) ((ProxyObject) order).getHandler(), type);
+			builder.order((PathItem) ((ProxyObject) order).getHandler(), projectionType, type);
+	}
+
+	private boolean isPrimitive(Class<?> clazz) {
+		return Long.TYPE.equals(clazz) || Integer.TYPE.equals(clazz) || Short.TYPE.equals(clazz) || Byte.TYPE.equals(clazz) || Float.TYPE.equals(clazz)
+				|| Double.TYPE.equals(clazz) || Character.TYPE.equals(clazz) || Boolean.TYPE.isAssignableFrom(clazz);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -57,6 +57,8 @@ public class TestQueryBuilder extends GenericInternalQueryBuilder {
 		for (Order ord : getOrders()) {
 			StringBuilder sb = new StringBuilder();
 			buildPath(ord.getItem(), sb);
+			if (ord.getProjectionType() != null)
+				sb.append(" ").append(ord.getProjectionType());
 			if (ord.getType() != null)
 				sb.append(" ").append(ord.getType());
 			ordersString.add(sb.toString());

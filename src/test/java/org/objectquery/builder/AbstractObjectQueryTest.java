@@ -78,6 +78,18 @@ public class AbstractObjectQueryTest {
 		query.condition(query.target(), ConditionType.NOT_CONTAINS, new Object());
 	}
 
+	@Test(expected = ObjectQueryException.class)
+	public void testNullProjection() {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
+		query.prj(null);
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testNullOrder() {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
+		query.order(null);
+	}
+
 	@Test
 	public void testSimpleQueryBuild() {
 		TestQueryBuilder builder = new TestQueryBuilder();

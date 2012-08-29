@@ -46,6 +46,18 @@ public interface ObjectQuery<T> extends QueryCondition {
 	void order(Object order, OrderType type);
 
 	/**
+	 * Add an order to query.
+	 * 
+	 * @param order
+	 *            the order to add.
+	 * @param projectionType
+	 *            the tipe of projection for grouping actions in order.
+	 * @param type
+	 *            the type of order.
+	 */
+	void order(Object order, ProjectionType projectionType, OrderType type);
+
+	/**
 	 * Box a byte.
 	 * 
 	 * @param b
