@@ -3,9 +3,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
 	<groupId>org.objectquery</groupId>
 	<artifactId>objectquery</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>objectquery</name>
@@ -40,8 +46,9 @@
 	</dependencies>
 
 	<scm>
-		<url>https://github.com/objectquery/objectquery</url>
-		<connection>git@github.com:objectquery/objectquery.git</connection>
+		<url>git@github.com:objectquery/objectquery.git</url>
+		<connection>scm:git:git@github.com:objectquery/objectquery.git</connection>
+		<developerConnection>scm:git:git@github.com:objectquery/objectquery.git</developerConnection>
 	</scm>
 	<organization>
 		<name>tglman</name>
