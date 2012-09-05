@@ -33,7 +33,7 @@
 					<li onclick="selectPage('overview')"><a href="?page=overview">Overview</a></li>
 					<li onclick="selectPage('install')"><a href="?page=install">Install</a></li>
 					<li onclick="selectPage('build-query')" ><a href="?page=build-query">Build A Query</a></li>
-					<li onclick="selectPage('query-language')"><a href="?page=query-language">Query Language Support</a></li>
+					<li onclick="selectPage('query-engine')"><a href="?page=query-engine">Query Engine Support</a></li>
 				</ul>
 			</nav>
 			<img src="img/logo.png">
@@ -47,7 +47,7 @@
 					<h3>Wath Is</h3>
 				</header>
 				<p>
-					Object Query is a simple query builder thinked for java, that allow to write TypeSafe and Refactor Resistent query,Without bond to persistence engine.
+					Object Query is a simple query builder thinked for java, that allow to write typesafe and refactor resistent query,without bound to persistence engine.
 				</p>
 			</article>
 			<article>
@@ -145,24 +145,73 @@ public class Home {
 					Search All person that live in "rue d'anton" with a mum with name "elisabeth" and order by name.
 				</p>
 <pre class="prettyprint lang-java">
-ObjectQuery<Person> query = ...//Persistence dependent query factory.
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
 Person toSearch = query.target();
 query.eq(toSearch.getHome().getAddress(),"rue d'anton");
 query.eq(toSearch.getMum().getName(),"elisabeth");
 query.order(toSearch.getName());
-<pre>
+</pre>
 			</article>
 		</section>
-		<section id="query-language"  <?echo($_GET["page"]=="query-language"?'class="active"':'')?> >
+		<section id="query-engine"  <?echo($_GET["page"]=="query-engine"?'class="active"':'')?> >
 			<header> 
-				<h2>List of Supported languages</h2>
+				<h2>Query Engine Support</h2>
 			</header>
-			<p>
-				nothing...........
+			<article>
+				<header><h3>JPA</h3></header>
+				<p>
+				Direct execute:
+				<pre class="prettyprint lang-java">
+javax.persistence.EntityManager entityManager= ....
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+List&lt;Person&gt; res = (List&lt;Person&gt;)JPAObjectQuery.execute(query, entityManager);
+...
+</pre>
+				JPA query generation:
+<pre class="prettyprint lang-java">
+javax.persistence.EntityManager entityManager= ....
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+javax.persistence.Query jpaQuery = JPAObjectQuery.buildQuery(query, entityManager);
+...
+</pre>
+				JPQL string and parameters generation:
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+JPQLQueryGenerator jpqlGenerator = JPAObjectQuery.jpqlGenerator(query);
+String jpql = jpqlGenerator.getQuery();
+Map&lt;String,Object&gt; paramenters = jpqlGenerator.getParameters();
+...
+</pre>
+				</p>
+			</article>
+			<article>
+				<header><h3>JDO</h3></header>
+				<p>
+				Direct execute:
+				<pre class="prettyprint lang-java">
+javax.jdo.PersistenceManager peristenceManager= ....
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+List&lt;Person&gt; res = (List&lt;Person&gt;)JDOObjectQuery.execute(query, peristenceManager);
+...
+</pre>
+				JDOQL string and parameters generation:
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+JDOQLQueryGenerator jdoqlGenerator = JDOObjectQuery.jdoqlGenerator(query);
+String jpql = jdoqlGenerator.getQuery();
+Map&lt;String,Object&gt; paramenters = jdoqlGenerator.getParameters();
+...
+</pre>
 			</p>
+			</article>
 		</section>
 		<footer>
-			<p>Object Query the Java Mode to build query</p>
+			<p>Object Query the java mode to build query</p>
 		</footer>
 	</body>
 </html>
