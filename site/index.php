@@ -47,7 +47,7 @@
 					<h3>Wath Is</h3>
 				</header>
 				<p>
-					Object Query is a simple query builder thinked for java, that allow to write typesafe and refactor resistent query,without bound to persistence engine.
+					Object Query is a simple query builder thinked for java, that allow to write typesafe and refactor resistent query, without bound to persistence engine.
 				</p>
 			</article>
 			<article>
