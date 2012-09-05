@@ -42,17 +42,51 @@
 			<header>
 				<h2>Overview</h2>
 			</header>
-			<p>
-				Object Query is a simple query builder thinked for java, that allow to write TypeSafe and Refactor Resistent query,Without bond to persistence engine.
-			</p>
+			<article>
+				<header>
+					<h3>Wath Is</h3>
+				</header>
+				<p>
+					Object Query is a simple query builder thinked for java, that allow to write TypeSafe and Refactor Resistent query,Without bond to persistence engine.
+				</p>
+			</article>
+			<article>
+				<header>
+					<h3>License</h3>
+				</header>
+				<p>
+					<a href="http://www.apache.org/licenses/LICENSE-2.0.html" >The Apache Software License, Version 2.0</a>
+				</p>
+			</article>
 		</section>
 		<section id="install"  <?echo($_GET["page"]=="install"?'class="active"':'')?>>
 			<header> 
 				<h2>Install</h2>
 			</header>
-			<p>
-				use maven to install or otherwise download the jar here:????
-			</p>
+				<article>
+					<header>
+						<h3>Maven</h3>
+					</header>
+					<p>
+						Insert the specify maven dependecy for each implementation:<br><br>
+						JPA:
+						<pre class="prettyprint lang-xml">
+&lt;dependency&gt;
+	&lt;groupId>org.objectquery&lt;/groupId&gt;
+	&lt;artifactId>jpaobjectquery&lt;/artifactId&gt;
+	&lt;version>1.0.0-BETA1&lt;/version&gt;
+&lt;/dependency&gt;
+</pre>
+						JDO:
+						<pre class="prettyprint lang-xml">
+&lt;dependency&gt;
+	&lt;groupId>org.objectquery&lt;/groupId&gt;
+	&lt;artifactId>jdoobjectquery&lt;/artifactId&gt;
+	&lt;version>1.0.0-BETA1&lt;/version&gt;
+&lt;/dependency&gt;
+</pre>
+					</p>
+				</article>
 		</section>
 		<section id="build-query" <?echo($_GET["page"]=="build-query"?'class="active"':'')?>>
 			<header>
