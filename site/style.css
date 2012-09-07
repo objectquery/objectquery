@@ -1,13 +1,14 @@
-body {
-	color:#35420D;
-	position:absolute;
+html ,body{
+	height: 100%;
 	margin:0;
 	padding:0;
 	width:100%;
-	height:100%;
+}
+body {
+	color:#35420D;
 	background-image:url('img/texture.png');
 }
-body > header {
+body >header {
 	background: -moz-linear-gradient(top, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.5)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
@@ -15,7 +16,7 @@ body > header {
 	background: -ms-linear-gradient(top, rgba(255,255,255,0.5)0%,rgba(255,255,255,0) 100%); /* IE10+ */
 	background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%); /* W3C */
 }
-body > header >img {
+body >header >img {
 	width:10%;
 }
 nav {
@@ -44,12 +45,10 @@ nav ul {
 nav li {
 	padding:0.5em 1em;
 	display:inline-block;
-	font-weight:bold;
+	font-weight:500;
 }
 nav li:hover {
-	background-color:blue;
-	padding:0.5em 1em;
-	display:inline-block;
+	font-weight:900;
 }
 
 section >header, section > p, article {
@@ -59,30 +58,52 @@ section >header, section > p, article {
 body > section {
 	display:none;
 	width:80%;
-	min-height:70%;
-	margin:0 auto auto 10%;
+	margin:0 auto 3em 10%;
 	background-color:white;
-	height:auto;
 	border-radius: 0.3em;
+	height:auto;
 }
-body > section.active {
+body >section.active {
 	display:block;
 }
 
 footer {
-	position:fixed;
-	bottom:0;
 	height:3em;
 	width:100%;
-	background: -moz-linear-gradient(bottom, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,rgba(255,255,255,0.5)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(bottom, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(bottom, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(bottom, rgba(255,255,255,0.5)0%,rgba(255,255,255,0) 100%); /* IE10+ */
-	background: linear-gradient(to top, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%); /* W3C */
+	position:fixed;
+	bottom:0;
+	z-index:-1;
+	background: -moz-linear-gradient(bottom, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left bottom, left top, color-stop(30%,rgba(255,255,255,0.8)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(bottom, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(bottom, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(bottom, rgba(255,255,255,0.8)30%,rgba(255,255,255,0) 100%); /* IE10+ */
+	background: linear-gradient(to top, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0) 100%); /* W3C */
 }
-footer p{
-	text-align:center;
+footer >div {
+	width: 25em;
+	margin:auto;
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
 }
-
-
+.roadmap{
+	min-width:30em;
+	padding:0;
+}
+.roadmap,.roadmap td {
+	border:solid 1px #35420D;
+}
+.roadmap td {
+	padding:0.2em;
+}
+.road_done,.road_todo {
+	width:5em;
+}
+.road_done {
+	background-color:green;
+}
+.road_todo {
+	background-color:red;
+}

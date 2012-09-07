@@ -58,6 +58,24 @@
 					<a href="http://www.apache.org/licenses/LICENSE-2.0.html" >The Apache Software License, Version 2.0</a>
 				</p>
 			</article>
+			<article>
+				<header><h3>Roadmap<h3></header>
+				<h4>1.0.0</h4>
+				<table class="roadmap">
+					<tr><td>base select statement</td> <td class="road_done">DONE</td></tr>
+					<tr><td>projections with grouping funcions</td> <td class="road_done">DONE</td></tr>
+					<tr><td>conditions and nested conditions </td> <td class="road_done">DONE</td></tr>
+					<tr><td>order by with grouping functions </td> <td class="road_done">DONE</td></tr>
+					<tr><td>having clause </td> <td class="road_todo">TODO</td></tr>
+					<tr><td>ignore case like condition type </td> <td class="road_todo">TODO</td></tr>
+				</table>
+				<h4>2.0.0</h4>
+				<table class="roadmap">
+					<tr><td>support for update operdation </td> <td class="road_todo">TODO</td></tr>
+					<tr><td>support for delete operdation </td> <td class="road_todo">TODO</td></tr>
+					<tr><td>support for insert operdation </td> <td class="road_todo">TODO</td></tr>
+				</table>
+			</article>
 		</section>
 		<section id="install"  <?echo($_GET["page"]=="install"?'class="active"':'')?>>
 			<header> 
@@ -211,7 +229,7 @@ Map&lt;String,Object&gt; paramenters = jdoqlGenerator.getParameters();
 			</article>
 		</section>
 		<footer>
-			<p>Object Query the java mode to build query</p>
+			<div>Object Query the java mode to build query</div>
 		</footer>
 	</body>
 </html>
