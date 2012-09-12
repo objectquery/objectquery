@@ -69,8 +69,11 @@ body >section.active {
 
 footer {
 	height:3em;
-	width:100%;
+	left:10%;
+	width:80%;
 	position:fixed;
+	border-top-left-radius: 3em;
+	border-top-right-radius: 3em;
 	bottom:0;
 	z-index:-1;
 	background: -moz-linear-gradient(bottom, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0) 100%); /* FF3.6+ */

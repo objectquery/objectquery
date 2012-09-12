@@ -59,6 +59,20 @@
 				</p>
 			</article>
 			<article>
+				<header>
+					<h3>Support</h3>
+				</header>
+				<p>
+					issue tracker:<a href="https://github.com/organizations/objectquery/dashboard/issues" >https://github.com/organizations/objectquery/dashboard/issues</a>
+				<p>
+				<p>
+					mailing list:<a href="https://groups.google.com/group/objectquery">https://groups.google.com/group/objectquery</a>
+				</p>
+				<p>
+					source:<a href="https://github.com/organizations/objectquery" >https://github.com/organizations/objectquery</a>
+				<p>
+			</article>
+			<article>
 				<header><h3>Roadmap<h3></header>
 				<h4>1.0.0</h4>
 				<table class="roadmap">
