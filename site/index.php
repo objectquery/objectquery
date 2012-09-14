@@ -171,7 +171,7 @@ public class Home {
 			</article>
 			<article>
 				<header>
-					<h3>Query Building</h3>
+					<h3>Simple Query Building</h3>
 				</header>
 				<p>
 					Search All person that live in "rue d'anton" with a mum with name "elisabeth" and order by name.
@@ -183,6 +183,97 @@ query.eq(toSearch.getHome().getAddress(),"rue d'anton");
 query.eq(toSearch.getMum().getName(),"elisabeth");
 query.order(toSearch.getName());
 </pre>
+			</article>
+			<article>
+				<header>
+					<h3>Prjection</h3>
+				</header>
+				<p>
+					Select name and address of person.
+				</p>
+				<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+Person toSearch = query.target();
+query.prj(toSearch.getName());
+query.prj(toSearch.getHome().getAddress());
+</pre>
+			</article>
+			<article>
+				<header>
+					<h3>Grouping Functions<h3>
+				</header>
+				<p>
+					Count all person that live in "rue d'anton"
+				</p>
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+Person toSearch = query.target();
+query.prj(toSearch,ProjectionType.COUNT);
+query.eq(toSearch.getHome().getAddress(),"rue d'anton");
+</pre>
+			</article>
+			<article>
+				<header>
+					<h3>Condition group</3>
+				</header>
+				<p>
+					Search al person with name elisabeth or jhon.
+				</p>
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+Person toSearch = query.target();
+QueryCondition or = oq.or();
+or.eq(toSearch.getName(),"elisabeth");
+or.eq(toSearch.getName(),"jhon");
+</pre>
+			</article>
+			<article>
+				<header>
+					<h3>Condition Operator</h3>
+				<header>
+				<table>
+				<tr><td><p>Simple</p></td><td><p>group</p></td></tr><tr><td>
+				<table class="condition_table">
+					<tr><td>eq</td></tr>
+					<tr><td>notEq</td></tr>
+					<tr><td>like</td></tr>
+					<tr><td>notLike</td></tr>
+					<tr><td>min</td></tr>
+					<tr><td>minEq</td></tr>
+					<tr><td>max</td></tr>
+					<tr><td>maxEq</td></tr>
+					<tr><td>in</td></tr>
+					<tr><td>notIn</td></tr>
+					<tr><td>contains</td></tr>
+					<tr><td>notContains</td></tr>
+				</table>
+				</td>
+				<td>
+				<table class="condition_table">
+					<tr><td>or</td></tr>
+					<tr><td>and</td></tr>
+				</table>
+				</td></tr></table>
+			</article>
+			<article>
+				<header>
+					<h3>Projection </h3>
+				<header>
+				<table class="condition_table">
+					<tr><td>MAX</td></tr>
+					<tr><td>MIN</td></tr>
+					<tr><td>AVG</td></tr>
+					<tr><td>COUNT</td></tr>
+				</table>
+			</article>
+			<article>
+				<header>
+					<h3>Order Operator</h3>
+				<header>
+				<table class="condition_table">
+					<tr><td>ASC</td></tr>
+					<tr><td>DESC</td></tr>
+				</table>
 			</article>
 		</section>
 		<section id="query-engine"  <?echo($_GET["page"]=="query-engine"?'class="active"':'')?> >

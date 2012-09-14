@@ -110,3 +110,9 @@ footer >div {
 .road_todo {
 	background-color:red;
 }
+.condition_table {
+	width: 10em;
+}
+.condition_table ,.condition_table td {
+	border: 1px solid #000000;
+}
