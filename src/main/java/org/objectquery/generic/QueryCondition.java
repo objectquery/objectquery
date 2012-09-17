@@ -125,6 +125,26 @@ public interface QueryCondition {
 	<C, T extends C> void notContains(Collection<C> target, T value);
 
 	/**
+	 * Add an like condition between two values without case match.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the operation expected value.
+	 */
+	<C, T extends C> void likeNc(C target, T value);
+
+	/**
+	 * Add an not like condition between two values without case match.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the operation expected value.
+	 */
+	<C, T extends C> void notLikeNc(C target, T value);
+
+	/**
 	 * Create a condition group or.
 	 * 
 	 * @return the condition group.

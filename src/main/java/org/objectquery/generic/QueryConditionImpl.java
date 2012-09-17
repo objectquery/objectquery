@@ -2,7 +2,6 @@ package org.objectquery.generic;
 
 import java.util.Collection;
 
-
 import javassist.util.proxy.ProxyObject;
 
 public class QueryConditionImpl implements QueryCondition {
@@ -114,6 +113,15 @@ public class QueryConditionImpl implements QueryCondition {
 
 	public <C, T extends C> void notContains(Collection<C> target, T value) {
 		condition(target, ConditionType.NOT_CONTAINS, value);
+	}
+
+	public <C, T extends C> void likeNc(C target, T value) {
+		condition(target, ConditionType.LIKE_NOCASE, value);
+
+	}
+
+	public <C, T extends C> void notLikeNc(C target, T value) {
+		condition(target, ConditionType.NOT_LIKE_NOCASE, value);
 	}
 
 }
