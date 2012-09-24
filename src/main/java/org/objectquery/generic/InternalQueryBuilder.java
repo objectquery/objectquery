@@ -28,4 +28,18 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	 */
 	void order(PathItem item, ProjectionType projectionType, OrderType type);
 
+	/**
+	 * Create Add a new having item
+	 * 
+	 * @param item
+	 *            having operation target
+	 * @param projectionType
+	 *            the type of having projection.
+	 * @param conditionType
+	 *            the type of having condition.
+	 * @param value
+	 *            the condition value.
+	 */
+	void having(PathItem item, ProjectionType projectionType, ConditionType conditionType, Object value);
+
 }

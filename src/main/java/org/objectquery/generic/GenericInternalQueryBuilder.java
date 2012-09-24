@@ -7,6 +7,7 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 
 	private List<Order> orders = new ArrayList<Order>();
 	private List<Projection> projections = new ArrayList<Projection>();
+	private List<Having> havings = new ArrayList<Having>();
 
 	public GenericInternalQueryBuilder(GroupType type) {
 		super(type);
@@ -32,11 +33,19 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 		projections.add(new Projection(item, type));
 	}
 
+	public void having(PathItem item, ProjectionType projectionType, ConditionType conditionType, Object value) {
+		havings.add(new Having(item, projectionType, conditionType, value));
+	}
+
 	public List<Order> getOrders() {
 		return orders;
 	}
 
 	public List<Projection> getProjections() {
 		return projections;
+	}
+
+	public List<Having> getHavings() {
+		return havings;
 	}
 }

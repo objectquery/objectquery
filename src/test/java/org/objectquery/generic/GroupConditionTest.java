@@ -3,8 +3,8 @@ package org.objectquery.generic;
 import org.junit.Assert;
 import org.junit.Test;
 import org.objectquery.ObjectQuery;
+import org.objectquery.QueryCondition;
 import org.objectquery.generic.GenericObjectQuery;
-import org.objectquery.generic.QueryCondition;
 import org.objectquery.generic.domain.Person;
 
 public class GroupConditionTest {

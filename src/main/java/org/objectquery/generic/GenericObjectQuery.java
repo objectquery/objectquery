@@ -3,6 +3,7 @@ package org.objectquery.generic;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
+import org.objectquery.HavingCondition;
 import org.objectquery.ObjectQuery;
 
 import javassist.util.proxy.ProxyFactory;
@@ -72,19 +73,23 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 	}
 
 	public void prj(Object projection, ProjectionType type) {
-		if (projection == null)
-			throw new ObjectQueryException("The given object as projection is null", null);
-		PathItem item = null;
-		if (!(projection instanceof ProxyObject)) {
-			if ((item = unproxable.get(projection)) == null)
-				if (isPrimitive(projection.getClass()))
+		builder.projection(extractItem(projection), type);
+	}
+
+	private PathItem extractItem(Object object) {
+		if (object == null)
+			throw new ObjectQueryException("The given object is null", null);
+		PathItem item;
+		if (!(object instanceof ProxyObject)) {
+			if ((item = unproxable.get(object)) == null) {
+				if (isPrimitive(object.getClass()))
 					throw new ObjectQueryException("The given object is an primitive type autoboxed use box() function to box primitive values", null);
 				else
 					throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query", null);
-			else
-				builder.projection(item, type);
+			}
 		} else
-			builder.projection((PathItem) ((ProxyObject) projection).getHandler(), type);
+			item = (PathItem) ((ProxyObject) object).getHandler();
+		return item;
 	}
 
 	public void order(Object order) {
@@ -96,20 +101,7 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 	}
 
 	public void order(Object order, ProjectionType projectionType, OrderType type) {
-		if (order == null)
-			throw new ObjectQueryException("The given object as order is null", null);
-
-		PathItem item = null;
-		if (!(order instanceof ProxyObject)) {
-			if ((item = unproxable.get(order)) == null) {
-				if (isPrimitive(order.getClass()))
-					throw new ObjectQueryException("The given object is an primitive type autoboxed use box() function to box primitive values", null);
-				else
-					throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query", null);
-			} else
-				builder.order(item, projectionType, type);
-		} else
-			builder.order((PathItem) ((ProxyObject) order).getHandler(), projectionType, type);
+		builder.order(extractItem(order), projectionType, type);
 	}
 
 	private boolean isPrimitive(Class<?> clazz) {
@@ -166,5 +158,9 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 
 	public Class<T> getTargetClass() {
 		return targetClass;
+	}
+
+	public HavingCondition having(Object projection, ProjectionType type) {
+		return new GenericHavingCondition(builder, extractItem(projection), type);
 	}
 }

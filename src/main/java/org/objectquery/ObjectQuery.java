@@ -2,7 +2,6 @@ package org.objectquery;
 
 import org.objectquery.generic.OrderType;
 import org.objectquery.generic.ProjectionType;
-import org.objectquery.generic.QueryCondition;
 
 public interface ObjectQuery<T> extends QueryCondition {
 
@@ -132,4 +131,15 @@ public interface ObjectQuery<T> extends QueryCondition {
 	 * @return the boxed double.
 	 */
 	Double box(double d);
+
+	/**
+	 * Declare an having condition on projection.
+	 * 
+	 * @param projection
+	 *            target of condition.
+	 * @param type
+	 *            grouping operation
+	 * @return the having condition manager.
+	 */
+	HavingCondition having(Object projection, ProjectionType type);
 }

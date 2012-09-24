@@ -4,15 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.objectquery.generic.ConditionElement;
-import org.objectquery.generic.ConditionGroup;
-import org.objectquery.generic.ConditionItem;
-import org.objectquery.generic.GenericInternalQueryBuilder;
-import org.objectquery.generic.GroupType;
-import org.objectquery.generic.Order;
-import org.objectquery.generic.PathItem;
-import org.objectquery.generic.Projection;
-
 public class TestQueryBuilder extends GenericInternalQueryBuilder {
 
 	public TestQueryBuilder() {
@@ -22,6 +13,7 @@ public class TestQueryBuilder extends GenericInternalQueryBuilder {
 	private List<String> conditionsString = new ArrayList<String>();
 	private List<String> projectionsString = new ArrayList<String>();
 	private List<String> ordersString = new ArrayList<String>();
+	private List<String> havingString = new ArrayList<String>();
 
 	private void stringfyGroup(ConditionGroup group, StringBuilder builder) {
 		if (!group.getConditions().isEmpty()) {
@@ -79,6 +71,15 @@ public class TestQueryBuilder extends GenericInternalQueryBuilder {
 				sb.append(" ").append(proj.getType());
 			projectionsString.add(sb.toString());
 		}
+		for (Having having : getHavings()) {
+			StringBuilder sb = new StringBuilder();
+			buildPath(having.getItem(), sb);
+			sb.append(" ").append(having.getProjectionType());
+			sb.append(" ").append(having.getConditionType());
+			sb.append(" ").append(having.getValue());
+			havingString.add(sb.toString());
+		}
+
 	}
 
 	public List<String> getConditionsString() {
@@ -91,5 +92,9 @@ public class TestQueryBuilder extends GenericInternalQueryBuilder {
 
 	public List<String> getProjectionsString() {
 		return projectionsString;
+	}
+
+	public List<String> getHavingString() {
+		return havingString;
 	}
 }

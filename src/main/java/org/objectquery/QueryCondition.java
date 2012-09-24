@@ -1,4 +1,4 @@
-package org.objectquery.generic;
+package org.objectquery;
 
 import java.util.Collection;
 
