@@ -30,12 +30,14 @@ public class TestQueryHaving {
 		query.having(target.getName(), ProjectionType.MIN).eq(2D);
 		query.having(target.getName(), ProjectionType.MAX).eq(2D);
 		query.having(target.getName(), ProjectionType.AVG).eq(2D);
+		query.having(target.getName(), ProjectionType.SUM).eq(2D);
 		builder.build();
-		Assert.assertEquals(4,builder.getHavingString().size());
+		Assert.assertEquals(5,builder.getHavingString().size());
 		Assert.assertEquals("name COUNT EQUALS 2.0",builder.getHavingString().get(0));
 		Assert.assertEquals("name MIN EQUALS 2.0",builder.getHavingString().get(1));
 		Assert.assertEquals("name MAX EQUALS 2.0",builder.getHavingString().get(2));
 		Assert.assertEquals("name AVG EQUALS 2.0",builder.getHavingString().get(3));
+		Assert.assertEquals("name SUM EQUALS 2.0",builder.getHavingString().get(4));
 
 	}
 

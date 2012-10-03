@@ -6,6 +6,6 @@ package org.objectquery.generic;
  */
 public enum ProjectionType {
 
-	MIN, MAX, COUNT, AVG
+	MIN, MAX, COUNT, AVG, SUM
 
 }
