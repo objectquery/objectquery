@@ -81,7 +81,7 @@
 					<tr><td>conditions and nested conditions </td> <td class="road_done">DONE</td></tr>
 					<tr><td>order by with grouping functions </td> <td class="road_done">DONE</td></tr>
 					<tr><td>having clause </td> <td class="road_todo">TODO</td></tr>
-					<tr><td>ignore case like condition type </td> <td class="road_todo">TODO</td></tr>
+					<tr><td>ignore case like condition type </td> <td class="road_done">DONE</td></tr>
 				</table>
 				<h4>2.0.0</h4>
 				<table class="roadmap">
