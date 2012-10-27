@@ -49,7 +49,7 @@ public class QueryConditionImpl implements QueryCondition {
 
 		Object curValue = null;
 
-		if (value instanceof ProxyObject)
+		if (value instanceof ProxyObject && ((ProxyObject)value).getHandler() instanceof ObjectQueryHandler)
 			curValue = ((ProxyObject) value).getHandler();
 		else if ((curValue = objectQuery.unproxable.get(value)) == null)
 			curValue = value;
