@@ -2,15 +2,19 @@ package org.objectquery.generic;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
+import java.util.WeakHashMap;
+
+import javassist.util.proxy.Proxy;
+import javassist.util.proxy.ProxyFactory;
+import javassist.util.proxy.ProxyObject;
 
 import org.objectquery.HavingCondition;
 import org.objectquery.ObjectQuery;
 
-import javassist.util.proxy.ProxyFactory;
-import javassist.util.proxy.ProxyObject;
-
 public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQuery<T> {
 
+	// Pool of classes is weak but probably never will be cleared to check.
+	private static final Map<Class<?>, Class<?>> pool = new WeakHashMap<Class<?>, Class<?>>();
 	private T target;
 	private Class<T> targetClass;
 	InternalQueryBuilder builder;
@@ -38,16 +42,24 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 			return result;
 		}
 		// TODO:manage array;
-		try {
-			ProxyFactory pf = new ProxyFactory();
-			if (clazz.isInterface())
-				pf.setInterfaces(new Class[] { clazz });
-			else
-				pf.setSuperclass(clazz);
-
-			return pf.create(new Class[0], new Object[0], new ObjectQueryHandler(clazz, this, parent, name));
-		} catch (Exception e) {
-			throw new ObjectQueryException("Error on creating object proxy", e);
+		synchronized (pool) {
+			Class<?> proxyClass = pool.get(clazz);
+			if (proxyClass == null) {
+				ProxyFactory pf = new ProxyFactory();
+				if (clazz.isInterface())
+					pf.setInterfaces(new Class[] { clazz });
+				else
+					pf.setSuperclass(clazz);
+				proxyClass = pf.createClass();
+				pool.put(clazz, proxyClass);
+			}
+			try {
+				Object result = proxyClass.newInstance();
+				((Proxy) result).setHandler(new ObjectQueryHandler(clazz, this, parent, name));
+				return result;
+			} catch (Exception e) {
+				throw new ObjectQueryException("Error on creating object proxy", e);
+			}
 		}
 
 	}
