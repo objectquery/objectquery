@@ -79,7 +79,7 @@ public class TestQueryBuilder extends GenericInternalQueryBuilder {
 			sb.append(" ").append(having.getValue());
 			havingString.add(sb.toString());
 		}
-
+		clear();
 	}
 
 	public List<String> getConditionsString() {

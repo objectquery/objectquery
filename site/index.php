@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Object Query</title>
+		<link href="/favicon.ico" rel="shortcut icon" />
 		<link href="style.css" rel="stylesheet" type="text/css" />
 		<link href="prettify/prettify.css" rel="stylesheet" type="text/css" />
 		<script src="prettify/prettify.js" type="text/javascript"></script>
@@ -231,39 +232,36 @@ or.eq(toSearch.getName(),"jhon");
 				<header>
 					<h3>Condition Operator</h3>
 				<header>
-				<table>
-				<tr><td><p>Simple</p></td><td><p>group</p></td></tr><tr><td>
 				<table class="condition_table">
-					<tr><td>eq</td></tr>
-					<tr><td>notEq</td></tr>
-					<tr><td>like</td></tr>
-					<tr><td>notLike</td></tr>
-					<tr><td>min</td></tr>
-					<tr><td>minEq</td></tr>
-					<tr><td>max</td></tr>
-					<tr><td>maxEq</td></tr>
-					<tr><td>in</td></tr>
-					<tr><td>notIn</td></tr>
-					<tr><td>contains</td></tr>
-					<tr><td>notContains</td></tr>
+					<tr><th rowspan="2">Operator</th><th colspan="3">Implementation</th></tr>
+					<tr><th>JPA</th><th>JDO</th><th>OrientDb</th></tr>
+					<tr><td>eq</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>notEq</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>like</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>notLike</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>min</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>minEq</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>max</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>maxEq</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>in</td><td class="supported">ok</td><td class="supported">ok</td><td class="unsupported">ko</td></tr>
+					<tr><td>notIn</td><td class="supported">ok</td><td class="supported">ok</td><td class="unsupported">ko</td></tr>
+					<tr><td>contains</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>notContains</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>or</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>and</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
 				</table>
-				</td>
-				<td>
-				<table class="condition_table">
-					<tr><td>or</td></tr>
-					<tr><td>and</td></tr>
-				</table>
-				</td></tr></table>
 			</article>
 			<article>
 				<header>
 					<h3>Projection </h3>
 				<header>
 				<table class="condition_table">
-					<tr><td>MAX</td></tr>
-					<tr><td>MIN</td></tr>
-					<tr><td>AVG</td></tr>
-					<tr><td>COUNT</td></tr>
+					<tr><th rowspan="2">Operator</th><th colspan="3">Implementation</th></tr>
+					<tr><th>JPA</th><th>JDO</th><th>OrientDb</th></tr>
+					<tr><td>MAX</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>MIN</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>AVG</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>COUNT</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
 				</table>
 			</article>
 			<article>
@@ -271,8 +269,43 @@ or.eq(toSearch.getName(),"jhon");
 					<h3>Order Operator</h3>
 				<header>
 				<table class="condition_table">
-					<tr><td>ASC</td></tr>
-					<tr><td>DESC</td></tr>
+					<tr><th rowspan="2">Operator</th><th colspan="3">Implementation</th></tr>
+					<tr><th>JPA</th><th>JDO</th><th>OrientDb</th></tr>
+					<tr><td>ASC</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>DESC</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+				</table>
+			</article>
+			<article>
+				<header>
+					<h3>Having Operator </h3>
+				</header>
+				Projection
+				<table class="condition_table">
+					<tr><th rowspan="2">Operator</th><th colspan="3">Implementation</th></tr>
+					<tr><th>JPA</th><th>JDO</th><th>OrientDb</th></tr>
+					<tr><td>MAX</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>MIN</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>AVG</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>COUNT</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+				</table>
+				Condition Operator
+				<table class="condition_table">
+					<tr><th rowspan="2">Operator</th><th colspan="3">Implementation</th></tr>
+					<tr><th>JPA</th><th>JDO</th><th>OrientDb</th></tr>
+					<tr><td>eq</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>notEq</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>like</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>notLike</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>min</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>minEq</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>max</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>maxEq</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>in</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>notIn</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>contains</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>notContains</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>or</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
+					<tr><td>and</td><td class="supported">ok</td><td class="unsupported">ko</td><td class="unsupported">ko</td></tr>
 				</table>
 			</article>
 		</section>

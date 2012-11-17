@@ -104,15 +104,17 @@ footer >div {
 .road_done,.road_todo {
 	width:5em;
 }
-.road_done {
+.road_done, .supported{
 	background-color:green;
 }
-.road_todo {
+.road_todo, .unsupported{
 	background-color:red;
 }
 .condition_table {
-	width: 10em;
+	width:50%;
 }
-.condition_table ,.condition_table td {
-	border: 1px solid #000000;
+.condition_table ,.condition_table td ,.condition_table th{
+	border:solid 1px #35420D;
+	font-weight:bold;
+	text-align:center;
 }
