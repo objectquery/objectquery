@@ -42,4 +42,10 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	 */
 	void having(PathItem item, ProjectionType projectionType, ConditionType conditionType, Object value);
 
+	/**
+	 * Clear all object used for build query and the object can be reused for
+	 * build another query.
+	 */
+	public void clear();
+
 }

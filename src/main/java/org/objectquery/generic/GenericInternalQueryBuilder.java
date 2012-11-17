@@ -50,10 +50,9 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 	}
 
 	public void clear() {
+		super.clear();
 		orders.clear();
 		projections.clear();
 		havings.clear();
-		getConditions().clear();
-
 	}
 }

@@ -33,4 +33,12 @@ public class ConditionGroup implements ConditionElement, InternalConditionBuilde
 		addCondition(cg);
 		return cg;
 	}
+
+	public void clear() {
+		for (ConditionElement el : conditions) {
+			if (el instanceof ConditionGroup)
+				((ConditionGroup) el).clear();
+		}
+		conditions.clear();
+	}
 }

@@ -30,7 +30,11 @@ public class QueryConditionImpl implements QueryCondition {
 			if ((item = objectQuery.unproxable.get(base)) == null)
 				throw new ObjectQueryException("The given object as condition isn't a proxy, use target() method for start to take object for query", null);
 		} else {
-			item = (PathItem) ((ProxyObject) base).getHandler();
+			if (!(((ProxyObject) base).getHandler() instanceof ObjectQueryHandler))
+				throw new ObjectQueryException(
+						"The given object as condition isn't a objectquery proxy, use target() method for start to take object for query", null);
+
+			item = ((ObjectQueryHandler) ((ProxyObject) base).getHandler()).getPath();
 			baseType = base.getClass().getSuperclass();
 		}
 		if (type == null)
@@ -49,8 +53,8 @@ public class QueryConditionImpl implements QueryCondition {
 
 		Object curValue = null;
 
-		if (value instanceof ProxyObject && ((ProxyObject)value).getHandler() instanceof ObjectQueryHandler)
-			curValue = ((ProxyObject) value).getHandler();
+		if (value instanceof ProxyObject && ((ProxyObject) value).getHandler() instanceof ObjectQueryHandler)
+			curValue = ((ObjectQueryHandler) ((ProxyObject) value).getHandler()).getPath();
 		else if ((curValue = objectQuery.unproxable.get(value)) == null)
 			curValue = value;
 
@@ -125,5 +129,4 @@ public class QueryConditionImpl implements QueryCondition {
 	public <C, T extends C> void notLikeNc(C target, T value) {
 		condition(target, ConditionType.NOT_LIKE_NOCASE, value);
 	}
-
 }

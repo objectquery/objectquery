@@ -13,7 +13,7 @@ public class TestQueryOrder {
 
 	@Test
 	public void testOrders() {
-		TestQueryBuilder builder = new TestQueryBuilder();
+		MockQueryBuilder builder = new MockQueryBuilder();
 		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 
@@ -31,7 +31,7 @@ public class TestQueryOrder {
 
 	@Test
 	public void testOrdersProjection() {
-		TestQueryBuilder builder = new TestQueryBuilder();
+		MockQueryBuilder builder = new MockQueryBuilder();
 		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 

@@ -12,11 +12,11 @@ import org.objectquery.ObjectQuery;
 import org.objectquery.generic.GenericObjectQuery;
 import org.objectquery.generic.domain.BoxedPrimitiveDomain;
 
-public class PrimitiveBoxedTypeTest {
+public class TestPrimitiveBoxedType {
 
 	@Test
 	public void testPrimitiveBoxedType() {
-		TestQueryBuilder qb = new TestQueryBuilder();
+		MockQueryBuilder qb = new MockQueryBuilder();
 		ObjectQuery<BoxedPrimitiveDomain> bpd = new GenericObjectQuery<BoxedPrimitiveDomain>(qb, BoxedPrimitiveDomain.class);
 		BoxedPrimitiveDomain pd = bpd.target();
 		bpd.eq(pd.getAtomicBoolean(), new AtomicBoolean(false));
