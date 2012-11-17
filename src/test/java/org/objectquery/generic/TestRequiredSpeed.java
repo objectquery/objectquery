@@ -10,7 +10,7 @@ public class TestRequiredSpeed {
 	@Test
 	public void testSpeed() {
 		long time = System.currentTimeMillis();
-		for (int i = 0; i < 50000; i++) {
+		for (int i = 0; i < 400000; i++) {
 			buildQuery();
 		}
 		System.out.println(((System.currentTimeMillis() - time)));
