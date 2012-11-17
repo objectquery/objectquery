@@ -11,7 +11,7 @@ public class TestQueryProjection {
 
 	@Test
 	public void addProjectionTest() {
-		TestQueryBuilder builder = new TestQueryBuilder();
+		MockQueryBuilder builder = new MockQueryBuilder();
 		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.prj(toSearch.getMum().getName());

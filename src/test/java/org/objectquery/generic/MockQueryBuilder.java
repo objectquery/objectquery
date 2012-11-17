@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class TestQueryBuilder extends GenericInternalQueryBuilder {
+public class MockQueryBuilder extends GenericInternalQueryBuilder {
 
-	public TestQueryBuilder() {
+	public MockQueryBuilder() {
 		super(GroupType.AND);
 	}
 

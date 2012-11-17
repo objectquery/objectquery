@@ -1,5 +1,11 @@
 package org.objectquery.generic;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import javassist.util.proxy.MethodHandler;
+import javassist.util.proxy.ProxyFactory;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.objectquery.ObjectQuery;
@@ -8,7 +14,7 @@ import org.objectquery.generic.GenericObjectQuery;
 import org.objectquery.generic.ObjectQueryException;
 import org.objectquery.generic.domain.Person;
 
-public class AbstractObjectQueryTest {
+public class TestGenericObjectQuery {
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectCondition() {
@@ -94,9 +100,35 @@ public class AbstractObjectQueryTest {
 		query.order(null);
 	}
 
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongProxy() throws Exception {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
+		ProxyFactory pf = new ProxyFactory();
+		Object o = pf.create(null, null, new MethodHandler() {
+
+			public Object invoke(Object self, Method thisMethod, Method proceed, Object[] args) throws Throwable {
+				return null;
+			}
+		});
+		query.eq(o, null);
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongProxyPrjection() throws Exception {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
+		ProxyFactory pf = new ProxyFactory();
+		Object o = pf.create(null, null, new MethodHandler() {
+
+			public Object invoke(Object self, Method thisMethod, Method proceed, Object[] args) throws Throwable {
+				return null;
+			}
+		});
+		query.prj(o);
+	}
+
 	@Test
 	public void testSimpleQueryBuild() {
-		TestQueryBuilder builder = new TestQueryBuilder();
+		MockQueryBuilder builder = new MockQueryBuilder();
 		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.eq(toSearch.getHome().getAddress(), "rue d'anton");

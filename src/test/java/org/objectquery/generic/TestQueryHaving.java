@@ -9,7 +9,7 @@ public class TestQueryHaving {
 
 	@Test
 	public void testSimpleHanving() {
-		TestQueryBuilder builder = new TestQueryBuilder();
+		MockQueryBuilder builder = new MockQueryBuilder();
 		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder,Person.class);
 		
 		Person target = query.target();
@@ -22,7 +22,7 @@ public class TestQueryHaving {
 
 	@Test
 	public void testAllType() {
-		TestQueryBuilder builder = new TestQueryBuilder();
+		MockQueryBuilder builder = new MockQueryBuilder();
 		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder,Person.class);
 		
 		Person target = query.target();
@@ -43,7 +43,7 @@ public class TestQueryHaving {
 
 	@Test
 	public void testAllCondition() {
-		TestQueryBuilder builder = new TestQueryBuilder();
+		MockQueryBuilder builder = new MockQueryBuilder();
 		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder,Person.class);
 		
 		Person target = query.target();

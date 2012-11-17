@@ -3,10 +3,10 @@ package org.objectquery.generic;
 public class PathItem {
 
 	private Class<?> clazz;
-	private ObjectQueryHandler parent;
+	private PathItem parent;
 	private String name;
 
-	public PathItem(Class<?> clazz, ObjectQueryHandler parent, String name) {
+	public PathItem(Class<?> clazz, PathItem parent, String name) {
 		this.clazz = clazz;
 		this.parent = parent;
 		this.name = name;
@@ -20,7 +20,7 @@ public class PathItem {
 		return name;
 	}
 
-	public ObjectQueryHandler getParent() {
+	public PathItem getParent() {
 		return parent;
 	}
 

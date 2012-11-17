@@ -6,11 +6,11 @@ import org.objectquery.ObjectQuery;
 import org.objectquery.generic.GenericObjectQuery;
 import org.objectquery.generic.domain.PrimitiveDomain;
 
-public class PrimitiveTypeTest {
+public class TestPrimitiveType {
 
 	@Test
 	public void testPrimitiveType() {
-		TestQueryBuilder qb = new TestQueryBuilder();
+		MockQueryBuilder qb = new MockQueryBuilder();
 		ObjectQuery<PrimitiveDomain> query = new GenericObjectQuery<PrimitiveDomain>(qb, PrimitiveDomain.class);
 		PrimitiveDomain pd = query.target();
 		query.eq(query.box(pd.isBool()), false);

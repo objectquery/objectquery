@@ -19,7 +19,7 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 	private Object primitiveToBoxValue;
 	private PathItem primitiveToBoxPath;
 
-	public Object proxy(Class<?> clazz, ObjectQueryHandler parent, String name) {
+	public Object proxy(Class<?> clazz, PathItem parent, String name) {
 		if (clazz.isPrimitive()) {
 			Object result = PrimitiveFactory.newNumberInstance(clazz, (byte) 0);
 			primitiveToBoxType = clazz;
@@ -87,8 +87,12 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 				else
 					throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query", null);
 			}
-		} else
-			item = (PathItem) ((ProxyObject) object).getHandler();
+		} else {
+			if (!(((ProxyObject) object).getHandler() instanceof ObjectQueryHandler))
+				throw new ObjectQueryException(
+						"The given object as condition isn't a objectquery proxy, use target() method for start to take object for query", null);
+			item = ((ObjectQueryHandler) ((ProxyObject) object).getHandler()).getPath();
+		}
 		return item;
 	}
 
@@ -162,5 +166,9 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 
 	public HavingCondition having(Object projection, ProjectionType type) {
 		return new GenericHavingCondition(builder, extractItem(projection), type);
+	}
+
+	public void clear() {
+		unproxable.clear();
 	}
 }
