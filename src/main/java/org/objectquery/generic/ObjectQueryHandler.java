@@ -30,4 +30,10 @@ public class ObjectQueryHandler implements MethodHandler {
 	public PathItem getPath() {
 		return path;
 	}
+
+	public void clear() {
+		path.clear();
+		path = null;
+		abstractObjectQuery=null;
+	}
 }

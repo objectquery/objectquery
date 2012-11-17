@@ -1,12 +1,11 @@
 package org.objectquery.generic;
 
 import org.junit.Assert;
-import org.junit.Test;
 import org.objectquery.generic.domain.Person;
 
 public class TestRequiredSpeed {
 
-	@Test
+	//@Test
 	public void testSpeed() {
 		long time = System.currentTimeMillis();
 		long ptime = System.currentTimeMillis();

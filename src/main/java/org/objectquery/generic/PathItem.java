@@ -29,6 +29,8 @@ public class PathItem {
 		while (cur != null) {
 			PathItem n = cur.parent;
 			cur.parent = null;
+			cur.name = null;
+			cur.clazz = null;
 			cur = n;
 		}
 	}
