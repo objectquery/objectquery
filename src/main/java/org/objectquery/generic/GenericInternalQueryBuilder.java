@@ -48,4 +48,12 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 	public List<Having> getHavings() {
 		return havings;
 	}
+
+	public void clear() {
+		orders.clear();
+		projections.clear();
+		havings.clear();
+		getConditions().clear();
+
+	}
 }
