@@ -36,8 +36,7 @@ public class ConditionGroup implements ConditionElement, InternalConditionBuilde
 
 	public void clear() {
 		for (ConditionElement el : conditions) {
-			if (el instanceof ConditionGroup)
-				((ConditionGroup) el).clear();
+			el.clear();
 		}
 		conditions.clear();
 	}

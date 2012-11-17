@@ -51,8 +51,17 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 
 	public void clear() {
 		super.clear();
+		for (Order order : orders) {
+			order.clear();
+		}
 		orders.clear();
+		for (Projection projection : projections) {
+			projection.clear();
+		}
 		projections.clear();
+		for (Having having : havings) {
+			having.clear();
+		}
 		havings.clear();
 	}
 }

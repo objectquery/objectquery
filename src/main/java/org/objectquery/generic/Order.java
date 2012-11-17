@@ -23,4 +23,9 @@ public class Order {
 	public ProjectionType getProjectionType() {
 		return projectionType;
 	}
+
+	public void clear() {
+		item.clear();
+		item=null;
+	}
 }

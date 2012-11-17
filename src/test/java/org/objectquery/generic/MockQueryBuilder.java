@@ -79,7 +79,6 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 			sb.append(" ").append(having.getValue());
 			havingString.add(sb.toString());
 		}
-		clear();
 	}
 
 	public List<String> getConditionsString() {
@@ -96,5 +95,14 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 
 	public List<String> getHavingString() {
 		return havingString;
+	}
+
+	@Override
+	public void clear() {
+		super.clear();
+		conditionsString.clear();
+		ordersString.clear();
+		projectionsString.clear();
+		havingString.clear();
 	}
 }
