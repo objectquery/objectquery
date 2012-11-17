@@ -24,4 +24,13 @@ public class PathItem {
 		return parent;
 	}
 
+	public void clear() {
+		PathItem cur = this;
+		while (cur != null) {
+			PathItem n = cur.parent;
+			cur.parent = null;
+			cur = n;
+		}
+	}
+
 }

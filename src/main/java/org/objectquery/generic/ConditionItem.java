@@ -24,4 +24,11 @@ public class ConditionItem implements ConditionElement {
 		return value;
 	}
 
+	public void clear() {
+		item.clear();
+		item = null;
+		if (value instanceof PathItem)
+			((PathItem) value).clear();
+		value = null;
+	}
 }

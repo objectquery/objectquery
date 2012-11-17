@@ -170,5 +170,6 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 
 	public void clear() {
 		unproxable.clear();
+		builder.clear();
 	}
 }

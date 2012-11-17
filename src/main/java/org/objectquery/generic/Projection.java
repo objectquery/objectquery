@@ -18,4 +18,9 @@ public class Projection {
 		return type;
 	}
 
+	public void clear() {
+		item.clear();
+		item = null;
+	}
+
 }
