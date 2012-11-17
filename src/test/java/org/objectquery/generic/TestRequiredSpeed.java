@@ -11,24 +11,25 @@ public class TestRequiredSpeed {
 		long time = System.currentTimeMillis();
 		long ptime = System.currentTimeMillis();
 
-		int size = 100000;
+		int size = 2000000;
 		int perc = size / 100;
-		MockQueryBuilder builder = new MockQueryBuilder();
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 
 		for (int i = 0; i < size; i++) {
 			if (i % perc == 0) {
 				System.out.println((i / perc) + " " + ((System.currentTimeMillis() - ptime)));
 				ptime = System.currentTimeMillis();
 			}
-			buildQuery(query, builder);
+			buildQuery();
 		}
 		System.out.println(((System.currentTimeMillis() - time)));
 		System.out.println(Runtime.getRuntime().totalMemory() / 1024 / 1024 + "Mb");
 		Assert.assertTrue(((System.currentTimeMillis() - time) / 1000) < 3600);
 	}
 
-	public void buildQuery(GenericObjectQuery<Person> query, MockQueryBuilder builder) {
+	public void buildQuery() {
+		MockQueryBuilder builder = new MockQueryBuilder();
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+
 		Person toSearch = query.target();
 		query.eq(toSearch.getHome().getAddress(), toSearch.getDog().getHome().getAddress());
 		query.eq(toSearch.getDud().getHome(), toSearch.getDog().getHome());
