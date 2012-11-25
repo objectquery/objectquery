@@ -1,36 +1,69 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<meta charset="UTF-8">
 		<title>Object Query</title>
 		<link href="/favicon.ico" rel="shortcut icon" />
 		<link href="style.css" rel="stylesheet" type="text/css" />
 		<link href="prettify/prettify.css" rel="stylesheet" type="text/css" />
 		<script src="prettify/prettify.js" type="text/javascript"></script>
 		<script type="text/javascript">
-			var globalPages= {};
-			function initPages()
+		var globalPages= {};
+		
+		function selectPage(pageId)
+		{
+			for(var pr in globalPages) 
+			       globalPages[pr].setAttribute("class","");
+			var o = document.getElementById(pageId);
+			if(o)o.setAttribute("class","active");
+		}
+		function initPages()
+		{
+			if(history)
 			{
-				var bd = document.getElementById("root");
-				var els=  bd.childNodes;
+				var root = document.getElementById("root");
+				var pages=  root.children;
+				for(var i = 0;i<pages.length; i++)
+					if(pages.item(i).localName == "section")
+						globalPages[pages.item(i).getAttribute("id")]=pages.item(i);
+
+				var bd = document.getElementById("menu");
+				var els=  bd.children;
 				for(var i = 0;i<els.length; i++)
 				{
-					if(els.item(i).localName == "section")
-						globalPages[els.item(i).getAttribute("id")]=els.item(i);
+					els.item(i).addEventListener('click', handleClick, false);
 				}
+				window.addEventListener('popstate',function(event){
+					console.log(event.state);
+					selectPage(event.state.id);
+				});
+				var url=document.location.href;
+				if(url.indexOf("=")!= -1)
+					var id = url.substr(url.indexOf("=")+1);
+				else
+					var id="overview";
+				history.pushState({"id":id},"Object Query ","?page="+id);
 			}
-			function selectPage(pageId)
-			{
-				for(var pr in globalPages) {
-					globalPages[pr].setAttribute("class","");
-				}
-				globalPages[pageId].setAttribute("class","active");
-			}
+		}
+		function handleClick(event)
+		{
+			if(!event.target)return;
+			if(event.target.elementName=="li")
+				var dest =event.target.firstElementChild;
+			else
+				var dest=event.target;
+			var url=dest.getAttribute("href");
+			var id = url.substr(url.indexOf("=")+1);
+			selectPage(id);
+			history.pushState({"id":id},"Object Query "+ dest.textContent, dest.href);
+			return event.preventDefault();
+		}
 		</script>
 	</head>
 	<body onload="prettyPrint();initPages();" id="root">
 		<header>
 			<nav>
-				<ul>
+				<ul id="menu">
 					<li onclick="selectPage('overview')"><a href="?page=overview">Overview</a></li>
 					<li onclick="selectPage('install')"><a href="?page=install">Install</a></li>
 					<li onclick="selectPage('build-query')" ><a href="?page=build-query">Build A Query</a></li>
@@ -107,7 +140,7 @@
 &lt;dependency&gt;
 	&lt;groupId>org.objectquery&lt;/groupId&gt;
 	&lt;artifactId>jpaobjectquery&lt;/artifactId&gt;
-	&lt;version>1.0.0-BETA1&lt;/version&gt;
+	&lt;version>1.0.0-BETA3&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
 						JDO:
@@ -115,7 +148,7 @@
 &lt;dependency&gt;
 	&lt;groupId>org.objectquery&lt;/groupId&gt;
 	&lt;artifactId>jdoobjectquery&lt;/artifactId&gt;
-	&lt;version>1.0.0-BETA1&lt;/version&gt;
+	&lt;version>1.0.0-BETA3&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
 					</p>
