@@ -263,6 +263,18 @@ or.eq(toSearch.getName(),"jhon");
 			</article>
 			<article>
 				<header>
+					<h3>Primitive Type</h3>
+				</header>
+				<p>Primitive type need a different management, for some tecnical reasons is not possible use primitive type directly<br> for use it we need to box it</p>
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+Person toSearch = query.target();
+query.eq(query.box(toSearch.getWeight()),2);
+query.eq(query.box(toSearch.getPrice()),4000.0);
+</pre>
+			</article>
+			<article>
+				<header>
 					<h3>Condition Operator</h3>
 				<header>
 				<table class="condition_table">
@@ -276,8 +288,8 @@ or.eq(toSearch.getName(),"jhon");
 					<tr><td>minEq</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
 					<tr><td>max</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
 					<tr><td>maxEq</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
-					<tr><td>in</td><td class="supported">ok</td><td class="supported">ok</td><td class="unsupported">ko</td></tr>
-					<tr><td>notIn</td><td class="supported">ok</td><td class="supported">ok</td><td class="unsupported">ko</td></tr>
+					<tr><td>in</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
+					<tr><td>notIn</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
 					<tr><td>contains</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
 					<tr><td>notContains</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
 					<tr><td>or</td><td class="supported">ok</td><td class="supported">ok</td><td class="supported">ok</td></tr>
