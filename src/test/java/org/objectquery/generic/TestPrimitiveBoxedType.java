@@ -32,10 +32,12 @@ public class TestPrimitiveBoxedType {
 		bpd.eq(pd.getDoublee(), new Double(0));
 		bpd.eq(pd.getFloate(), new Float(0));
 		bpd.eq(pd.getShorte(), new Short((short) 0));
+		bpd.eq(pd.getAtomicBoolean(), new AtomicBoolean(false));
+		bpd.eq(pd.getBool(), new Boolean(false));
 
 		qb.build();
 
-		Assert.assertEquals(" wrong number of condition", qb.getConditionsString().size(), 13);
+		Assert.assertEquals(" wrong number of condition", 15, qb.getConditionsString().size());
 		Assert.assertEquals("atomicBoolean EQUALS false", qb.getConditionsString().get(0));
 		Assert.assertEquals("atomicLong EQUALS 0", qb.getConditionsString().get(1));
 		Assert.assertEquals("atomicInteger EQUALS 0", qb.getConditionsString().get(2));
@@ -49,5 +51,7 @@ public class TestPrimitiveBoxedType {
 		Assert.assertEquals("doublee EQUALS 0.0", qb.getConditionsString().get(10));
 		Assert.assertEquals("floate EQUALS 0.0", qb.getConditionsString().get(11));
 		Assert.assertEquals("shorte EQUALS 0", qb.getConditionsString().get(12));
+		Assert.assertEquals("atomicBoolean EQUALS false", qb.getConditionsString().get(13));
+		Assert.assertEquals("bool EQUALS false", qb.getConditionsString().get(14));
 	}
 }

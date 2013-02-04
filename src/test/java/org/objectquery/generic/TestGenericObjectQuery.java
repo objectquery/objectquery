@@ -1,6 +1,5 @@
 package org.objectquery.generic;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import javassist.util.proxy.MethodHandler;
@@ -9,9 +8,6 @@ import javassist.util.proxy.ProxyFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.objectquery.ObjectQuery;
-import org.objectquery.generic.ConditionType;
-import org.objectquery.generic.GenericObjectQuery;
-import org.objectquery.generic.ObjectQueryException;
 import org.objectquery.generic.domain.Person;
 
 public class TestGenericObjectQuery {
@@ -22,6 +18,12 @@ public class TestGenericObjectQuery {
 		query.condition(new Object(), null, null);
 	}
 
+	@Test(expected = ObjectQueryException.class)
+	public void testInvalidCall() {
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
+		query.target().setDog(null);
+	}
+	
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectProjection() {
 		ObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
@@ -142,6 +144,22 @@ public class TestGenericObjectQuery {
 		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("home.address EQUALS rue d'anton"));
 		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("mum.name EQUALS elisabeth"));
 		Assert.assertTrue("Not present expected order", builder.getOrdersString().contains("name"));
+	}
+
+	@Test
+	public void testClean() {
+		MockQueryBuilder builder = new MockQueryBuilder();
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		Person toSearch = query.target();
+		query.prj(toSearch.getHome().getAddress());
+		query.eq(toSearch.getHome().getAddress(), "rue d'anton");
+		query.eq(toSearch.getMum().getName(), "elisabeth");
+		query.eq(toSearch.getMum().getName(), toSearch.getDud().getName());
+		query.having(toSearch.getMum().getName(), ProjectionType.COUNT).eq(query.box(toSearch.getHome().getPrice()));
+		query.order(toSearch.getName());
+
+		builder.build();
+		query.clear();
 	}
 
 }
