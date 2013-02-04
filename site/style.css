@@ -8,14 +8,7 @@ body {
 	color:#35420D;
 	background-image:url('img/texture.png');
 }
-body >header {
-	background: -moz-linear-gradient(top, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.5)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, rgba(255,255,255,0.5)0%,rgba(255,255,255,0) 100%); /* IE10+ */
-	background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 100%); /* W3C */
-}
+
 body >header >img {
 	width:10%;
 }
@@ -68,20 +61,15 @@ body >section.active {
 }
 
 footer {
-	height:3em;
+	height:2em;
 	left:10%;
 	width:80%;
 	position:fixed;
-	border-top-left-radius: 3em;
-	border-top-right-radius: 3em;
+	border-radius: 0.2em;
 	bottom:0;
 	z-index:-1;
-	background: -moz-linear-gradient(bottom, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left bottom, left top, color-stop(30%,rgba(255,255,255,0.8)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(bottom, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(bottom, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(bottom, rgba(255,255,255,0.8)30%,rgba(255,255,255,0) 100%); /* IE10+ */
-	background: linear-gradient(to top, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0) 100%); /* W3C */
+	background:white;
+	margin:0.5em 0;
 }
 footer >div {
 	width: 25em;
@@ -90,6 +78,8 @@ footer >div {
 	bottom:0;
 	left:0;
 	right:0;
+	top:0;
+	height:1em;
 }
 .roadmap{
 	min-width:30em;

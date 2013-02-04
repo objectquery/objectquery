@@ -1,7 +1,10 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8" />
+		<meta name="author" content="tglman"/>
+		<meta name="description" content="Java library that allow to write dbms query in java way"/>
+		<meta name="keywords" content="java,SQL,JPA,JDO,JPQL,JDOQL,OrientDB,Query,ObjectQuery,DDD"/>
 		<title>Object Query</title>
 		<link href="/favicon.ico" rel="shortcut icon" />
 		<link href="style.css" rel="stylesheet" type="text/css" />
@@ -78,10 +81,10 @@
 			</header>
 			<article>
 				<header>
-					<h3>Wath Is</h3>
+					<h3>What Is</h3>
 				</header>
 				<p>
-					Object Query is a simple query builder thinked for java, that allow to write typesafe and refactor resistent query, without bound to persistence engine.
+					Object Query is a simple query builder thought for java, that allow to write typesafe and refactor resistant query, without bound to persistence engine.
 				</p>
 			</article>
 			<article>
@@ -111,7 +114,7 @@
 				<h4>1.0.0</h4>
 				<table class="roadmap">
 					<tr><td>base select statement</td> <td class="road_done">DONE</td></tr>
-					<tr><td>projections with grouping funcions</td> <td class="road_done">DONE</td></tr>
+					<tr><td>projections with grouping functions</td> <td class="road_done">DONE</td></tr>
 					<tr><td>conditions and nested conditions </td> <td class="road_done">DONE</td></tr>
 					<tr><td>order by with grouping functions </td> <td class="road_done">DONE</td></tr>
 					<tr><td>having clause </td> <td class="road_done">JPA Only</td></tr>
@@ -119,9 +122,9 @@
 				</table>
 				<h4>2.0.0</h4>
 				<table class="roadmap">
-					<tr><td>support for update operdation </td> <td class="road_todo">TODO</td></tr>
-					<tr><td>support for delete operdation </td> <td class="road_todo">TODO</td></tr>
-					<tr><td>support for insert operdation </td> <td class="road_todo">TODO</td></tr>
+					<tr><td>support for update operation </td> <td class="road_todo">TODO</td></tr>
+					<tr><td>support for delete operation </td> <td class="road_todo">TODO</td></tr>
+					<tr><td>support for insert operation </td> <td class="road_todo">TODO</td></tr>
 				</table>
 			</article>
 		</section>
@@ -134,13 +137,13 @@
 						<h3>Maven</h3>
 					</header>
 					<p>
-						Insert the specify maven dependecy for each implementation:<br><br>
+						Insert the specify maven dependency for each implementation:<br><br>
 						JPA:
 						<pre class="prettyprint lang-xml">
 &lt;dependency&gt;
 	&lt;groupId>org.objectquery&lt;/groupId&gt;
 	&lt;artifactId>jpaobjectquery&lt;/artifactId&gt;
-	&lt;version>1.0.0-BETA3&lt;/version&gt;
+	&lt;version>1.0.0&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
 						JDO:
@@ -148,7 +151,15 @@
 &lt;dependency&gt;
 	&lt;groupId>org.objectquery&lt;/groupId&gt;
 	&lt;artifactId>jdoobjectquery&lt;/artifactId&gt;
-	&lt;version>1.0.0-BETA3&lt;/version&gt;
+	&lt;version>1.0.0&lt;/version&gt;
+&lt;/dependency&gt;
+</pre>
+						OrientDB:
+						<pre class="prettyprint lang-xml">
+&lt;dependency&gt;
+	&lt;groupId>org.objectquery&lt;/groupId&gt;
+	&lt;artifactId>orientdbobjectquery&lt;/artifactId&gt;
+	&lt;version>1.0.0&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
 					</p>
@@ -164,7 +175,7 @@
 					<h3>Requirements</h3>
 				</header>
 				<p>
-					The requirements for build a query with query builder is an java Object Oriented "Domain" that rapresent an group of persisted objects.
+					The requirements for build a query with query builder is an java Object Oriented "Domain" that is an group of persisted objects.
 				</p>
 			</article>
 			<article>
@@ -220,7 +231,7 @@ query.order(toSearch.getName());
 			</article>
 			<article>
 				<header>
-					<h3>Prjection</h3>
+					<h3>Projection</h3>
 				</header>
 				<p>
 					Select name and address of person.
@@ -251,7 +262,7 @@ query.eq(toSearch.getHome().getAddress(),"rue d'anton");
 					<h3>Condition group</3>
 				</header>
 				<p>
-					Search al person with name elisabeth or jhon.
+					Search all person with name elisabeth or jhon.
 				</p>
 <pre class="prettyprint lang-java">
 ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
@@ -265,7 +276,7 @@ or.eq(toSearch.getName(),"jhon");
 				<header>
 					<h3>Primitive Type</h3>
 				</header>
-				<p>Primitive type need a different management, for some tecnical reasons is not possible use primitive type directly<br> for use it we need to box it</p>
+				<p>Primitive type need a different management, for some technical reasons is not possible use primitive type directly<br> for use it we need to box it</p>
 <pre class="prettyprint lang-java">
 ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
 Person toSearch = query.target();
@@ -409,6 +420,29 @@ Map&lt;String,Object&gt; paramenters = jdoqlGenerator.getParameters();
 ...
 </pre>
 			</p>
+			</article>
+			<article>
+				<header><h3>OrientDB</h3></header>
+				<p>
+				Direct execute:
+				<pre class="prettyprint lang-java">
+com.orientechnologies.orient.object.db.OObjectDatabaseTx db= ....
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+List&lt;Person&gt; res = (List&lt;Person&gt;)OrientDBObjectQuery.execute(query, db);
+...
+</pre>
+				JDOQL string and parameters generation:
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+OrientDBQueryGenerator oriendbGenerator = OrientDBObjectQuery.oriendbGenerator(query);
+String orientdbql = oriendbGenerator.getQuery();
+Map&lt;String,Object&gt; paramenters = oriendbGenerator.getParameters();
+...
+</pre>
+				</p>
+				<br/>
 			</article>
 		</section>
 		<footer>
