@@ -113,7 +113,7 @@ public class TestGenericObjectQuery {
 				return null;
 			}
 		});
-		query.eq(o, null);
+		query.eq(o, (Object)null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
