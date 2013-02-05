@@ -128,6 +128,26 @@ public class TestGenericObjectQuery {
 		query.prj(o);
 	}
 
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongBoxValue() throws Exception {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
+		query.box(3);
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongBoxType() throws Exception {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
+		double price = query.target().getHome().getWeight();
+		query.target().getHome().getWeight();
+		query.box(price);
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongWithoutBox() throws Exception {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
+		query.eq(query.target().getHome().getWeight(), 3);
+	}
+
 	@Test
 	public void testSimpleQueryBuild() {
 		MockQueryBuilder builder = new MockQueryBuilder();
