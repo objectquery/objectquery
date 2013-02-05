@@ -15,7 +15,17 @@ public interface QueryCondition {
 	<C, T extends C> void eq(C target, T value);
 
 	/**
-	 * Add an not equal condition between two values.
+	 * Add an equal condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T extends C> void eq(C target, ObjectQuery<T> value);
+
+	/**
+	 * Add a not equal condition between two values.
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -25,7 +35,17 @@ public interface QueryCondition {
 	<C, T extends C> void notEq(C target, T value);
 
 	/**
-	 * Add an max condition between two values.
+	 * Add a not equal condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T extends C> void notEq(C target, ObjectQuery<T> value);
+
+	/**
+	 * Add a max condition between two values.
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -35,7 +55,17 @@ public interface QueryCondition {
 	<C, T extends C> void max(C target, T value);
 
 	/**
-	 * Add an max or equals condition between two values.
+	 * Add a max condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T extends C> void max(C target, ObjectQuery<T> value);
+
+	/**
+	 * Add a max or equals condition between two values.
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -43,9 +73,19 @@ public interface QueryCondition {
 	 *            the operation expected value.
 	 */
 	<C, T extends C> void maxEq(C target, T value);
+	
+	/**
+	 * Add an max or equals condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T extends C> void maxEq(C target, ObjectQuery<T> value);
 
 	/**
-	 * Add an min condition between two values.
+	 * Add a min condition between two values.
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -53,9 +93,19 @@ public interface QueryCondition {
 	 *            the operation expected value.
 	 */
 	<C, T extends C> void min(C target, T value);
+	
+	/**
+	 * Add a min condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T extends C> void min(C target, ObjectQuery<T> value);
 
 	/**
-	 * Add an min or equals condition between two values.
+	 * Add a min or equals condition between two values.
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -65,7 +115,17 @@ public interface QueryCondition {
 	<C, T extends C> void minEq(C target, T value);
 
 	/**
-	 * Add an like condition between two values.
+	 * Add a min or equals condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T extends C> void minEq(C target,ObjectQuery<T> value);
+
+	/**
+	 * Add a like condition between two values.
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -75,7 +135,7 @@ public interface QueryCondition {
 	<C, T extends C> void like(C target, T value);
 
 	/**
-	 * Add an not like condition between two values.
+	 * Add a not like condition between two values.
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -95,7 +155,17 @@ public interface QueryCondition {
 	<C, T extends Collection<? extends C>> void in(C target, T value);
 
 	/**
-	 * Add an not in condition between two values.
+	 * Add an in condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T  extends C> void in(C target, ObjectQuery<T> value);
+
+	/**
+	 * Add a not in condition between two values.
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -105,7 +175,17 @@ public interface QueryCondition {
 	<C, T extends Collection<? extends C>> void notIn(C target, T value);
 
 	/**
-	 * Add an contains condition between two values.
+	 * Add a not in condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T  extends C> void notIn(C target, ObjectQuery<T> value);
+
+	/**
+	 * Add a contains condition between two values.
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -113,9 +193,19 @@ public interface QueryCondition {
 	 *            the operation expected value.
 	 */
 	<C, T extends C> void contains(Collection<C> target, T value);
+	
+	/**
+	 * Add a contains condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T extends C> void contains(Collection<C> target, ObjectQuery<T> value);
 
 	/**
-	 * Add an contains condition between two values.
+	 * Add a not contains condition between two values.
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -125,7 +215,17 @@ public interface QueryCondition {
 	<C, T extends C> void notContains(Collection<C> target, T value);
 
 	/**
-	 * Add an like condition between two values without case match.
+	 * Add a not contains condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T extends C> void notContains(Collection<C> target, ObjectQuery<T> value);
+	
+	/**
+	 * Add a like condition between two values without case match.
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -135,7 +235,7 @@ public interface QueryCondition {
 	<C, T extends C> void likeNc(C target, T value);
 
 	/**
-	 * Add an not like condition between two values without case match.
+	 * Add a not like condition between two values without case match.
 	 * 
 	 * @param target
 	 *            the base operation target.

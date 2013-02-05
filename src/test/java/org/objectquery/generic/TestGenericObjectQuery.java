@@ -8,6 +8,7 @@ import javassist.util.proxy.ProxyFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.objectquery.ObjectQuery;
+import org.objectquery.generic.domain.Dog;
 import org.objectquery.generic.domain.Person;
 
 public class TestGenericObjectQuery {
@@ -23,7 +24,7 @@ public class TestGenericObjectQuery {
 		ObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
 		query.target().setDog(null);
 	}
-	
+
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectProjection() {
 		ObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
@@ -126,6 +127,21 @@ public class TestGenericObjectQuery {
 			}
 		});
 		query.prj(o);
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongNestedQueryType() throws Exception {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
+		query.eq(query.target().getDog(), (ObjectQuery) new GenericObjectQuery<Person>(Person.class));
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongNestedQueryProjection() throws Exception {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
+		ObjectQuery<Dog> dogq = new GenericObjectQuery<Dog>(Dog.class);
+		dogq.prj(dogq.target().getOwner());
+		query.eq(query.target().getDog(), dogq);
 	}
 
 	@Test

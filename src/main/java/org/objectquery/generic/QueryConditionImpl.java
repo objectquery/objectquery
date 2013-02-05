@@ -2,6 +2,7 @@ package org.objectquery.generic;
 
 import java.util.Collection;
 
+import org.objectquery.ObjectQuery;
 import org.objectquery.QueryCondition;
 
 import javassist.util.proxy.ProxyObject;
@@ -41,14 +42,24 @@ public class QueryConditionImpl implements QueryCondition {
 			throw new ObjectQueryException("The given type of condition is null", null);
 
 		if (value != null) {
-			if (ConditionType.IN.equals(type) || ConditionType.NOT_IN.equals(type)) {
-				if (!(value.getClass().isArray() || value instanceof Collection))
-					throw new ObjectQueryException("The given object value is not an array or collection required for in value", null);
-			} else if (ConditionType.CONTAINS.equals(type) || ConditionType.NOT_CONTAINS.equals(type)) {
-				if (!(base.getClass().isArray() || base instanceof Collection))
-					throw new ObjectQueryException("The given object value is not an array or collection required for in value", null);
-			} else if (!baseType.isAssignableFrom(value.getClass()))
-				throw new ObjectQueryException("The given object value is not assignabled to gived condition", null);
+			if (value instanceof GenericObjectQuery<?>) {
+				// TODO: Be careful because in the future can be possible
+				// another implementation.
+				GenericObjectQuery<?> val = (GenericObjectQuery<?>) value;
+				if (!baseType.isAssignableFrom(val.getTargetClass()))
+					throw new ObjectQueryException("The given object value is not assignabled to gived condition", null);
+				if (!((GenericInternalQueryBuilder) val.getBuilder()).getProjections().isEmpty())
+					throw new ObjectQueryException("The query given as value are using projection that is not allowed", null);
+			} else {
+				if (ConditionType.IN.equals(type) || ConditionType.NOT_IN.equals(type)) {
+					if (!(value.getClass().isArray() || value instanceof Collection))
+						throw new ObjectQueryException("The given object value is not an array or collection required for in value", null);
+				} else if (ConditionType.CONTAINS.equals(type) || ConditionType.NOT_CONTAINS.equals(type)) {
+					if (!(base.getClass().isArray() || base instanceof Collection))
+						throw new ObjectQueryException("The given object value is not an array or collection required for in value", null);
+				} else if (!baseType.isAssignableFrom(value.getClass()))
+					throw new ObjectQueryException("The given object value is not assignabled to gived condition", null);
+			}
 		}
 
 		Object curValue = null;
@@ -74,7 +85,15 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.EQUALS, value);
 	}
 
+	public <C, T extends C> void eq(C target, ObjectQuery<T> value) {
+		condition(target, ConditionType.EQUALS, value);
+	}
+
 	public <C, T extends C> void notEq(C target, T value) {
+		condition(target, ConditionType.NOT_EQUALS, value);
+	}
+
+	public <C, T extends C> void notEq(C target, ObjectQuery<T> value) {
 		condition(target, ConditionType.NOT_EQUALS, value);
 	}
 
@@ -82,7 +101,15 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.MAX, value);
 	}
 
+	public <C, T extends C> void max(C target, ObjectQuery<T> value) {
+		condition(target, ConditionType.MAX, value);
+	}
+
 	public <C, T extends C> void maxEq(C target, T value) {
+		condition(target, ConditionType.MAX_EQUALS, value);
+	}
+
+	public <C, T extends C> void maxEq(C target, ObjectQuery<T> value) {
 		condition(target, ConditionType.MAX_EQUALS, value);
 	}
 
@@ -90,9 +117,16 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.MIN, value);
 	}
 
+	public <C, T extends C> void min(C target, ObjectQuery<T> value) {
+		condition(target, ConditionType.MIN, value);
+	}
+
 	public <C, T extends C> void minEq(C target, T value) {
 		condition(target, ConditionType.MIN_EQUALS, value);
+	}
 
+	public <C, T extends C> void minEq(C target, ObjectQuery<T> value) {
+		condition(target, ConditionType.MIN_EQUALS, value);
 	}
 
 	public <C, T extends C> void like(C target, T value) {
@@ -105,28 +139,42 @@ public class QueryConditionImpl implements QueryCondition {
 
 	public <C, T extends Collection<? extends C>> void in(C target, T value) {
 		condition(target, ConditionType.IN, value);
+	}
 
+	public <C, T extends C> void in(C target, ObjectQuery<T> value) {
+		condition(target, ConditionType.IN, value);
 	}
 
 	public <C, T extends Collection<? extends C>> void notIn(C target, T value) {
 		condition(target, ConditionType.NOT_IN, value);
 	}
 
+	public <C, T extends C> void notIn(C target, ObjectQuery<T> value) {
+		condition(target, ConditionType.NOT_IN, value);
+	}
+
 	public <C, T extends C> void contains(Collection<C> target, T value) {
 		condition(target, ConditionType.CONTAINS, value);
+	}
 
+	public <C, T extends C> void contains(Collection<C> target, ObjectQuery<T> value) {
+		condition(target, ConditionType.CONTAINS, value);
 	}
 
 	public <C, T extends C> void notContains(Collection<C> target, T value) {
 		condition(target, ConditionType.NOT_CONTAINS, value);
 	}
 
+	public <C, T extends C> void notContains(Collection<C> target, ObjectQuery<T> value) {
+		condition(target, ConditionType.NOT_CONTAINS, value);
+	}
+
 	public <C, T extends C> void likeNc(C target, T value) {
 		condition(target, ConditionType.LIKE_NOCASE, value);
-
 	}
 
 	public <C, T extends C> void notLikeNc(C target, T value) {
 		condition(target, ConditionType.NOT_LIKE_NOCASE, value);
 	}
+
 }

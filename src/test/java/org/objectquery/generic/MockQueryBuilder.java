@@ -1,5 +1,6 @@
 package org.objectquery.generic;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +40,9 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 		sb.append(" ").append(cond.getType()).append(" ");
 		if (cond.getValue() instanceof PathItem)
 			buildPath((PathItem) cond.getValue(), sb);
-		else
+		else if (cond.getValue() instanceof GenericObjectQuery<?>) {
+			sb.append(((GenericObjectQuery<?>)cond.getValue()).getTargetClass().getSimpleName());
+		} else
 			sb.append(cond.getValue());
 	}
 
