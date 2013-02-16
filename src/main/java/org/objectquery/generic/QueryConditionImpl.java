@@ -2,10 +2,10 @@ package org.objectquery.generic;
 
 import java.util.Collection;
 
+import javassist.util.proxy.ProxyObject;
+
 import org.objectquery.ObjectQuery;
 import org.objectquery.QueryCondition;
-
-import javassist.util.proxy.ProxyObject;
 
 public class QueryConditionImpl implements QueryCondition {
 

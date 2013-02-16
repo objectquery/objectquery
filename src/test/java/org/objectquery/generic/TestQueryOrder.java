@@ -4,9 +4,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.objectquery.ObjectQuery;
-import org.objectquery.generic.GenericObjectQuery;
-import org.objectquery.generic.OrderType;
-import org.objectquery.generic.ProjectionType;
 import org.objectquery.generic.domain.Person;
 
 public class TestQueryOrder {

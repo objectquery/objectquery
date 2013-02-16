@@ -9,7 +9,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.Assert;
 import org.junit.Test;
 import org.objectquery.ObjectQuery;
-import org.objectquery.generic.GenericObjectQuery;
 import org.objectquery.generic.domain.BoxedPrimitiveDomain;
 
 public class TestPrimitiveBoxedType {
