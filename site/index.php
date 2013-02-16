@@ -432,7 +432,7 @@ ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.cl
 List&lt;Person&gt; res = (List&lt;Person&gt;)OrientDBObjectQuery.execute(query, db);
 ...
 </pre>
-				JDOQL string and parameters generation:
+				OrientDB Query string and parameters generation:
 <pre class="prettyprint lang-java">
 ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
 ...
