@@ -34,19 +34,76 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 		}
 	}
 
+	private void stringfyQuery(GenericObjectQuery<?> goq, StringBuilder builder) {
+		GenericInternalQueryBuilder iqb = (GenericInternalQueryBuilder) goq.getBuilder();
+		List<String> conditionsString = new ArrayList<String>();
+		List<String> ordersString = new ArrayList<String>();
+		List<String> projectionsString = new ArrayList<String>();
+		List<String> havingString = new ArrayList<String>();
+		build(iqb.getConditions(), iqb.getOrders(), iqb.getProjections(), iqb.getHavings(), conditionsString, ordersString, projectionsString, havingString);
+		builder.append("select ");
+		Iterator<String> iter = null;
+		if (!projectionsString.isEmpty()) {
+			iter = projectionsString.iterator();
+			while (iter.hasNext()) {
+				builder.append(iter.next());
+				if (iter.hasNext())
+					builder.append(",");
+			}
+		}
+		builder.append(" from ").append(goq.getTargetClass().getSimpleName());
+		if (!conditionsString.isEmpty()) {
+			builder.append(" where ");
+			iter = conditionsString.iterator();
+			while (iter.hasNext()) {
+				builder.append(iter.next());
+				if (iter.hasNext())
+					builder.append(" ").append(iqb.getType().toString()).append(" ");
+			}
+		}
+
+		if (!havingString.isEmpty()) {
+			builder.append(" having ");
+			while (iter.hasNext()) {
+				builder.append(iter.next());
+				if (iter.hasNext()) {
+					// TODO:Fix when refactored for support of different
+					// grouping operator in having condition.
+					builder.append(" AND ");
+				}
+			}
+		}
+
+		if (!ordersString.isEmpty()) {
+			builder.append(" order by ");
+			while (iter.hasNext()) {
+				builder.append(iter.next());
+				if (iter.hasNext())
+					builder.append(",");
+			}
+		}
+
+	}
+
 	private void stringfyCondition(ConditionItem cond, StringBuilder sb) {
 		buildPath(cond.getItem(), sb);
 		sb.append(" ").append(cond.getType()).append(" ");
 		if (cond.getValue() instanceof PathItem)
 			buildPath((PathItem) cond.getValue(), sb);
 		else if (cond.getValue() instanceof GenericObjectQuery<?>) {
-			sb.append(((GenericObjectQuery<?>)cond.getValue()).getTargetClass().getSimpleName());
+			stringfyQuery((GenericObjectQuery<?>) cond.getValue(), sb);
 		} else
 			sb.append(cond.getValue());
 	}
 
 	public void build() {
-		for (ConditionElement cond : getConditions()) {
+		build(getConditions(), getOrders(), getProjections(), getHavings(), conditionsString, ordersString, projectionsString, havingString);
+	}
+
+	private void build(List<ConditionElement> conditions, List<Order> orders, List<Projection> projections, List<Having> havings,
+			List<String> conditionsString, List<String> ordersString, List<String> projectionsString, List<String> havingString) {
+
+		for (ConditionElement cond : conditions) {
 			if (cond instanceof ConditionItem) {
 				StringBuilder sb = new StringBuilder();
 				stringfyCondition((ConditionItem) cond, sb);
@@ -57,7 +114,7 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 				conditionsString.add(sb.toString());
 			}
 		}
-		for (Order ord : getOrders()) {
+		for (Order ord : orders) {
 			StringBuilder sb = new StringBuilder();
 			buildPath(ord.getItem(), sb);
 			if (ord.getProjectionType() != null)
@@ -66,14 +123,14 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 				sb.append(" ").append(ord.getType());
 			ordersString.add(sb.toString());
 		}
-		for (Projection proj : getProjections()) {
+		for (Projection proj : projections) {
 			StringBuilder sb = new StringBuilder();
 			buildPath(proj.getItem(), sb);
 			if (proj.getType() != null)
 				sb.append(" ").append(proj.getType());
 			projectionsString.add(sb.toString());
 		}
-		for (Having having : getHavings()) {
+		for (Having having : havings) {
 			StringBuilder sb = new StringBuilder();
 			buildPath(having.getItem(), sb);
 			sb.append(" ").append(having.getProjectionType());

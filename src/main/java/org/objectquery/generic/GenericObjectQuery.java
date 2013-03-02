@@ -1,6 +1,8 @@
 package org.objectquery.generic;
 
+import java.util.ArrayList;
 import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -13,6 +15,7 @@ import org.objectquery.ObjectQuery;
 
 public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQuery<T> {
 
+	private List<GenericObjectQuery<?>> subQueries = new ArrayList<GenericObjectQuery<?>>();
 	// Pool of classes is weak but probably never will be cleared to check.
 	private static final Map<Class<?>, Class<?>> pool = new WeakHashMap<Class<?>, Class<?>>();
 	private T target;
@@ -28,8 +31,9 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 			Object result = PrimitiveFactory.newNumberInstance(clazz, (byte) 0);
 			primitiveToBoxType = clazz;
 			primitiveToBoxValue = result;
-			unproxable.put(result, new PathItem(clazz, parent, name));
-			primitiveToBoxPath = new PathItem(clazz, parent, name);
+			PathItem item = new PathItem(clazz, parent, name);
+			unproxable.put(result, item);
+			primitiveToBoxPath = item;
 			return result;
 		}
 		if (String.class.isAssignableFrom(clazz)) {
@@ -180,8 +184,29 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 		return new GenericHavingCondition(builder, extractItem(projection), type);
 	}
 
+	public PathItem getRootPathItem() {
+		return ((ObjectQueryHandler) ((ProxyObject) target).getHandler()).getPath();
+	}
+
 	public void clear() {
 		unproxable.clear();
 		builder.clear();
+	}
+
+	public void addSubQuery(ObjectQuery<?> value) {
+		if (value instanceof GenericObjectQuery) {
+			subQueries.add((GenericObjectQuery<?>) value);
+		}
+	}
+
+	public void applyAlias() {
+		applyAlias(0);
+	}
+
+	private void applyAlias(int counter) {
+		getRootPathItem().setName("A" + counter++);
+		for (GenericObjectQuery<?> subQuery : subQueries) {
+			subQuery.applyAlias(counter);
+		}
 	}
 }

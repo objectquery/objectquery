@@ -18,7 +18,7 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 	}
 
 	public static void buildPath(PathItem item, StringBuilder builder, String separator) {
-		if (item.getParent() != null && item.getParent().getParent() != null) {
+		if (item.getParent() != null && (item.getParent().getParent() != null || !item.getParent().getName().isEmpty())) {
 			buildPath(item.getParent(), builder);
 			builder.append(separator);
 		}

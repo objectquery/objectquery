@@ -20,6 +20,10 @@ public class PathItem {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public PathItem getParent() {
 		return parent;
 	}

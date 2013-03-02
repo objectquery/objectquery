@@ -22,6 +22,11 @@ public class QueryConditionImpl implements QueryCondition {
 		this.group = group;
 	}
 
+	public void condition(Object base, ConditionType type, ObjectQuery<?> value) {
+		condition(base, type, (Object) value);
+		this.objectQuery.addSubQuery(value);
+	}
+
 	public void condition(Object base, ConditionType type, Object value) {
 		if (base == null)
 			throw new ObjectQueryException("The given object as condition is null", null);

@@ -10,21 +10,21 @@ public class TestQueryCondition {
 	@Test
 	public void testPathValueQueryBuild() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.eq(toSearch.getHome().getAddress(), toSearch.getDog().getHome().getAddress());
 		query.eq(toSearch.getDud().getHome(), toSearch.getDog().getHome());
 		query.eq(toSearch.getMum().getName(), toSearch.getDog().getOwner().getName());
 		query.order(toSearch.getName());
-
+		query.applyAlias();
 		builder.build();
 		Assert.assertEquals("There is more conditions than expected", builder.getConditionsString().size(), 3);
 		Assert.assertEquals("There is more orders than expected", builder.getOrdersString().size(), 1);
 
-		Assert.assertEquals("Not present expected condition", "home.address EQUALS dog.home.address", builder.getConditionsString().get(0));
-		Assert.assertEquals("Not present expected condition", "dud.home EQUALS dog.home", builder.getConditionsString().get(1));
-		Assert.assertEquals("Not present expected condition", "mum.name EQUALS dog.owner.name", builder.getConditionsString().get(2));
-		Assert.assertEquals("Not present expected order", builder.getOrdersString().get(0), "name");
+		Assert.assertEquals("Not present expected condition", "A0.home.address EQUALS A0.dog.home.address", builder.getConditionsString().get(0));
+		Assert.assertEquals("Not present expected condition", "A0.dud.home EQUALS A0.dog.home", builder.getConditionsString().get(1));
+		Assert.assertEquals("Not present expected condition", "A0.mum.name EQUALS A0.dog.owner.name", builder.getConditionsString().get(2));
+		Assert.assertEquals("Not present expected order", builder.getOrdersString().get(0), "A0.name");
 	}
 
 	@Test
@@ -86,17 +86,17 @@ public class TestQueryCondition {
 		//query.notLikeNc(toSearch.getMum().getName(), toSearch.getDud().getName());
 		builder.build();
 
-		Assert.assertEquals("mum EQUALS Person", builder.getConditionsString().get(0));
-		Assert.assertEquals("friends CONTAINS Person", builder.getConditionsString().get(1));
-		Assert.assertEquals("mum IN Person", builder.getConditionsString().get(2));
+		Assert.assertEquals("mum EQUALS select  from Person", builder.getConditionsString().get(0));
+		Assert.assertEquals("friends CONTAINS select  from Person", builder.getConditionsString().get(1));
+		Assert.assertEquals("mum IN select  from Person", builder.getConditionsString().get(2));
 		//Assert.assertEquals("mum.name LIKE dud.name", builder.getConditionsString().get(3));
-		Assert.assertEquals("mum MAX Person", builder.getConditionsString().get(3));
-		Assert.assertEquals("mum MAX_EQUALS Person", builder.getConditionsString().get(4));
-		Assert.assertEquals("mum MIN Person", builder.getConditionsString().get(5));
-		Assert.assertEquals("mum MIN_EQUALS Person", builder.getConditionsString().get(6));
-		Assert.assertEquals("mum NOT_EQUALS Person", builder.getConditionsString().get(7));
-		Assert.assertEquals("mum NOT_IN Person", builder.getConditionsString().get(8));
-		Assert.assertEquals("mum.friends NOT_CONTAINS Person", builder.getConditionsString().get(9));
+		Assert.assertEquals("mum MAX select  from Person", builder.getConditionsString().get(3));
+		Assert.assertEquals("mum MAX_EQUALS select  from Person", builder.getConditionsString().get(4));
+		Assert.assertEquals("mum MIN select  from Person", builder.getConditionsString().get(5));
+		Assert.assertEquals("mum MIN_EQUALS select  from Person", builder.getConditionsString().get(6));
+		Assert.assertEquals("mum NOT_EQUALS select  from Person", builder.getConditionsString().get(7));
+		Assert.assertEquals("mum NOT_IN select  from Person", builder.getConditionsString().get(8));
+		Assert.assertEquals("mum.friends NOT_CONTAINS select  from Person", builder.getConditionsString().get(9));
 		//Assert.assertEquals("mum.name NOT_LIKE dud.name", builder.getConditionsString().get(11));
 		//Assert.assertEquals("mum.name LIKE_NOCASE dud.name", builder.getConditionsString().get(12));
 		//Assert.assertEquals("mum.name NOT_LIKE_NOCASE dud.name", builder.getConditionsString().get(13));
