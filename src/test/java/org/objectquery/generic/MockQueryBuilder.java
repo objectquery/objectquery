@@ -51,7 +51,7 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 					builder.append(",");
 			}
 		}
-		builder.append(" from ").append(goq.getTargetClass().getSimpleName());
+		builder.append(" from ").append(goq.getTargetClass().getSimpleName()).append(" ").append(goq.getRootPathItem().getName());
 		if (!conditionsString.isEmpty()) {
 			builder.append(" where ");
 			iter = conditionsString.iterator();

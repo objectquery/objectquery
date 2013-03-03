@@ -16,15 +16,14 @@ public class TestQueryCondition {
 		query.eq(toSearch.getDud().getHome(), toSearch.getDog().getHome());
 		query.eq(toSearch.getMum().getName(), toSearch.getDog().getOwner().getName());
 		query.order(toSearch.getName());
-		query.applyAlias();
 		builder.build();
 		Assert.assertEquals("There is more conditions than expected", builder.getConditionsString().size(), 3);
 		Assert.assertEquals("There is more orders than expected", builder.getOrdersString().size(), 1);
 
-		Assert.assertEquals("Not present expected condition", "A0.home.address EQUALS A0.dog.home.address", builder.getConditionsString().get(0));
-		Assert.assertEquals("Not present expected condition", "A0.dud.home EQUALS A0.dog.home", builder.getConditionsString().get(1));
-		Assert.assertEquals("Not present expected condition", "A0.mum.name EQUALS A0.dog.owner.name", builder.getConditionsString().get(2));
-		Assert.assertEquals("Not present expected order", builder.getOrdersString().get(0), "A0.name");
+		Assert.assertEquals("Not present expected condition", "home.address EQUALS dog.home.address", builder.getConditionsString().get(0));
+		Assert.assertEquals("Not present expected condition", "dud.home EQUALS dog.home", builder.getConditionsString().get(1));
+		Assert.assertEquals("Not present expected condition", "mum.name EQUALS dog.owner.name", builder.getConditionsString().get(2));
+		Assert.assertEquals("Not present expected order", builder.getOrdersString().get(0), "name");
 	}
 
 	@Test
@@ -64,42 +63,51 @@ public class TestQueryCondition {
 		Assert.assertEquals("mum.name NOT_LIKE_NOCASE dud.name", builder.getConditionsString().get(13));
 
 	}
-	
+
 	@Test
 	public void testConditionsSubquery() {
 		MockQueryBuilder builder = new MockQueryBuilder();
 		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
-		query.eq(toSearch.getMum(), new GenericObjectQuery<Person>(Person.class));
-		query.contains(toSearch.getFriends(), new GenericObjectQuery<Person>(Person.class));
-		query.in(toSearch.getMum(), new GenericObjectQuery<Person>(Person.class));
-		//query.like(toSearch.getMum(), new GenericObjectQuery<Person>(Person.class));
-		query.max(toSearch.getMum(), new GenericObjectQuery<Person>(Person.class));
-		query.maxEq(toSearch.getMum(), new GenericObjectQuery<Person>(Person.class));
-		query.min(toSearch.getMum(), new GenericObjectQuery<Person>(Person.class));
-		query.minEq(toSearch.getMum(), new GenericObjectQuery<Person>(Person.class));
-		query.notEq(toSearch.getMum(), new GenericObjectQuery<Person>(Person.class));
-		query.notIn(toSearch.getMum(), new GenericObjectQuery<Person>(Person.class));
-		query.notContains(toSearch.getMum().getFriends(), new GenericObjectQuery<Person>(Person.class));
-		//query.notLike(toSearch.getMum().getName(), toSearch.getDud().getName());
-		//query.likeNc(toSearch.getMum().getName(), toSearch.getDud().getName());
-		//query.notLikeNc(toSearch.getMum().getName(), toSearch.getDud().getName());
+		ObjectQuery<Person> subQuery = query.subQuery(Person.class);
+		query.eq(toSearch.getMum(), subQuery);
+		query.contains(toSearch.getFriends(), subQuery);
+		query.in(toSearch.getMum(), subQuery);
+		// query.like(toSearch.getMum(), new
+		// GenericObjectQuery<Person>(Person.class));
+		query.max(toSearch.getMum(), subQuery);
+		query.maxEq(toSearch.getMum(), subQuery);
+		query.min(toSearch.getMum(), subQuery);
+		query.minEq(toSearch.getMum(), subQuery);
+		query.notEq(toSearch.getMum(), subQuery);
+		query.notIn(toSearch.getMum(), subQuery);
+		query.notContains(toSearch.getMum().getFriends(), subQuery);
+		// query.notLike(toSearch.getMum().getName(),
+		// toSearch.getDud().getName());
+		// query.likeNc(toSearch.getMum().getName(),
+		// toSearch.getDud().getName());
+		// query.notLikeNc(toSearch.getMum().getName(),
+		// toSearch.getDud().getName());
 		builder.build();
 
-		Assert.assertEquals("mum EQUALS select  from Person", builder.getConditionsString().get(0));
-		Assert.assertEquals("friends CONTAINS select  from Person", builder.getConditionsString().get(1));
-		Assert.assertEquals("mum IN select  from Person", builder.getConditionsString().get(2));
-		//Assert.assertEquals("mum.name LIKE dud.name", builder.getConditionsString().get(3));
-		Assert.assertEquals("mum MAX select  from Person", builder.getConditionsString().get(3));
-		Assert.assertEquals("mum MAX_EQUALS select  from Person", builder.getConditionsString().get(4));
-		Assert.assertEquals("mum MIN select  from Person", builder.getConditionsString().get(5));
-		Assert.assertEquals("mum MIN_EQUALS select  from Person", builder.getConditionsString().get(6));
-		Assert.assertEquals("mum NOT_EQUALS select  from Person", builder.getConditionsString().get(7));
-		Assert.assertEquals("mum NOT_IN select  from Person", builder.getConditionsString().get(8));
-		Assert.assertEquals("mum.friends NOT_CONTAINS select  from Person", builder.getConditionsString().get(9));
-		//Assert.assertEquals("mum.name NOT_LIKE dud.name", builder.getConditionsString().get(11));
-		//Assert.assertEquals("mum.name LIKE_NOCASE dud.name", builder.getConditionsString().get(12));
-		//Assert.assertEquals("mum.name NOT_LIKE_NOCASE dud.name", builder.getConditionsString().get(13));
+		Assert.assertEquals("A.mum EQUALS select  from Person AA0", builder.getConditionsString().get(0));
+		Assert.assertEquals("A.friends CONTAINS select  from Person AA0", builder.getConditionsString().get(1));
+		Assert.assertEquals("A.mum IN select  from Person AA0", builder.getConditionsString().get(2));
+		// Assert.assertEquals("mum.name LIKE dud.name",
+		// builder.getConditionsString().get(3));
+		Assert.assertEquals("A.mum MAX select  from Person AA0", builder.getConditionsString().get(3));
+		Assert.assertEquals("A.mum MAX_EQUALS select  from Person AA0", builder.getConditionsString().get(4));
+		Assert.assertEquals("A.mum MIN select  from Person AA0", builder.getConditionsString().get(5));
+		Assert.assertEquals("A.mum MIN_EQUALS select  from Person AA0", builder.getConditionsString().get(6));
+		Assert.assertEquals("A.mum NOT_EQUALS select  from Person AA0", builder.getConditionsString().get(7));
+		Assert.assertEquals("A.mum NOT_IN select  from Person AA0", builder.getConditionsString().get(8));
+		Assert.assertEquals("A.mum.friends NOT_CONTAINS select  from Person AA0", builder.getConditionsString().get(9));
+		// Assert.assertEquals("mum.name NOT_LIKE dud.name",
+		// builder.getConditionsString().get(11));
+		// Assert.assertEquals("mum.name LIKE_NOCASE dud.name",
+		// builder.getConditionsString().get(12));
+		// Assert.assertEquals("mum.name NOT_LIKE_NOCASE dud.name",
+		// builder.getConditionsString().get(13));
 
 	}
 }

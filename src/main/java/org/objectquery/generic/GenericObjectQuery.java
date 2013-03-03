@@ -1,8 +1,6 @@
 package org.objectquery.generic;
 
-import java.util.ArrayList;
 import java.util.IdentityHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -15,16 +13,17 @@ import org.objectquery.ObjectQuery;
 
 public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQuery<T> {
 
-	private List<GenericObjectQuery<?>> subQueries = new ArrayList<GenericObjectQuery<?>>();
-	// Pool of classes is weak but probably never will be cleared to check.
+	// Pool of classes is weak but probably never will be cleared, to check!.
 	private static final Map<Class<?>, Class<?>> pool = new WeakHashMap<Class<?>, Class<?>>();
 	private T target;
 	private Class<T> targetClass;
 	InternalQueryBuilder builder;
-	Map<Object, PathItem> unproxable = new IdentityHashMap<Object, PathItem>();
+	Map<Object, PathItem> unproxable;
 	private Class<?> primitiveToBoxType;
 	private Object primitiveToBoxValue;
 	private PathItem primitiveToBoxPath;
+	private final boolean subQuery;
+	private int subCount = 0;
 
 	public Object proxy(Class<?> clazz, PathItem parent, String name) {
 		if (clazz.isPrimitive()) {
@@ -68,16 +67,22 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 
 	}
 
-	public GenericObjectQuery(Class<T> clazz) {
-		this(new GenericInternalQueryBuilder(GroupType.AND), clazz);
-	}
-
 	@SuppressWarnings("unchecked")
-	public GenericObjectQuery(InternalQueryBuilder builder, Class<T> clazz) {
+	private GenericObjectQuery(InternalQueryBuilder builder, Class<T> clazz, Map<Object, PathItem> unproxable, boolean subQuery) {
 		super(builder);
 		this.builder = builder;
 		this.target = (T) proxy(clazz, null, "");
 		this.targetClass = clazz;
+		this.unproxable = unproxable;
+		this.subQuery = subQuery;
+	}
+
+	public GenericObjectQuery(Class<T> targetClass) {
+		this(new GenericInternalQueryBuilder(GroupType.AND), targetClass);
+	}
+
+	public GenericObjectQuery(InternalQueryBuilder builder, Class<T> targetClass) {
+		this(builder, targetClass, new IdentityHashMap<Object, PathItem>(), false);
 	}
 
 	public T target() {
@@ -193,20 +198,15 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 		builder.clear();
 	}
 
-	public void addSubQuery(ObjectQuery<?> value) {
-		if (value instanceof GenericObjectQuery) {
-			subQueries.add((GenericObjectQuery<?>) value);
-		}
+	public boolean isSubQuery() {
+		return subQuery;
 	}
 
-	public void applyAlias() {
-		applyAlias(0);
-	}
-
-	private void applyAlias(int counter) {
-		getRootPathItem().setName("A" + counter++);
-		for (GenericObjectQuery<?> subQuery : subQueries) {
-			subQuery.applyAlias(counter);
-		}
+	public <S> ObjectQuery<S> subQuery(Class<S> targetClass) {
+		if (!subQuery)
+			getRootPathItem().setName("A");
+		GenericObjectQuery<S> subQ = new GenericObjectQuery<S>(new GenericInternalQueryBuilder(GroupType.AND), targetClass, unproxable, true);
+		subQ.getRootPathItem().setName(getRootPathItem().getName() + "A" + (subCount++));
+		return subQ;
 	}
 }

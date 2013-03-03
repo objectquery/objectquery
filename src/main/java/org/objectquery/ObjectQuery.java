@@ -142,4 +142,13 @@ public interface ObjectQuery<T> extends QueryCondition {
 	 * @return the having condition manager.
 	 */
 	HavingCondition having(Object projection, ProjectionType type);
+
+	/**
+	 * Create a new Sub Query of current query.
+	 * 
+	 * @param target
+	 *            class target of sub query.
+	 * @return the ObjectQuery instance of sub query.
+	 */
+	<S> ObjectQuery<S> subQuery(Class<S> target);
 }

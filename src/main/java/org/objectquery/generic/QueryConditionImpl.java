@@ -22,11 +22,6 @@ public class QueryConditionImpl implements QueryCondition {
 		this.group = group;
 	}
 
-	public void condition(Object base, ConditionType type, ObjectQuery<?> value) {
-		condition(base, type, (Object) value);
-		this.objectQuery.addSubQuery(value);
-	}
-
 	public void condition(Object base, ConditionType type, Object value) {
 		if (base == null)
 			throw new ObjectQueryException("The given object as condition is null", null);
@@ -51,6 +46,9 @@ public class QueryConditionImpl implements QueryCondition {
 				// TODO: Be careful because in the future can be possible
 				// another implementation.
 				GenericObjectQuery<?> val = (GenericObjectQuery<?>) value;
+				if (!val.isSubQuery())
+					throw new ObjectQueryException(
+							"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance", null);
 				if (!baseType.isAssignableFrom(val.getTargetClass()))
 					throw new ObjectQueryException("The given object value is not assignabled to gived condition", null);
 				if (!((GenericInternalQueryBuilder) val.getBuilder()).getProjections().isEmpty())

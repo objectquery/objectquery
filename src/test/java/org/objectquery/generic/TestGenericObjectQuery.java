@@ -113,7 +113,7 @@ public class TestGenericObjectQuery {
 				return null;
 			}
 		});
-		query.eq(o, (Object)null);
+		query.eq(o, (Object) null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
@@ -180,6 +180,12 @@ public class TestGenericObjectQuery {
 		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("home.address EQUALS rue d'anton"));
 		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("mum.name EQUALS elisabeth"));
 		Assert.assertTrue("Not present expected order", builder.getOrdersString().contains("name"));
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testInvalidSubQuery() {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		query.eq(query.target(), new GenericObjectQuery<Person>(Person.class));
 	}
 
 	@Test
