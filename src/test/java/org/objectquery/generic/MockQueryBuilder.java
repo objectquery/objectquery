@@ -125,7 +125,10 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 		}
 		for (Projection proj : projections) {
 			StringBuilder sb = new StringBuilder();
-			buildPath(proj.getItem(), sb);
+			if (proj.getItem() instanceof PathItem)
+				buildPath((PathItem) proj.getItem(), sb);
+			else
+				stringfyQuery((GenericObjectQuery<?>) proj.getItem(), sb);
 			if (proj.getType() != null)
 				sb.append(" ").append(proj.getType());
 			projectionsString.add(sb.toString());

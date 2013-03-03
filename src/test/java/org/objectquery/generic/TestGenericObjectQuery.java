@@ -183,9 +183,15 @@ public class TestGenericObjectQuery {
 	}
 
 	@Test(expected = ObjectQueryException.class)
-	public void testInvalidSubQuery() {
+	public void testInvalidSubQueryCondition() {
 		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
 		query.eq(query.target(), new GenericObjectQuery<Person>(Person.class));
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testInvalidSubQueryProjection() {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		query.prj(new GenericObjectQuery<Person>(Person.class));
 	}
 
 	@Test

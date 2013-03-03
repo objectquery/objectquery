@@ -3,6 +3,8 @@ package org.objectquery.generic;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.objectquery.ObjectQuery;
+
 public class GenericInternalQueryBuilder extends ConditionGroup implements InternalQueryBuilder {
 
 	private List<Order> orders = new ArrayList<Order>();
@@ -31,6 +33,10 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 
 	public void projection(PathItem item, ProjectionType type) {
 		projections.add(new Projection(item, type));
+	}
+
+	public void projection(ObjectQuery<?> projection, ProjectionType type) {
+		projections.add(new Projection(projection, type));
 	}
 
 	public void having(PathItem item, ProjectionType projectionType, ConditionType conditionType, Object value) {

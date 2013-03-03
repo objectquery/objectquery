@@ -94,7 +94,13 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 	}
 
 	public void prj(Object projection, ProjectionType type) {
-		builder.projection(extractItem(projection), type);
+		if (projection instanceof GenericObjectQuery<?>) {
+			if (!((GenericObjectQuery<?>) projection).isSubQuery())
+				throw new ObjectQueryException(
+						"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance", null);
+			builder.projection((ObjectQuery<?>) projection, type);
+		} else
+			builder.projection(extractItem(projection), type);
 	}
 
 	private PathItem extractItem(Object object) {

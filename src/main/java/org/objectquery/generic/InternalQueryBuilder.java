@@ -1,5 +1,7 @@
 package org.objectquery.generic;
 
+import org.objectquery.ObjectQuery;
+
 /**
  * Interface to implement a custom query builder from the specified tecnology.
  * 
@@ -15,7 +17,17 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	 *            the type of projection to add.
 	 */
 	void projection(PathItem item, ProjectionType type);
-
+	
+	/**
+	 * Add a sub Query projection to query with an operator.
+	 * 
+	 * @param item
+	 *            the sub Query projection object to add.
+	 * @param type
+	 *            the type of projection to add.
+	 */
+	void projection(ObjectQuery<?> projection, ProjectionType type);
+	
 	/**
 	 * Add an order to query.
 	 * 

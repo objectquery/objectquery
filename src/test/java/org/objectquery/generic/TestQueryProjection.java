@@ -28,4 +28,18 @@ public class TestQueryProjection {
 		Assert.assertEquals("mum.name MIN", builder.getProjectionsString().get(4));
 		Assert.assertEquals("mum.name SUM", builder.getProjectionsString().get(5));
 	}
+
+	@Test
+	public void addSubqueryProjectionTest() {
+		MockQueryBuilder builder = new MockQueryBuilder();
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		query.prj(query.subQuery(Person.class));
+		query.prj(query.subQuery(Person.class), ProjectionType.SUM);
+		builder.build();
+
+		Assert.assertEquals(2, builder.getProjectionsString().size());
+		Assert.assertEquals("select  from Person AA0", builder.getProjectionsString().get(0));
+		Assert.assertEquals("select  from Person AA1 SUM", builder.getProjectionsString().get(1));
+	}
+
 }
