@@ -39,7 +39,20 @@ public class TestQueryOrder {
 		Assert.assertEquals(2, builder.getOrdersString().size());
 		Assert.assertEquals("dog.name COUNT ASC", builder.getOrdersString().get(0));
 		Assert.assertEquals("dog.name MAX DESC", builder.getOrdersString().get(1));
+	}
 
+	@Test
+	public void testOrdersSubquery() {
+		MockQueryBuilder builder = new MockQueryBuilder();
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+
+		query.order(query.subQuery(Person.class), ProjectionType.COUNT, OrderType.ASC);
+		query.order(query.subQuery(Person.class), ProjectionType.MAX, OrderType.DESC);
+		builder.build();
+
+		Assert.assertEquals(2, builder.getOrdersString().size());
+		Assert.assertEquals("select  from Person AA0 COUNT ASC", builder.getOrdersString().get(0));
+		Assert.assertEquals("select  from Person AA1 MAX DESC", builder.getOrdersString().get(1));
 	}
 
 }

@@ -194,17 +194,26 @@ public class TestGenericObjectQuery {
 		query.prj(new GenericObjectQuery<Person>(Person.class));
 	}
 
+	@Test(expected = ObjectQueryException.class)
+	public void testInvalidSubQueryOrder() {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		query.order(new GenericObjectQuery<Person>(Person.class));
+	}
+
 	@Test
 	public void testClean() {
 		MockQueryBuilder builder = new MockQueryBuilder();
 		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.prj(toSearch.getHome().getAddress());
+		query.prj(query.subQuery(Person.class));
 		query.eq(toSearch.getHome().getAddress(), "rue d'anton");
 		query.eq(toSearch.getMum().getName(), "elisabeth");
 		query.eq(toSearch.getMum().getName(), toSearch.getDud().getName());
+		query.eq(toSearch.getMum(), query.subQuery(Person.class));
 		query.having(toSearch.getMum().getName(), ProjectionType.COUNT).eq(query.box(toSearch.getHome().getPrice()));
 		query.order(toSearch.getName());
+		query.order(query.subQuery(Person.class));
 
 		builder.build();
 		query.clear();

@@ -27,6 +27,10 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 		builder.append(item.getName());
 	}
 
+	public void order(ObjectQuery<?> order, ProjectionType projectionType, OrderType type) {
+		orders.add(new Order(order, projectionType, type));
+	}
+	
 	public void order(PathItem item, ProjectionType projectionType, OrderType type) {
 		orders.add(new Order(item, projectionType, type));
 	}

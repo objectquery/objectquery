@@ -1,10 +1,18 @@
 package org.objectquery.generic;
 
+import org.objectquery.ObjectQuery;
+
 public class Order {
 
-	private PathItem item;
+	private Object item;
 	private ProjectionType projectionType;
 	private OrderType type;
+
+	public Order(ObjectQuery<?> item, ProjectionType projectionType, OrderType type) {
+		this.item = item;
+		this.projectionType = projectionType;
+		this.type = type;
+	}
 
 	public Order(PathItem item, ProjectionType projectionType, OrderType type) {
 		this.item = item;
@@ -12,7 +20,7 @@ public class Order {
 		this.type = type;
 	}
 
-	public PathItem getItem() {
+	public Object getItem() {
 		return item;
 	}
 
@@ -25,7 +33,10 @@ public class Order {
 	}
 
 	public void clear() {
-		item.clear();
-		item=null;
+		if (item instanceof GenericObjectQuery<?>)
+			((GenericObjectQuery<?>) item).clear();
+		else
+			((PathItem) item).clear();
+		item = null;
 	}
 }

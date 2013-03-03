@@ -17,7 +17,7 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	 *            the type of projection to add.
 	 */
 	void projection(PathItem item, ProjectionType type);
-	
+
 	/**
 	 * Add a sub Query projection to query with an operator.
 	 * 
@@ -27,7 +27,19 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	 *            the type of projection to add.
 	 */
 	void projection(ObjectQuery<?> projection, ProjectionType type);
-	
+
+	/**
+	 * Add an sub query order to query.
+	 * 
+	 * @param item
+	 *            the order to add.
+	 * @param projectionType
+	 *            the gruping function in the order.
+	 * @param type
+	 *            the type of order.
+	 */
+	void order(ObjectQuery<?> order, ProjectionType projectionType, OrderType type);
+
 	/**
 	 * Add an order to query.
 	 * 

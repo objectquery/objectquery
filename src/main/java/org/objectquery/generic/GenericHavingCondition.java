@@ -4,37 +4,46 @@ import org.objectquery.HavingCondition;
 
 public class GenericHavingCondition implements HavingCondition {
 	private InternalQueryBuilder builder;
+	private GenericObjectQuery<?> objectQuery;
 	private PathItem item;
 	private ProjectionType type;
 
-	public GenericHavingCondition(InternalQueryBuilder builder, PathItem item, ProjectionType type) {
+	public GenericHavingCondition(InternalQueryBuilder builder, GenericObjectQuery<?> objectQuery, PathItem item, ProjectionType type) {
 		this.builder = builder;
 		this.item = item;
 		this.type = type;
+		this.objectQuery = objectQuery;
+	}
+
+	private void having(PathItem item, ProjectionType projectionType, ConditionType conditionType, Object value) {
+		Object curValue;
+		if ((curValue = objectQuery.unproxable.get(value)) == null)
+			curValue = value;
+		builder.having(item, type, conditionType, curValue);
 	}
 
 	public void eq(Double value) {
-		builder.having(item, type, ConditionType.EQUALS, value);
+		having(item, type, ConditionType.EQUALS, value);
 	}
 
 	public void notEq(Double value) {
-		builder.having(item, type, ConditionType.NOT_EQUALS, value);
+		having(item, type, ConditionType.NOT_EQUALS, value);
 	}
 
 	public void max(Double value) {
-		builder.having(item, type, ConditionType.MAX, value);
+		having(item, type, ConditionType.MAX, value);
 	}
 
 	public void maxEq(Double value) {
-		builder.having(item, type, ConditionType.MAX_EQUALS, value);
+		having(item, type, ConditionType.MAX_EQUALS, value);
 	}
 
 	public void min(Double value) {
-		builder.having(item, type, ConditionType.MIN, value);
+		having(item, type, ConditionType.MIN, value);
 	}
 
 	public void minEq(Double value) {
-		builder.having(item, type, ConditionType.MIN_EQUALS, value);
+		having(item, type, ConditionType.MIN_EQUALS, value);
 	}
 
 }

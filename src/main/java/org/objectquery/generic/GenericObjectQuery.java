@@ -132,7 +132,13 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 	}
 
 	public void order(Object order, ProjectionType projectionType, OrderType type) {
-		builder.order(extractItem(order), projectionType, type);
+		if (order instanceof GenericObjectQuery<?>) {
+			if (!((GenericObjectQuery<?>) order).isSubQuery())
+				throw new ObjectQueryException(
+						"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance", null);
+			builder.order((ObjectQuery<?>) order, projectionType, type);
+		} else
+			builder.order(extractItem(order), projectionType, type);
 	}
 
 	private boolean isPrimitive(Class<?> clazz) {
@@ -192,7 +198,7 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 	}
 
 	public HavingCondition having(Object projection, ProjectionType type) {
-		return new GenericHavingCondition(builder, extractItem(projection), type);
+		return new GenericHavingCondition(builder, this, extractItem(projection), type);
 	}
 
 	public PathItem getRootPathItem() {
