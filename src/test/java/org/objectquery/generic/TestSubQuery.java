@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.objectquery.ObjectQuery;
 import org.objectquery.generic.domain.Person;
 
-public class TestSubquery {
+public class TestSubQuery {
 
 	@Test
 	public void testSubquerySimple() {
