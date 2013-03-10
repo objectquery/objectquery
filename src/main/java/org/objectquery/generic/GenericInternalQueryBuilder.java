@@ -21,7 +21,7 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 
 	public static void buildPath(PathItem item, StringBuilder builder, String separator) {
 		if (item.getParent() != null && (item.getParent().getParent() != null || !item.getParent().getName().isEmpty())) {
-			buildPath(item.getParent(), builder);
+			buildPath(item.getParent(), builder, separator);
 			builder.append(separator);
 		}
 		builder.append(item.getName());
@@ -30,7 +30,7 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 	public void order(ObjectQuery<?> order, ProjectionType projectionType, OrderType type) {
 		orders.add(new Order(order, projectionType, type));
 	}
-	
+
 	public void order(PathItem item, ProjectionType projectionType, OrderType type) {
 		orders.add(new Order(item, projectionType, type));
 	}
