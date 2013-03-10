@@ -100,36 +100,77 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.NOT_EQUALS, value);
 	}
 
+	public <C, T extends C> void gt(C target, T value) {
+		condition(target, ConditionType.GREATER, value);
+	}
+
+	public <C, T extends C> void gt(C target, ObjectQuery<T> value) {
+		condition(target, ConditionType.GREATER, value);
+	}
+
+	public <C, T extends C> void gtEq(C target, T value) {
+		condition(target, ConditionType.GREATER_EQUALS, value);
+	}
+
+	public <C, T extends C> void gtEq(C target, ObjectQuery<T> value) {
+		condition(target, ConditionType.GREATER_EQUALS, value);
+	}
+
+	@Deprecated
 	public <C, T extends C> void max(C target, T value) {
-		condition(target, ConditionType.MAX, value);
+		condition(target, ConditionType.GREATER, value);
 	}
 
+	@Deprecated
 	public <C, T extends C> void max(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.MAX, value);
+		condition(target, ConditionType.GREATER, value);
 	}
 
+	@Deprecated
 	public <C, T extends C> void maxEq(C target, T value) {
-		condition(target, ConditionType.MAX_EQUALS, value);
+		condition(target, ConditionType.GREATER_EQUALS, value);
 	}
 
+	@Deprecated
 	public <C, T extends C> void maxEq(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.MAX_EQUALS, value);
+		condition(target, ConditionType.GREATER_EQUALS, value);
 	}
 
+	public <C, T extends C> void lt(C target, T value) {
+		condition(target, ConditionType.LESS, value);
+	}
+
+	public <C, T extends C> void lt(C target, ObjectQuery<T> value) {
+		condition(target, ConditionType.LESS, value);
+
+	}
+
+	public <C, T extends C> void ltEq(C target, T value) {
+		condition(target, ConditionType.LESS_EQUALS, value);
+	}
+
+	public <C, T extends C> void ltEq(C target, ObjectQuery<T> value) {
+		condition(target, ConditionType.LESS_EQUALS, value);
+	}
+
+	@Deprecated
 	public <C, T extends C> void min(C target, T value) {
-		condition(target, ConditionType.MIN, value);
+		condition(target, ConditionType.LESS, value);
 	}
 
+	@Deprecated
 	public <C, T extends C> void min(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.MIN, value);
+		condition(target, ConditionType.LESS, value);
 	}
 
+	@Deprecated
 	public <C, T extends C> void minEq(C target, T value) {
-		condition(target, ConditionType.MIN_EQUALS, value);
+		condition(target, ConditionType.LESS_EQUALS, value);
 	}
 
+	@Deprecated
 	public <C, T extends C> void minEq(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.MIN_EQUALS, value);
+		condition(target, ConditionType.LESS_EQUALS, value);
 	}
 
 	public <C, T extends C> void like(C target, T value) {

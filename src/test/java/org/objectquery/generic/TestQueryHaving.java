@@ -10,21 +10,21 @@ public class TestQueryHaving {
 	@Test
 	public void testSimpleHanving() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder,Person.class);
-		
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+
 		Person target = query.target();
 		query.having(target.getName(), ProjectionType.COUNT).eq(2D);
 		builder.build();
-		Assert.assertEquals(1,builder.getHavingString().size());
-		Assert.assertEquals("name COUNT EQUALS 2.0",builder.getHavingString().get(0));
-		
+		Assert.assertEquals(1, builder.getHavingString().size());
+		Assert.assertEquals("name COUNT EQUALS 2.0", builder.getHavingString().get(0));
+
 	}
 
 	@Test
 	public void testAllType() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder,Person.class);
-		
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+
 		Person target = query.target();
 		query.having(target.getName(), ProjectionType.COUNT).eq(2D);
 		query.having(target.getName(), ProjectionType.MIN).eq(2D);
@@ -32,20 +32,20 @@ public class TestQueryHaving {
 		query.having(target.getName(), ProjectionType.AVG).eq(2D);
 		query.having(target.getName(), ProjectionType.SUM).eq(2D);
 		builder.build();
-		Assert.assertEquals(5,builder.getHavingString().size());
-		Assert.assertEquals("name COUNT EQUALS 2.0",builder.getHavingString().get(0));
-		Assert.assertEquals("name MIN EQUALS 2.0",builder.getHavingString().get(1));
-		Assert.assertEquals("name MAX EQUALS 2.0",builder.getHavingString().get(2));
-		Assert.assertEquals("name AVG EQUALS 2.0",builder.getHavingString().get(3));
-		Assert.assertEquals("name SUM EQUALS 2.0",builder.getHavingString().get(4));
+		Assert.assertEquals(5, builder.getHavingString().size());
+		Assert.assertEquals("name COUNT EQUALS 2.0", builder.getHavingString().get(0));
+		Assert.assertEquals("name MIN EQUALS 2.0", builder.getHavingString().get(1));
+		Assert.assertEquals("name MAX EQUALS 2.0", builder.getHavingString().get(2));
+		Assert.assertEquals("name AVG EQUALS 2.0", builder.getHavingString().get(3));
+		Assert.assertEquals("name SUM EQUALS 2.0", builder.getHavingString().get(4));
 
 	}
 
 	@Test
 	public void testAllCondition() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder,Person.class);
-		
+		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+
 		Person target = query.target();
 		query.having(target.getName(), ProjectionType.COUNT).eq(2D);
 		query.having(target.getName(), ProjectionType.COUNT).notEq(2D);
@@ -54,14 +54,13 @@ public class TestQueryHaving {
 		query.having(target.getName(), ProjectionType.COUNT).min(2D);
 		query.having(target.getName(), ProjectionType.COUNT).minEq(2D);
 		builder.build();
-		Assert.assertEquals(6,builder.getHavingString().size());
-		Assert.assertEquals("name COUNT EQUALS 2.0",builder.getHavingString().get(0));
-		Assert.assertEquals("name COUNT NOT_EQUALS 2.0",builder.getHavingString().get(1));
-		Assert.assertEquals("name COUNT MAX 2.0",builder.getHavingString().get(2));
-		Assert.assertEquals("name COUNT MAX_EQUALS 2.0",builder.getHavingString().get(3));
-		Assert.assertEquals("name COUNT MIN 2.0",builder.getHavingString().get(4));
-		Assert.assertEquals("name COUNT MIN_EQUALS 2.0",builder.getHavingString().get(5));
+		Assert.assertEquals(6, builder.getHavingString().size());
+		Assert.assertEquals("name COUNT EQUALS 2.0", builder.getHavingString().get(0));
+		Assert.assertEquals("name COUNT NOT_EQUALS 2.0", builder.getHavingString().get(1));
+		Assert.assertEquals("name COUNT GREATER 2.0", builder.getHavingString().get(2));
+		Assert.assertEquals("name COUNT GREATER_EQUALS 2.0", builder.getHavingString().get(3));
+		Assert.assertEquals("name COUNT LESS 2.0", builder.getHavingString().get(4));
+		Assert.assertEquals("name COUNT LESS_EQUALS 2.0", builder.getHavingString().get(5));
 	}
 
 }
-

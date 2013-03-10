@@ -31,19 +31,19 @@ public class GenericHavingCondition implements HavingCondition {
 	}
 
 	public void max(Double value) {
-		having(item, type, ConditionType.MAX, value);
+		having(item, type, ConditionType.GREATER, value);
 	}
 
 	public void maxEq(Double value) {
-		having(item, type, ConditionType.MAX_EQUALS, value);
+		having(item, type, ConditionType.GREATER_EQUALS, value);
 	}
 
 	public void min(Double value) {
-		having(item, type, ConditionType.MIN, value);
+		having(item, type, ConditionType.LESS, value);
 	}
 
 	public void minEq(Double value) {
-		having(item, type, ConditionType.MIN_EQUALS, value);
+		having(item, type, ConditionType.LESS_EQUALS, value);
 	}
 
 }

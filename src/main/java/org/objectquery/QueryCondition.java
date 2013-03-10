@@ -43,6 +43,46 @@ public interface QueryCondition {
 	 *            the query source of expected value.
 	 */
 	<C, T extends C> void notEq(C target, ObjectQuery<T> value);
+	
+	/**
+	 * Add a "grater than" condition between two values.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the operation expected value.
+	 */
+	<C, T extends C> void gt(C target, T value);
+
+	/**
+	 * Add a "grater than" condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T extends C> void gt(C target, ObjectQuery<T> value);
+
+	/**
+	 * Add a "grater than or equals" condition between two values.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the operation expected value.
+	 */
+	<C, T extends C> void gtEq(C target, T value);
+	
+	/**
+	 * Add an "grater than or equals" condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T extends C> void gtEq(C target, ObjectQuery<T> value);
 
 	/**
 	 * Add a max condition between two values.
@@ -52,6 +92,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the operation expected value.
 	 */
+	@Deprecated
 	<C, T extends C> void max(C target, T value);
 
 	/**
@@ -62,6 +103,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
+	@Deprecated
 	<C, T extends C> void max(C target, ObjectQuery<T> value);
 
 	/**
@@ -72,6 +114,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the operation expected value.
 	 */
+	@Deprecated
 	<C, T extends C> void maxEq(C target, T value);
 	
 	/**
@@ -82,8 +125,50 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
+	@Deprecated
 	<C, T extends C> void maxEq(C target, ObjectQuery<T> value);
 
+	/**
+	 * Add a "lesser than" condition between two values.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the operation expected value.
+	 */
+	<C, T extends C> void lt(C target, T value);
+	
+	/**
+	 * Add a "lesser than" condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T extends C> void lt(C target, ObjectQuery<T> value);
+
+	/**
+	 * Add a "lesser than" or equals condition between two values.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the operation expected value.
+	 */
+	<C, T extends C> void ltEq(C target, T value);
+
+	/**
+	 * Add a min or equals condition between expression and a query.
+	 * 
+	 * @param target
+	 *            the base operation target.
+	 * @param value
+	 *            the query source of expected value.
+	 */
+	<C, T extends C> void ltEq(C target,ObjectQuery<T> value);
+
+	
 	/**
 	 * Add a min condition between two values.
 	 * 
@@ -92,6 +177,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the operation expected value.
 	 */
+	@Deprecated
 	<C, T extends C> void min(C target, T value);
 	
 	/**
@@ -102,6 +188,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
+	@Deprecated
 	<C, T extends C> void min(C target, ObjectQuery<T> value);
 
 	/**
@@ -112,6 +199,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the operation expected value.
 	 */
+	@Deprecated
 	<C, T extends C> void minEq(C target, T value);
 
 	/**
@@ -122,6 +210,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
+	@Deprecated
 	<C, T extends C> void minEq(C target,ObjectQuery<T> value);
 
 	/**
