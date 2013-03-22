@@ -95,10 +95,10 @@ footer >div {
 	width:5em;
 }
 .road_done, .supported{
-	background-color:green;
+	background-color:#5BB75B;
 }
 .road_todo, .unsupported{
-	background-color:red;
+	background-color:#DA4F49;
 }
 .condition_table {
 	width:50%;

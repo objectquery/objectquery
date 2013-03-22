@@ -120,6 +120,11 @@
 					<tr><td>having clause </td> <td class="road_done">JPA Only</td></tr>
 					<tr><td>ignore case like condition type </td> <td class="road_done">DONE</td></tr>
 				</table>
+				<h4>1.5.0</h4>
+				<table class='roadmap'>
+					<tr><td>Nested Query </td> <td class="road_todo">TODO</td></tr>
+					<tr><td>Join  </td> <td class="road_todo">TODO</td></tr>
+				</table>
 				<h4>2.0.0</h4>
 				<table class="roadmap">
 					<tr><td>support for update operation </td> <td class="road_todo">TODO</td></tr>
