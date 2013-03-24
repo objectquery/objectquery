@@ -67,6 +67,20 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	void having(PathItem item, ProjectionType projectionType, ConditionType conditionType, Object value);
 
 	/**
+	 * Create Add a new having item
+	 * 
+	 * @param item
+	 *            having operation target
+	 * @param projectionType
+	 *            the type of having projection.
+	 * @param conditionType
+	 *            the type of having condition.
+	 * @param value
+	 *            the condition value.
+	 */
+	void having(ObjectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value);
+	
+	/**
 	 * Clear all object used for build query and the object can be reused for
 	 * build another query.
 	 */

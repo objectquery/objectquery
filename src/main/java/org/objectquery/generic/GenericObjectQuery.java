@@ -198,7 +198,13 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 	}
 
 	public HavingCondition having(Object projection, ProjectionType type) {
-		return new GenericHavingCondition(builder, this, extractItem(projection), type);
+		if (projection instanceof GenericObjectQuery<?>) {
+			if (!((GenericObjectQuery<?>) projection).isSubQuery())
+				throw new ObjectQueryException(
+						"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance", null);
+			return new GenericHavingCondition(builder, this, (ObjectQuery<?>)projection, type);
+		} else
+			return new GenericHavingCondition(builder, this, extractItem(projection), type);
 	}
 
 	public PathItem getRootPathItem() {

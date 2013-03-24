@@ -138,7 +138,8 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 		}
 		for (Having having : havings) {
 			StringBuilder sb = new StringBuilder();
-			buildPath(having.getItem(), sb);
+			if (having.getItem() instanceof PathItem)
+				buildPath((PathItem) having.getItem(), sb);
 			sb.append(" ").append(having.getProjectionType());
 			sb.append(" ").append(having.getConditionType());
 			sb.append(" ").append(having.getValue());

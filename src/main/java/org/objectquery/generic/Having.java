@@ -1,20 +1,28 @@
 package org.objectquery.generic;
 
+import org.objectquery.ObjectQuery;
+
 public class Having {
-	private PathItem item;
+	private Object item;
 	private ProjectionType projectionType;
 	private ConditionType conditionType;
 	private Object value;
 
 	public Having(PathItem item, ProjectionType projectionType, ConditionType conditionType, Object value) {
-		super();
 		this.item = item;
 		this.projectionType = projectionType;
 		this.conditionType = conditionType;
 		this.value = value;
 	}
 
-	public PathItem getItem() {
+	public Having(ObjectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value) {
+		this.item = item;
+		this.projectionType = projectionType;
+		this.conditionType = conditionType;
+		this.value = value;
+	}
+
+	public Object getItem() {
 		return item;
 	}
 
@@ -31,7 +39,10 @@ public class Having {
 	}
 
 	public void clear() {
-		item.clear();
+		if (item instanceof PathItem)
+			((PathItem) item).clear();
+		else if (item instanceof GenericObjectQuery<?>)
+			((GenericObjectQuery<?>) item).clear();
 		item = null;
 		if (value instanceof PathItem)
 			((PathItem) value).clear();

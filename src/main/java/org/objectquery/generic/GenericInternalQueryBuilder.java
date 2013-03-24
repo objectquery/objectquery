@@ -47,6 +47,10 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 		havings.add(new Having(item, projectionType, conditionType, value));
 	}
 
+	public void having(ObjectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value) {
+		havings.add(new Having(item, projectionType, conditionType, value));
+	}
+	
 	public List<Order> getOrders() {
 		return orders;
 	}
