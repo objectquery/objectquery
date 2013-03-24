@@ -2,6 +2,7 @@ package org.objectquery.generic.domain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -21,6 +22,7 @@ public class BoxedPrimitiveDomain {
 	private AtomicInteger atomicInteger;
 	private AtomicLong atomicLong;
 	private AtomicBoolean atomicBoolean;
+	private Date date;
 
 	public Boolean getBool() {
 		return bool;
@@ -126,4 +128,11 @@ public class BoxedPrimitiveDomain {
 		this.atomicBoolean = atomicBoolean;
 	}
 
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 }

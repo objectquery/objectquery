@@ -2,6 +2,7 @@ package org.objectquery.generic;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -15,6 +16,7 @@ public class TestPrimitiveBoxedType {
 
 	@Test
 	public void testPrimitiveBoxedType() {
+		Date d = new Date();
 		MockQueryBuilder qb = new MockQueryBuilder();
 		ObjectQuery<BoxedPrimitiveDomain> bpd = new GenericObjectQuery<BoxedPrimitiveDomain>(qb, BoxedPrimitiveDomain.class);
 		BoxedPrimitiveDomain pd = bpd.target();
@@ -33,10 +35,11 @@ public class TestPrimitiveBoxedType {
 		bpd.eq(pd.getShorte(), new Short((short) 0));
 		bpd.eq(pd.getAtomicBoolean(), new AtomicBoolean(false));
 		bpd.eq(pd.getBool(), new Boolean(false));
+		bpd.eq(pd.getDate(), d);
 
 		qb.build();
 
-		Assert.assertEquals(" wrong number of condition", 15, qb.getConditionsString().size());
+		Assert.assertEquals(" wrong number of condition", 16, qb.getConditionsString().size());
 		Assert.assertEquals("atomicBoolean EQUALS false", qb.getConditionsString().get(0));
 		Assert.assertEquals("atomicLong EQUALS 0", qb.getConditionsString().get(1));
 		Assert.assertEquals("atomicInteger EQUALS 0", qb.getConditionsString().get(2));
@@ -52,5 +55,6 @@ public class TestPrimitiveBoxedType {
 		Assert.assertEquals("shorte EQUALS 0", qb.getConditionsString().get(12));
 		Assert.assertEquals("atomicBoolean EQUALS false", qb.getConditionsString().get(13));
 		Assert.assertEquals("bool EQUALS false", qb.getConditionsString().get(14));
+		Assert.assertEquals("date EQUALS " + d.toString(), qb.getConditionsString().get(15));
 	}
 }
