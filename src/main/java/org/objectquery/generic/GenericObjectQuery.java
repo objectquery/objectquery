@@ -1,6 +1,8 @@
 package org.objectquery.generic;
 
+import java.util.ArrayList;
 import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -24,6 +26,7 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 	private PathItem primitiveToBoxPath;
 	private final boolean subQuery;
 	private int subCount = 0;
+	private List<Join> joins = new ArrayList<Join>();
 
 	public Object proxy(Class<?> clazz, PathItem parent, String name) {
 		if (clazz.isPrimitive()) {
@@ -230,4 +233,22 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 		subQ.getRootPathItem().setName(getRootPathItem().getName() + "A" + (subCount++));
 		return subQ;
 	}
+
+	public <J> J join(Class<J> joinClass) {
+		return join(null, joinClass);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <J> J join(J joinPath, Class<J> joinClass) {
+		if (!subQuery)
+			getRootPathItem().setName("A");
+		J res = (J) proxy(joinClass, null, getRootPathItem().getName() + "B" + (joins.size()));
+		joins.add(new Join(((ObjectQueryHandler) ((ProxyObject) res).getHandler()).getPath(), joinClass, joinPath != null ? extractItem(joinPath) : null));
+		return res;
+	}
+
+	public List<Join> getJoins() {
+		return joins;
+	}
+
 }

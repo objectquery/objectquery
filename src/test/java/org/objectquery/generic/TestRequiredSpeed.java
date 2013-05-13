@@ -31,8 +31,8 @@ public class TestRequiredSpeed {
 
 		Person toSearch = query.target();
 		query.eq(toSearch.getHome().getAddress(), toSearch.getDog().getHome().getAddress());
-		query.eq(toSearch.getDud().getHome(), toSearch.getDog().getHome());
-		query.eq(toSearch.getMum().getName(), toSearch.getDog().getOwner().getName());
+		query.eq(toSearch.getDad().getHome(), toSearch.getDog().getHome());
+		query.eq(toSearch.getMom().getName(), toSearch.getDog().getOwner().getName());
 		query.order(toSearch.getName());
 		builder.build();
 		Assert.assertEquals("size of result conditions", 3, builder.getConditionsString().size());

@@ -151,4 +151,24 @@ public interface ObjectQuery<T> extends QueryCondition {
 	 * @return the ObjectQuery instance of sub query.
 	 */
 	<S> ObjectQuery<S> subQuery(Class<S> target);
+
+	/**
+	 * Create a join object with the specified type
+	 * 
+	 * @param joinClass
+	 *            the type of the join object.
+	 * @return the new join object.
+	 */
+	<J> J join(Class<J> joinClass);
+
+	/**
+	 * Create a join object with the specified type, on the specified base path
+	 * 
+	 * @param joinPath
+	 *            the path to reach the base object.
+	 * @param joinClass
+	 *            the type of the join object.
+	 * @return the new join object.
+	 */
+	<J> J join(J joinPath, Class<J> joinClass);
 }

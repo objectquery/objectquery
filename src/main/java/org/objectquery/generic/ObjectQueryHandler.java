@@ -30,4 +30,5 @@ public class ObjectQueryHandler implements MethodHandler {
 	public PathItem getPath() {
 		return path;
 	}
+
 }

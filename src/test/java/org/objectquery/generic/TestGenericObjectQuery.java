@@ -170,7 +170,7 @@ public class TestGenericObjectQuery {
 		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.eq(toSearch.getHome().getAddress(), "rue d'anton");
-		query.eq(toSearch.getMum().getName(), "elisabeth");
+		query.eq(toSearch.getMom().getName(), "elisabeth");
 		query.order(toSearch.getName());
 
 		builder.build();
@@ -178,7 +178,7 @@ public class TestGenericObjectQuery {
 		Assert.assertEquals("There is more orders than expected", builder.getOrdersString().size(), 1);
 
 		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("home.address EQUALS rue d'anton"));
-		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("mum.name EQUALS elisabeth"));
+		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("mom.name EQUALS elisabeth"));
 		Assert.assertTrue("Not present expected order", builder.getOrdersString().contains("name"));
 	}
 
@@ -214,10 +214,10 @@ public class TestGenericObjectQuery {
 		query.prj(toSearch.getHome().getAddress());
 		query.prj(query.subQuery(Person.class));
 		query.eq(toSearch.getHome().getAddress(), "rue d'anton");
-		query.eq(toSearch.getMum().getName(), "elisabeth");
-		query.eq(toSearch.getMum().getName(), toSearch.getDud().getName());
-		query.eq(toSearch.getMum(), query.subQuery(Person.class));
-		query.having(toSearch.getMum().getName(), ProjectionType.COUNT).eq(query.box(toSearch.getHome().getPrice()));
+		query.eq(toSearch.getMom().getName(), "elisabeth");
+		query.eq(toSearch.getMom().getName(), toSearch.getDad().getName());
+		query.eq(toSearch.getMom(), query.subQuery(Person.class));
+		query.having(toSearch.getMom().getName(), ProjectionType.COUNT).eq(query.box(toSearch.getHome().getPrice()));
 		query.order(toSearch.getName());
 		query.order(query.subQuery(Person.class));
 
