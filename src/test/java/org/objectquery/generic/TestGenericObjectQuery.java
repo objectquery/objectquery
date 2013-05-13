@@ -200,6 +200,12 @@ public class TestGenericObjectQuery {
 		query.order(new GenericObjectQuery<Person>(Person.class));
 	}
 
+	@Test(expected = ObjectQueryException.class)
+	public void testInvalidSubQueryProjectionAdd() {
+		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		query.subQuery(Person.class).prj(query.target().getName());
+	}
+
 	@Test
 	public void testClean() {
 		MockQueryBuilder builder = new MockQueryBuilder();

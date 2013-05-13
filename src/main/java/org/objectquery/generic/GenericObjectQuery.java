@@ -94,6 +94,9 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 	}
 
 	public void prj(Object projection, ProjectionType type) {
+		if (isSubQuery()) {
+			throw new ObjectQueryException("Add projection to a subquery is actually not supported", null);
+		}
 		if (projection instanceof GenericObjectQuery<?>) {
 			if (!((GenericObjectQuery<?>) projection).isSubQuery())
 				throw new ObjectQueryException(
@@ -202,7 +205,7 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 			if (!((GenericObjectQuery<?>) projection).isSubQuery())
 				throw new ObjectQueryException(
 						"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance", null);
-			return new GenericHavingCondition(builder, this, (ObjectQuery<?>)projection, type);
+			return new GenericHavingCondition(builder, this, (ObjectQuery<?>) projection, type);
 		} else
 			return new GenericHavingCondition(builder, this, extractItem(projection), type);
 	}
