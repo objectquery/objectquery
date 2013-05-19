@@ -47,8 +47,11 @@ public class TestQueryCondition {
 		query.notLike(toSearch.getMum().getName(), toSearch.getDud().getName());
 		query.likeNc(toSearch.getMum().getName(), toSearch.getDud().getName());
 		query.notLikeNc(toSearch.getMum().getName(), toSearch.getDud().getName());
+		query.between(query.box(toSearch.getHome().getPrice()), query.box(toSearch.getMum().getHome().getPrice()),
+				query.box(toSearch.getDud().getHome().getPrice()));
 		builder.build();
 
+		Assert.assertEquals(15, builder.getConditionsString().size());
 		Assert.assertEquals("mum.name EQUALS dud.name", builder.getConditionsString().get(0));
 		Assert.assertEquals("friends CONTAINS dud", builder.getConditionsString().get(1));
 		Assert.assertEquals("mum IN dud.friends", builder.getConditionsString().get(2));
@@ -63,6 +66,7 @@ public class TestQueryCondition {
 		Assert.assertEquals("mum.name NOT_LIKE dud.name", builder.getConditionsString().get(11));
 		Assert.assertEquals("mum.name LIKE_NOCASE dud.name", builder.getConditionsString().get(12));
 		Assert.assertEquals("mum.name NOT_LIKE_NOCASE dud.name", builder.getConditionsString().get(13));
+		Assert.assertEquals("home.price BETWEEN mum.home.price AND dud.home.price", builder.getConditionsString().get(14));
 
 	}
 }

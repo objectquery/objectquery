@@ -11,8 +11,9 @@ public interface InternalConditionBuilder {
 	 *            the operation type.
 	 * @param value
 	 *            the operation expected value.
+	 * @param value1 TODO
 	 */
-	void condition(PathItem item, ConditionType type, Object value);
+	void condition(PathItem item, ConditionType type, Object value, Object value1);
 
 	/**
 	 * Build a condition group of a type.
