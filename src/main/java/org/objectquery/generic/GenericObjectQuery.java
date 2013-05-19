@@ -238,12 +238,20 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 		return join(null, joinClass);
 	}
 
-	@SuppressWarnings("unchecked")
+	public <J> J join(Class<J> joinClass, JoinType type) {
+		return join(null, joinClass, type);
+	}
+
 	public <J> J join(J joinPath, Class<J> joinClass) {
+		return join(joinPath, joinClass, JoinType.INNER);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <J> J join(J joinPath, Class<J> joinClass, JoinType type) {
 		if (!subQuery)
 			getRootPathItem().setName("A");
 		J res = (J) proxy(joinClass, null, getRootPathItem().getName() + "B" + (joins.size()));
-		joins.add(new Join(((ObjectQueryHandler) ((ProxyObject) res).getHandler()).getPath(), joinClass, joinPath != null ? extractItem(joinPath) : null));
+		joins.add(new Join(((ObjectQueryHandler) ((ProxyObject) res).getHandler()).getPath(), joinPath != null ? extractItem(joinPath) : null, type));
 		return res;
 	}
 

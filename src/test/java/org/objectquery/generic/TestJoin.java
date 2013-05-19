@@ -18,8 +18,9 @@ public class TestJoin {
 
 		Assert.assertEquals("A.name EQUALS AB0.name", qb.getConditionsString().get(0));
 		Assert.assertEquals(1, objectQuery.getJoins().size());
-		Assert.assertEquals(Person.class, objectQuery.getJoins().get(0).getBaseType());
+		Assert.assertEquals(Person.class, objectQuery.getJoins().get(0).getRoot().getClazz());
 		Assert.assertEquals("AB0", objectQuery.getJoins().get(0).getRoot().getName());
+		Assert.assertEquals(JoinType.INNER, objectQuery.getJoins().get(0).getType());
 		Assert.assertNull(objectQuery.getJoins().get(0).getJoinPath());
 
 	}
@@ -28,7 +29,7 @@ public class TestJoin {
 	public void testLinkedCreateJoin() {
 		MockQueryBuilder qb = new MockQueryBuilder();
 		GenericObjectQuery<Person> objectQuery = new GenericObjectQuery<Person>(qb, Person.class);
-		Person join = objectQuery.join(objectQuery.target().getMom(), Person.class);
+		Person join = objectQuery.join(objectQuery.target().getMom(), Person.class, JoinType.OUTER);
 		objectQuery.eq(objectQuery.target().getName(), join.getName());
 		qb.build();
 
@@ -36,10 +37,11 @@ public class TestJoin {
 
 		Assert.assertEquals("A.name EQUALS AB0.name", qb.getConditionsString().get(0));
 		Assert.assertEquals(1, objectQuery.getJoins().size());
-		Assert.assertEquals(Person.class, objectQuery.getJoins().get(0).getBaseType());
+		Assert.assertEquals(Person.class, objectQuery.getJoins().get(0).getRoot().getClazz());
 		Assert.assertEquals("AB0", objectQuery.getJoins().get(0).getRoot().getName());
 		Assert.assertEquals("mom", objectQuery.getJoins().get(0).getJoinPath().getName());
 		Assert.assertEquals("A", objectQuery.getJoins().get(0).getJoinPath().getParent().getName());
+		Assert.assertEquals(JoinType.OUTER, objectQuery.getJoins().get(0).getType());
 
 	}
 }

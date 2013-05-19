@@ -3,25 +3,25 @@ package org.objectquery.generic;
 public class Join {
 
 	private PathItem root;
-	private Class<?> baseType;
 	private PathItem joinPath;
+	private JoinType type;
 
-	public Join(PathItem root, Class<?> baseType, PathItem joinPath) {
+	public Join(PathItem root, PathItem joinPath, JoinType type) {
 		this.root = root;
-		this.baseType = baseType;
 		this.joinPath = joinPath;
+		this.type = type;
 	}
 
 	public PathItem getRoot() {
 		return root;
 	}
 
-	public Class<?> getBaseType() {
-		return baseType;
-	}
-
 	public PathItem getJoinPath() {
 		return joinPath;
+	}
+
+	public JoinType getType() {
+		return type;
 	}
 
 }

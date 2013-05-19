@@ -1,5 +1,6 @@
 package org.objectquery;
 
+import org.objectquery.generic.JoinType;
 import org.objectquery.generic.OrderType;
 import org.objectquery.generic.ProjectionType;
 
@@ -162,6 +163,15 @@ public interface ObjectQuery<T> extends QueryCondition {
 	<J> J join(Class<J> joinClass);
 
 	/**
+	 * Create a join object with the specified type
+	 * 
+	 * @param joinClass
+	 *            the type of the join object.
+	 * @return the new join object.
+	 */
+	<J> J join(Class<J> joinClass, JoinType type);
+
+	/**
 	 * Create a join object with the specified type, on the specified base path
 	 * 
 	 * @param joinPath
@@ -171,4 +181,15 @@ public interface ObjectQuery<T> extends QueryCondition {
 	 * @return the new join object.
 	 */
 	<J> J join(J joinPath, Class<J> joinClass);
+
+	/**
+	 * Create a join object with the specified type, on the specified base path
+	 * 
+	 * @param joinPath
+	 *            the path to reach the base object.
+	 * @param joinClass
+	 *            the type of the join object.
+	 * @return the new join object.
+	 */
+	<J> J join(J joinPath, Class<J> joinClass, JoinType type);
 }
