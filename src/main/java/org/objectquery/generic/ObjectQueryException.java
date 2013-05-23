@@ -7,4 +7,9 @@ public class ObjectQueryException extends RuntimeException {
 	public ObjectQueryException(String message, Throwable cause) {
 		super(message, cause);
 	}
+
+	public ObjectQueryException(String message) {
+		super(message);
+	}
+
 }

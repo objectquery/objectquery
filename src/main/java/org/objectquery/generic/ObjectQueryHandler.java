@@ -22,7 +22,7 @@ public class ObjectQueryHandler implements MethodHandler {
 		} else if (name.startsWith("is") && Character.isUpperCase(name.charAt(2))) {
 			returnValue = abstractObjectQuery.proxy(thisMethod.getReturnType(), path, Character.toLowerCase(name.charAt(2)) + name.substring(3));
 		} else {
-			throw new ObjectQueryException("Unsupported opertation this is an Object for Query", null);
+			throw new ObjectQueryException("Unsupported opertation this is an Object for Query");
 		}
 		return returnValue;
 	}

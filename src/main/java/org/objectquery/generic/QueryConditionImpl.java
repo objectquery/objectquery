@@ -24,22 +24,22 @@ public class QueryConditionImpl implements QueryCondition {
 
 	public void condition(Object base, ConditionType type, Object value) {
 		if (base == null)
-			throw new ObjectQueryException("The given object as condition is null", null);
+			throw new ObjectQueryException("The given object as condition is null");
 		PathItem item = null;
 		Class<?> baseType = base.getClass();
 		if (!(base instanceof ProxyObject)) {
 			if ((item = objectQuery.unproxable.get(base)) == null)
-				throw new ObjectQueryException("The given object as condition isn't a proxy, use target() method for start to take object for query", null);
+				throw new ObjectQueryException("The given object as condition isn't a proxy, use target() method for start to take object for query");
 		} else {
 			if (!(((ProxyObject) base).getHandler() instanceof ObjectQueryHandler))
 				throw new ObjectQueryException(
-						"The given object as condition isn't a objectquery proxy, use target() method for start to take object for query", null);
+						"The given object as condition isn't a objectquery proxy, use target() method for start to take object for query");
 
 			item = ((ObjectQueryHandler) ((ProxyObject) base).getHandler()).getPath();
 			baseType = base.getClass().getSuperclass();
 		}
 		if (type == null)
-			throw new ObjectQueryException("The given type of condition is null", null);
+			throw new ObjectQueryException("The given type of condition is null");
 
 		if (value != null) {
 			if (value instanceof GenericObjectQuery<?>) {
@@ -48,20 +48,20 @@ public class QueryConditionImpl implements QueryCondition {
 				GenericObjectQuery<?> val = (GenericObjectQuery<?>) value;
 				if (!val.isSubQuery())
 					throw new ObjectQueryException(
-							"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance", null);
+							"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance");
 				if (!baseType.isAssignableFrom(val.getTargetClass()))
-					throw new ObjectQueryException("The given object value is not assignabled to gived condition", null);
+					throw new ObjectQueryException("The given object value is not assignabled to gived condition");
 				if (!((GenericInternalQueryBuilder) val.getBuilder()).getProjections().isEmpty())
-					throw new ObjectQueryException("The query given as value are using projection that is not allowed", null);
+					throw new ObjectQueryException("The query given as value are using projection that is not allowed");
 			} else {
 				if (ConditionType.IN.equals(type) || ConditionType.NOT_IN.equals(type)) {
 					if (!(value.getClass().isArray() || value instanceof Collection))
-						throw new ObjectQueryException("The given object value is not an array or collection required for in value", null);
+						throw new ObjectQueryException("The given object value is not an array or collection required for in value");
 				} else if (ConditionType.CONTAINS.equals(type) || ConditionType.NOT_CONTAINS.equals(type)) {
 					if (!(base.getClass().isArray() || base instanceof Collection))
-						throw new ObjectQueryException("The given object value is not an array or collection required for in value", null);
+						throw new ObjectQueryException("The given object value is not an array or collection required for in value");
 				} else if (!baseType.isAssignableFrom(value.getClass()))
-					throw new ObjectQueryException("The given object value is not assignabled to gived condition", null);
+					throw new ObjectQueryException("The given object value is not assignabled to gived condition");
 			}
 		}
 

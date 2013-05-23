@@ -98,12 +98,12 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 
 	public void prj(Object projection, ProjectionType type) {
 		if (isSubQuery()) {
-			throw new ObjectQueryException("Add projection to a subquery is actually not supported", null);
+			throw new ObjectQueryException("Add projection to a subquery is actually not supported");
 		}
 		if (projection instanceof GenericObjectQuery<?>) {
 			if (!((GenericObjectQuery<?>) projection).isSubQuery())
 				throw new ObjectQueryException(
-						"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance", null);
+						"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance");
 			builder.projection((ObjectQuery<?>) projection, type);
 		} else
 			builder.projection(extractItem(projection), type);
@@ -111,19 +111,19 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 
 	private PathItem extractItem(Object object) {
 		if (object == null)
-			throw new ObjectQueryException("The given object is null", null);
+			throw new ObjectQueryException("The given object is null");
 		PathItem item;
 		if (!(object instanceof ProxyObject)) {
 			if ((item = unproxable.get(object)) == null) {
 				if (isPrimitive(object.getClass()))
-					throw new ObjectQueryException("The given object is an primitive type autoboxed use box() function to box primitive values", null);
+					throw new ObjectQueryException("The given object is an primitive type autoboxed use box() function to box primitive values");
 				else
-					throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query", null);
+					throw new ObjectQueryException("The given object as order isn't a proxy, use target() method for start to take object for query");
 			}
 		} else {
 			if (!(((ProxyObject) object).getHandler() instanceof ObjectQueryHandler))
 				throw new ObjectQueryException(
-						"The given object as condition isn't a objectquery proxy, use target() method for start to take object for query", null);
+						"The given object as condition isn't a objectquery proxy, use target() method for start to take object for query");
 			item = ((ObjectQueryHandler) ((ProxyObject) object).getHandler()).getPath();
 		}
 		return item;
@@ -141,7 +141,7 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 		if (order instanceof GenericObjectQuery<?>) {
 			if (!((GenericObjectQuery<?>) order).isSubQuery())
 				throw new ObjectQueryException(
-						"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance", null);
+						"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance");
 			builder.order((ObjectQuery<?>) order, projectionType, type);
 		} else
 			builder.order(extractItem(order), projectionType, type);
@@ -155,9 +155,9 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 	@SuppressWarnings("unchecked")
 	private <Z> Z box(Class<Z> clazz, Object value) {
 		if (primitiveToBoxType == null || primitiveToBoxValue == null || primitiveToBoxPath == null)
-			throw new ObjectQueryException("not present a primitive call to box.", null);
+			throw new ObjectQueryException("not present a primitive call to box.");
 		if (!clazz.equals(primitiveToBoxType))
-			throw new ObjectQueryException("present a wrong primitive type that not match with call to box.", null);
+			throw new ObjectQueryException("present a wrong primitive type that not match with call to box.");
 
 		unproxable.put(primitiveToBoxValue, primitiveToBoxPath);
 		return (Z) primitiveToBoxValue;
@@ -207,7 +207,7 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 		if (projection instanceof GenericObjectQuery<?>) {
 			if (!((GenericObjectQuery<?>) projection).isSubQuery())
 				throw new ObjectQueryException(
-						"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance", null);
+						"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance");
 			return new GenericHavingCondition(builder, this, (ObjectQuery<?>) projection, type);
 		} else
 			return new GenericHavingCondition(builder, this, extractItem(projection), type);
@@ -251,7 +251,7 @@ public class GenericObjectQuery<T> extends QueryConditionImpl implements ObjectQ
 		if (!subQuery)
 			getRootPathItem().setName("A");
 		J res = (J) proxy(joinClass, null, getRootPathItem().getName() + "B" + (joins.size()));
-		joins.add(new Join(((ObjectQueryHandler) ((ProxyObject) res).getHandler()).getPath(), joinPath != null ? extractItem(joinPath) : null, type));
+		joins.add(new Join(((ObjectQueryHandler) ((ProxyObject) res).getHandler()).getPath(), joinPath != null ? extractItem(joinPath) : null, type, joinClass));
 		return res;
 	}
 
