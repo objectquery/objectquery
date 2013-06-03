@@ -1,0 +1,154 @@
+<section class="active">
+	<header><h2>Documentation<h2></header>
+	<article>
+		<header>
+			<h3>Tutorials</h3>
+		</header>
+		<a href="?page=tutorial-simple">Simple Tutorial</a><br/>
+		<a href="?page=vtutorial">Video Tutorials</a><br/>
+		Javadocs: <a href="javadoc/1.0.0/index.html">1.0.0</a> , <a href="javadoc/1.0.1/index.html">1.0.1</a> , <a href="javadoc/1.5.0/index.html">1.5.0</a>
+	</article>
+	<article>
+		<header>
+			<h3>Install By Maven</h3>
+		</header>
+		<p>
+			Insert the specify maven dependency for each implementation:<br><br>
+			<b>JPA:</b>
+			<pre class="prettyprint lang-xml">
+&lt;dependency&gt;
+	&lt;groupId>org.objectquery&lt;/groupId&gt;
+	&lt;artifactId>jpaobjectquery&lt;/artifactId&gt;
+	&lt;version>1.5.0&lt;/version&gt;
+&lt;/dependency&gt;
+</pre>
+			<b>JDO:</b>
+			<pre class="prettyprint lang-xml">
+&lt;dependency&gt;
+	&lt;groupId>org.objectquery&lt;/groupId&gt;
+	&lt;artifactId>jdoobjectquery&lt;/artifactId&gt;
+	&lt;version>1.5.0&lt;/version&gt;
+&lt;/dependency&gt;
+</pre>
+			<b>OrientDB:</b>
+			<pre class="prettyprint lang-xml">
+&lt;dependency&gt;
+	&lt;groupId>org.objectquery&lt;/groupId&gt;
+	&lt;artifactId>orientdbobjectquery&lt;/artifactId&gt;
+	&lt;version>1.5.0&lt;/version&gt;
+&lt;/dependency&gt;
+</pre>
+			<b>Hibernate:</b>
+			<pre class="prettyprint lang-xml">
+&lt;dependency&gt;
+	&lt;groupId>org.objectquery&lt;/groupId&gt;
+	&lt;artifactId>hibernateobjectquery&lt;/artifactId&gt;
+	&lt;version>1.5.0&lt;/version&gt;
+&lt;/dependency&gt;
+</pre>
+		</p>
+	</article>
+	<article>
+
+			<header> 
+				<h3>Query Engine Support</h3>
+			</header>
+				<b>JPA</b>
+				<p>
+				Direct execute:
+				<pre class="prettyprint lang-java">
+javax.persistence.EntityManager entityManager= ....
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+List&lt;Person&gt; res = (List&lt;Person&gt;)JPAObjectQuery.execute(query, entityManager);
+...
+</pre>
+				JPA query generation:
+<pre class="prettyprint lang-java">
+javax.persistence.EntityManager entityManager= ....
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+javax.persistence.Query jpaQuery = JPAObjectQuery.buildQuery(query, entityManager);
+...
+</pre>
+				JPQL string and parameters generation:
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+JPQLQueryGenerator jpqlGenerator = JPAObjectQuery.jpqlGenerator(query);
+String jpql = jpqlGenerator.getQuery();
+Map&lt;String,Object&gt; paramenters = jpqlGenerator.getParameters();
+...
+</pre>
+				</p>
+				<b>JDO</b>
+				<p>
+				Direct execute:
+				<pre class="prettyprint lang-java">
+javax.jdo.PersistenceManager peristenceManager= ....
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+List&lt;Person&gt; res = (List&lt;Person&gt;)JDOObjectQuery.execute(query, peristenceManager);
+...
+</pre>
+				JDOQL string and parameters generation:
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+JDOQLQueryGenerator jdoqlGenerator = JDOObjectQuery.jdoqlGenerator(query);
+String jpql = jdoqlGenerator.getQuery();
+Map&lt;String,Object&gt; paramenters = jdoqlGenerator.getParameters();
+...
+</pre>
+			</p>
+				<b>OrientDB</b>
+				<p>
+				Direct execute:
+				<pre class="prettyprint lang-java">
+com.orientechnologies.orient.object.db.OObjectDatabaseTx db= ....
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+List&lt;Person&gt; res = (List&lt;Person&gt;)OrientDBObjectQuery.execute(query, db);
+...
+</pre>
+				OrientDB Query string and parameters generation:
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+OrientDBQueryGenerator oriendbGenerator = OrientDBObjectQuery.oriendbGenerator(query);
+String orientdbql = oriendbGenerator.getQuery();
+Map&lt;String,Object&gt; paramenters = oriendbGenerator.getParameters();
+...
+</pre>
+				</p>
+				<br/>
+				<b>Hibernate</b>
+				<p>
+				Direct execute:
+				<pre class="prettyprint lang-java">
+org.hibernate.Session session= ....
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+List&lt;Person&gt; res = (List&lt;Person&gt;)HibernateObjectQuery.execute(query, session);
+...
+</pre>
+				Hibernate query generation:
+<pre class="prettyprint lang-java">
+org.hibernate.Session session= ....
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+org.hibernate.Query jpaQuery = HibernateObjectQuery.buildQuery(query, session);
+...
+</pre>
+				HQL string and parameters generation:
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+...
+HQLQueryGenerator hqlGenerator = HibernateObjectQuery.hqlGenerator(query);
+String hql = hqlGenerator.getQuery();
+Map&lt;String,Object&gt; paramenters = hqlGenerator.getParameters();
+...
+</pre>
+				</p>
+	</article>
+</section>

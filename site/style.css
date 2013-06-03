@@ -6,7 +6,7 @@ html ,body{
 }
 body {
 	color:#35420D;
-	background-image:url('img/texture.png');
+	background-image:url('img/texture2.png');
 }
 
 body >header >img {
@@ -21,7 +21,7 @@ nav {
 }
 nav ul a{
 	text-decoration:none;
-	color:#35420D;
+	color:#2b2b2a;
 }
 nav ul {
 	width:100%;
@@ -44,6 +44,9 @@ nav li:hover {
 	font-weight:900;
 }
 
+section >header {
+	text-align:center;
+}
 section >header, section > p, article {
 	padding: 1em;
 }
@@ -69,7 +72,7 @@ footer {
 	bottom:0;
 	z-index:-1;
 	background:white;
-	margin:0.5em 0;
+2	margin:0.5em 0;
 }
 footer >div {
 	width: 25em;
@@ -85,20 +88,22 @@ footer >div {
 	min-width:30em;
 	padding:0;
 }
-.roadmap,.roadmap td {
+.roadmap,.roadmap td ,.roadmap th {
 	border:solid 1px #35420D;
 }
-.roadmap td {
+.roadmap td,.roadmap th  {
 	padding:0.2em;
 }
 .road_done,.road_todo {
 	width:5em;
 }
-.road_done, .supported{
+.road_done, .supported, .sup{
 	background-color:#5BB75B;
+	text-align:center;
 }
-.road_todo, .unsupported{
+.road_todo, .unsupported, .unsup{
 	background-color:#DA4F49;
+	text-align:center;
 }
 .condition_table {
 	width:50%;

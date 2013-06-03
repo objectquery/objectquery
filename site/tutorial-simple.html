@@ -1,0 +1,120 @@
+<section class="active" id="simple-tutorial" >
+	<header>
+		<h2>Simple Tutorial</h2>
+	</header>
+
+	<article>
+		<header>
+			<h3>Requirements</h3>
+		</header>
+		<p>
+			The requirements for build a query with query builder is an java Object Oriented "Domain" that is an group of persisted objects.
+		</p>
+	</article>
+	<article>
+		<header>
+			<h3>Domain</h3>
+		</header>
+		<p>
+<pre class="prettyprint lang-java">
+public class Dog {
+private String name;
+private Person owner;
+private Home home;
+...gets sets...
+};
+</pre>
+<pre class="prettyprint lang-java">
+public class Person {
+private String name;
+private List&lt;Person&gt; friends;
+private Person mum;
+private Person dud;
+private Home home;
+private Dog dog;
+...gets sets...
+}
+</pre>
+<pre class="prettyprint lang-java">
+public class Home {
+public enum HomeType {KENNEL,HOUSE};
+private String address;
+private HomeType type;
+private int weight;
+private double price;
+...gets sets...
+}
+</pre>
+		</p>
+	</article>
+	<article>
+		<header>
+			<h3>Simple Query Building</h3>
+		</header>
+		<p>
+			Search All person that live in "rue d'anton" with a mum with name "elisabeth" and order by name.
+		</p>
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+Person toSearch = query.target();
+query.eq(toSearch.getHome().getAddress(),"rue d'anton");
+query.eq(toSearch.getMum().getName(),"elisabeth");
+query.order(toSearch.getName());
+</pre>
+	</article>
+	<article>
+		<header>
+			<h3>Projection</h3>
+		</header>
+		<p>
+			Select name and address of person.
+		</p>
+		<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+Person toSearch = query.target();
+query.prj(toSearch.getName());
+query.prj(toSearch.getHome().getAddress());
+</pre>
+	</article>
+	<article>
+		<header>
+			<h3>Grouping Functions<h3>
+		</header>
+		<p>
+			Count all person that live in "rue d'anton"
+		</p>
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+Person toSearch = query.target();
+query.prj(toSearch,ProjectionType.COUNT);
+query.eq(toSearch.getHome().getAddress(),"rue d'anton");
+</pre>
+	</article>
+	<article>
+		<header>
+			<h3>Condition group</3>
+		</header>
+		<p>
+			Search all person with name elisabeth or jhon.
+		</p>
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+Person toSearch = query.target();
+QueryCondition or = oq.or();
+or.eq(toSearch.getName(),"elisabeth");
+or.eq(toSearch.getName(),"jhon");
+</pre>
+	</article>
+	<article>
+		<header>
+			<h3>Primitive Type</h3>
+		</header>
+		<p>Primitive type need a different management, for some technical reasons is not possible use primitive type directly<br> for use it we need to box it</p>
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+Person toSearch = query.target();
+query.eq(query.box(toSearch.getWeight()),2);
+query.eq(query.box(toSearch.getPrice()),4000.0);
+</pre>
+	</article>
+</section>
