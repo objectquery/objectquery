@@ -18,31 +18,31 @@
 		<p>
 <pre class="prettyprint lang-java">
 public class Dog {
-private String name;
-private Person owner;
-private Home home;
-...gets sets...
+	private String name;
+	private Person owner;
+	private Home home;
+	...gets sets...
 };
 </pre>
 <pre class="prettyprint lang-java">
 public class Person {
-private String name;
-private List&lt;Person&gt; friends;
-private Person mum;
-private Person dud;
-private Home home;
-private Dog dog;
-...gets sets...
+	private String name;
+	private List&lt;Person&gt; friends;
+	private Person mum;
+	private Person dud;
+	private Home home;
+	private Dog dog;
+	...gets sets...
 }
 </pre>
 <pre class="prettyprint lang-java">
 public class Home {
-public enum HomeType {KENNEL,HOUSE};
-private String address;
-private HomeType type;
-private int weight;
-private double price;
-...gets sets...
+	public enum HomeType {KENNEL,HOUSE};
+	private String address;
+	private HomeType type;
+	private int weight;
+	private double price;
+	...gets sets...
 }
 </pre>
 		</p>
@@ -61,6 +61,12 @@ query.eq(toSearch.getHome().getAddress(),"rue d'anton");
 query.eq(toSearch.getMum().getName(),"elisabeth");
 query.order(toSearch.getName());
 </pre>
+	<p>
+		Correspondent Pseudo QL
+	</p>
+<pre class="prettypring lang-sql">
+select from Person where home.address="rue d'anton" and mum.name="elisabeth" order by name
+</pre>
 	</article>
 	<article>
 		<header>
@@ -75,6 +81,12 @@ Person toSearch = query.target();
 query.prj(toSearch.getName());
 query.prj(toSearch.getHome().getAddress());
 </pre>
+	<p>
+		Correspondent Pseudo QL
+	</p>
+<pre class="prettypring lang-sql">
+select name, home.address from Person 
+</pre>
 	</article>
 	<article>
 		<header>
@@ -88,6 +100,12 @@ ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.cl
 Person toSearch = query.target();
 query.prj(toSearch,ProjectionType.COUNT);
 query.eq(toSearch.getHome().getAddress(),"rue d'anton");
+</pre>
+	<p>
+		Correspondent Pseudo QL
+	</p>
+<pre class="prettypring lang-sql">
+select count(*) from Person where home.address="rue d'anton" 
 </pre>
 	</article>
 	<article>
@@ -104,6 +122,12 @@ QueryCondition or = oq.or();
 or.eq(toSearch.getName(),"elisabeth");
 or.eq(toSearch.getName(),"jhon");
 </pre>
+	<p>
+		Correspondent Pseudo QL
+	</p>
+<pre class="prettypring lang-sql">
+select from Person where name="elisabeth" or name="jhon"
+</pre>
 	</article>
 	<article>
 		<header>
@@ -111,10 +135,16 @@ or.eq(toSearch.getName(),"jhon");
 		</header>
 		<p>Primitive type need a different management, for some technical reasons is not possible use primitive type directly<br> for use it we need to box it</p>
 <pre class="prettyprint lang-java">
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
-Person toSearch = query.target();
+ObjectQuery&lt;Home&gt; query = new GenericObjectQuery&lt;Home&gt;(Home.class);
+Home toSearch = query.target();
 query.eq(query.box(toSearch.getWeight()),2);
 query.eq(query.box(toSearch.getPrice()),4000.0);
+</pre>
+	<p>
+		Correspondent Pseudo QL
+	</p>
+<pre class="prettypring lang-sql">
+select from Home where weight=2 and price=4000.0
 </pre>
 	</article>
 </section>

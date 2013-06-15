@@ -1,0 +1,30 @@
+<section id="overview" class="active">
+	<header>
+		<h2>Overview</h2>
+	</header>
+	<article>
+		<header>
+			<h3>What Is</h3>
+		</header>
+		<p>
+			Object Query is a simple query builder thought for java, that allow to write typesafe and refactor resistant query, without bound to persistence engine.
+		</p>
+		<br/>
+<pre class="prettyprint lang-java">
+ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+Person toSearch = query.target();
+query.prj(toSearch.getName());
+query.eq(toSearch.getMum().getName(),"elisabeth");
+query.gt(toSearch.getAge(),20);
+query.order(toSearch.getName());
+</pre>
+	</article>
+	<article>
+		<header>
+			<h3>License</h3>
+		</header>
+		<p>
+			<a href="http://www.apache.org/licenses/LICENSE-2.0.html" >The Apache Software License, Version 2.0</a>
+		</p>
+	</article>
+</section>

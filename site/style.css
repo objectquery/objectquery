@@ -10,7 +10,7 @@ body {
 }
 
 body >header >img {
-	width:10%;
+	width:10em;
 }
 nav {
 	padding-top:2em;
@@ -84,6 +84,12 @@ footer >div {
 	top:0;
 	height:1em;
 }
+.v_tutorial {
+	float:left;
+	margin:1em;
+	dislpay:block;
+
+}
 .roadmap{
 	min-width:30em;
 	padding:0;
@@ -112,4 +118,19 @@ footer >div {
 	border:solid 1px #35420D;
 	font-weight:bold;
 	text-align:center;
+}
+
+
+@media only screen 
+and (max-device-width : 480px) {
+
+	body >header >img {
+		width:4em;
+		position:absolute;
+		top:0;
+	}
+	nav {
+		float:clear;
+	}
+
 }

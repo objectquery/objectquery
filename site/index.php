@@ -1,10 +1,12 @@
-<!DOCTYPE HTML>
+<?
+$pages= array("roadmap"=>"roadmap","doc"=>"doc","support"=>"support","tutorial-simple"=>"tutorial-simple","vtutorial"=>"vtutorial");
+?><!DOCTYPE HTML>
 <html>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="author" content="tglman"/>
 		<meta name="description" content="Java library that allow to write dbms query in java way"/>
-		<meta name="keywords" content="Java,SQL,JPA,JDO,JPQL,JDOQL,HQL,OrientDB,Query,ObjectQuery,DDD,Domain Driven Design,ORM,Hibernate"/>
+		<meta name="keywords" content="Java,SQL,JPA,JDO,JPQL,JDOQL,HQL,OrientDB,Query,ObjectQuery,TypeSafe Query,DDD,Domain Driven Design,ORM,Hibernate"/>
 		<title>Object Query</title>
 		<link href="/favicon.ico" rel="shortcut icon" />
 		<link href="style.css" rel="stylesheet" type="text/css" />
@@ -75,35 +77,12 @@
 			</nav>
 			<img src="img/logo2.png">
 		</header>
-		<?include($_GET["page"].".html");?>
-		<section id="overview" <?echo($_GET["page"]=="overview"||!isset($_GET["page"])?'class="active"':'')?>>
-			<header>
-				<h2>Overview</h2>
-			</header>
-			<article>
-				<header>
-					<h3>What Is</h3>
-				</header>
-				<p>
-					Object Query is a simple query builder thought for java, that allow to write typesafe and refactor resistant query, without bound to persistence engine.
-				</p>
-			</article>
-			<article>
-				<header>
-					<h3>License</h3>
-				</header>
-				<p>
-					<a href="http://www.apache.org/licenses/LICENSE-2.0.html" >The Apache Software License, Version 2.0</a>
-				</p>
-			</article>
-		</section>
-		<section id="install"  <?echo($_GET["page"]=="install"?'class="active"':'')?>>
-			<header> 
-				<h2>Install</h2>
-			</header>
-		</section>
-		<section id="query-engine"  <?echo($_GET["page"]=="query-engine"?'class="active"':'')?> >
-		</section>
+		<?
+			if(isset($_GET["page"]))
+				$page = $pages[$_GET["page"]];
+			if(!isset($page))$page="overview";
+			include($page.".html");
+		?>
 		<footer>
 			<div>Object Query the java mode to build query</div>
 		</footer>
