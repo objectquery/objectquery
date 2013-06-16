@@ -24,8 +24,8 @@ public class ConditionGroup implements ConditionElement, InternalConditionBuilde
 		conditions.add(element);
 	}
 
-	public void condition(PathItem item, ConditionType type, Object value) {
-		addCondition(new ConditionItem(item, type, value));
+	public void condition(PathItem item, ConditionType type, Object value, Object value1) {
+		addCondition(new ConditionItem(item, type, value, value1));
 	}
 
 	public ConditionGroup newGroup(GroupType type) {

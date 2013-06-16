@@ -94,6 +94,13 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 			stringfyQuery((GenericObjectQuery<?>) cond.getValue(), sb);
 		} else
 			sb.append(cond.getValue());
+		if (ConditionType.BETWEEN.equals(cond.getType())) {
+			sb.append(" AND ");
+			if (cond.getValueTo() instanceof PathItem)
+				buildPath((PathItem) cond.getValueTo(), sb);
+			else
+				sb.append(cond.getValueTo());
+		}
 	}
 
 	public void build() {

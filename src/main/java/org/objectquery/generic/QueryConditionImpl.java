@@ -22,14 +22,15 @@ public class QueryConditionImpl implements QueryCondition {
 		this.group = group;
 	}
 
-	public void condition(Object base, ConditionType type, Object value) {
+	public void condition(Object base, ConditionType type, Object value, Object value1) {
 		if (base == null)
 			throw new ObjectQueryException("The given object as condition is null");
 		PathItem item = null;
 		Class<?> baseType = base.getClass();
 		if (!(base instanceof ProxyObject)) {
 			if ((item = objectQuery.unproxable.get(base)) == null)
-				throw new ObjectQueryException("The given object as condition isn't a proxy, use target() method for start to take object for query");
+				throw new ObjectQueryException(
+						"The given object as condition isn't a proxy, use target() method for start to take object for query or box() for manage primitive types");
 		} else {
 			if (!(((ProxyObject) base).getHandler() instanceof ObjectQueryHandler))
 				throw new ObjectQueryException(
@@ -41,6 +42,7 @@ public class QueryConditionImpl implements QueryCondition {
 		if (type == null)
 			throw new ObjectQueryException("The given type of condition is null");
 
+		Object curValue = null;
 		if (value != null) {
 			if (value instanceof GenericObjectQuery<?>) {
 				// TODO: Be careful because in the future can be possible
@@ -63,16 +65,25 @@ public class QueryConditionImpl implements QueryCondition {
 				} else if (!baseType.isAssignableFrom(value.getClass()))
 					throw new ObjectQueryException("The given object value is not assignabled to gived condition");
 			}
+			if (value instanceof ProxyObject && ((ProxyObject) value).getHandler() instanceof ObjectQueryHandler)
+				curValue = ((ObjectQueryHandler) ((ProxyObject) value).getHandler()).getPath();
+			else if ((curValue = objectQuery.unproxable.get(value)) == null)
+				curValue = value;
 		}
 
-		Object curValue = null;
+		Object curValue1 = null;
 
-		if (value instanceof ProxyObject && ((ProxyObject) value).getHandler() instanceof ObjectQueryHandler)
-			curValue = ((ObjectQueryHandler) ((ProxyObject) value).getHandler()).getPath();
-		else if ((curValue = objectQuery.unproxable.get(value)) == null)
-			curValue = value;
+		if (value1 != null) {
+			if (!baseType.isAssignableFrom(value1.getClass()))
+				throw new ObjectQueryException("The given object value is not assignabled to gived condition", null);
 
-		group.condition(item, type, curValue);
+			if (value1 instanceof ProxyObject && ((ProxyObject) value1).getHandler() instanceof ObjectQueryHandler)
+				curValue1 = ((ObjectQueryHandler) ((ProxyObject) value1).getHandler()).getPath();
+			else if ((curValue1 = objectQuery.unproxable.get(value1)) == null)
+				curValue1 = value1;
+		}
+
+		group.condition(item, type, curValue, curValue1);
 
 	}
 
@@ -85,140 +96,144 @@ public class QueryConditionImpl implements QueryCondition {
 	}
 
 	public <C, T extends C> void eq(C target, T value) {
-		condition(target, ConditionType.EQUALS, value);
+		condition(target, ConditionType.EQUALS, value, null);
 	}
 
 	public <C, T extends C> void eq(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.EQUALS, value);
+		condition(target, ConditionType.EQUALS, value, null);
 	}
 
 	public <C, T extends C> void notEq(C target, T value) {
-		condition(target, ConditionType.NOT_EQUALS, value);
+		condition(target, ConditionType.NOT_EQUALS, value, null);
 	}
 
 	public <C, T extends C> void notEq(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.NOT_EQUALS, value);
+		condition(target, ConditionType.NOT_EQUALS, value, null);
 	}
 
 	public <C, T extends C> void gt(C target, T value) {
-		condition(target, ConditionType.GREATER, value);
+		condition(target, ConditionType.GREATER, value, null);
 	}
 
 	public <C, T extends C> void gt(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.GREATER, value);
+		condition(target, ConditionType.GREATER, value, null);
 	}
 
 	public <C, T extends C> void gtEq(C target, T value) {
-		condition(target, ConditionType.GREATER_EQUALS, value);
+		condition(target, ConditionType.GREATER_EQUALS, value, null);
 	}
 
 	public <C, T extends C> void gtEq(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.GREATER_EQUALS, value);
+		condition(target, ConditionType.GREATER_EQUALS, value, null);
 	}
 
 	@Deprecated
 	public <C, T extends C> void max(C target, T value) {
-		condition(target, ConditionType.GREATER, value);
+		condition(target, ConditionType.GREATER, value, null);
 	}
 
 	@Deprecated
 	public <C, T extends C> void max(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.GREATER, value);
+		condition(target, ConditionType.GREATER, value, null);
 	}
 
 	@Deprecated
 	public <C, T extends C> void maxEq(C target, T value) {
-		condition(target, ConditionType.GREATER_EQUALS, value);
+		condition(target, ConditionType.GREATER_EQUALS, value, null);
 	}
 
 	@Deprecated
 	public <C, T extends C> void maxEq(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.GREATER_EQUALS, value);
+		condition(target, ConditionType.GREATER_EQUALS, value, null);
 	}
 
 	public <C, T extends C> void lt(C target, T value) {
-		condition(target, ConditionType.LESS, value);
+		condition(target, ConditionType.LESS, value, null);
 	}
 
 	public <C, T extends C> void lt(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.LESS, value);
+		condition(target, ConditionType.LESS, value, null);
 
 	}
 
 	public <C, T extends C> void ltEq(C target, T value) {
-		condition(target, ConditionType.LESS_EQUALS, value);
+		condition(target, ConditionType.LESS_EQUALS, value, null);
 	}
 
 	public <C, T extends C> void ltEq(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.LESS_EQUALS, value);
+		condition(target, ConditionType.LESS_EQUALS, value, null);
 	}
 
 	@Deprecated
 	public <C, T extends C> void min(C target, T value) {
-		condition(target, ConditionType.LESS, value);
+		condition(target, ConditionType.LESS, value, null);
 	}
 
 	@Deprecated
 	public <C, T extends C> void min(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.LESS, value);
+		condition(target, ConditionType.LESS, value, null);
 	}
 
 	@Deprecated
 	public <C, T extends C> void minEq(C target, T value) {
-		condition(target, ConditionType.LESS_EQUALS, value);
+		condition(target, ConditionType.LESS_EQUALS, value, null);
 	}
 
 	@Deprecated
 	public <C, T extends C> void minEq(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.LESS_EQUALS, value);
+		condition(target, ConditionType.LESS_EQUALS, value, null);
 	}
 
 	public <C, T extends C> void like(C target, T value) {
-		condition(target, ConditionType.LIKE, value);
+		condition(target, ConditionType.LIKE, value, null);
 	}
 
 	public <C, T extends C> void notLike(C target, T value) {
-		condition(target, ConditionType.NOT_LIKE, value);
+		condition(target, ConditionType.NOT_LIKE, value, null);
 	}
 
 	public <C, T extends Collection<? extends C>> void in(C target, T value) {
-		condition(target, ConditionType.IN, value);
+		condition(target, ConditionType.IN, value, null);
 	}
 
 	public <C, T extends C> void in(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.IN, value);
+		condition(target, ConditionType.IN, value, null);
 	}
 
 	public <C, T extends Collection<? extends C>> void notIn(C target, T value) {
-		condition(target, ConditionType.NOT_IN, value);
+		condition(target, ConditionType.NOT_IN, value, null);
 	}
 
 	public <C, T extends C> void notIn(C target, ObjectQuery<T> value) {
-		condition(target, ConditionType.NOT_IN, value);
+		condition(target, ConditionType.NOT_IN, value, null);
 	}
 
 	public <C, T extends C> void contains(Collection<C> target, T value) {
-		condition(target, ConditionType.CONTAINS, value);
+		condition(target, ConditionType.CONTAINS, value, null);
 	}
 
 	public <C, T extends C> void contains(Collection<C> target, ObjectQuery<T> value) {
-		condition(target, ConditionType.CONTAINS, value);
+		condition(target, ConditionType.CONTAINS, value, null);
 	}
 
 	public <C, T extends C> void notContains(Collection<C> target, T value) {
-		condition(target, ConditionType.NOT_CONTAINS, value);
+		condition(target, ConditionType.NOT_CONTAINS, value, null);
 	}
 
 	public <C, T extends C> void notContains(Collection<C> target, ObjectQuery<T> value) {
-		condition(target, ConditionType.NOT_CONTAINS, value);
+		condition(target, ConditionType.NOT_CONTAINS, value, null);
 	}
 
 	public <C, T extends C> void likeNc(C target, T value) {
-		condition(target, ConditionType.LIKE_NOCASE, value);
+		condition(target, ConditionType.LIKE_NOCASE, value, null);
 	}
 
 	public <C, T extends C> void notLikeNc(C target, T value) {
-		condition(target, ConditionType.NOT_LIKE_NOCASE, value);
+		condition(target, ConditionType.NOT_LIKE_NOCASE, value, null);
+	}
+
+	public <C, T extends C> void between(C target, T from, T to) {
+		condition(target, ConditionType.BETWEEN, from, to);
 	}
 
 }

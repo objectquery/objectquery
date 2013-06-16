@@ -16,7 +16,7 @@ public class TestGenericObjectQuery {
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectCondition() {
 		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
-		query.condition(new Object(), null, null);
+		query.condition(new Object(), null, null, null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
@@ -52,13 +52,13 @@ public class TestGenericObjectQuery {
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongTypeCondition() {
 		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
-		query.condition(query.target(), null, null);
+		query.condition(query.target(), null, null, null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongNullCondition() {
 		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
-		query.condition(null, null, null);
+		query.condition(null, null, null, null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
@@ -70,25 +70,25 @@ public class TestGenericObjectQuery {
 	@Test(expected = ObjectQueryException.class)
 	public void testInWrongValueTypeCondition() {
 		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
-		query.condition(query.target(), ConditionType.IN, new Object());
+		query.condition(query.target(), ConditionType.IN, new Object(), null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testNotInWrongValueTypeCondition() {
 		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
-		query.condition(query.target(), ConditionType.NOT_IN, new Object());
+		query.condition(query.target(), ConditionType.NOT_IN, new Object(), null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testContainsWrongValueTypeCondition() {
 		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
-		query.condition(query.target(), ConditionType.CONTAINS, new Object());
+		query.condition(query.target(), ConditionType.CONTAINS, new Object(), null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testNotContainsWrongValueTypeCondition() {
 		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(null, Person.class);
-		query.condition(query.target(), ConditionType.NOT_CONTAINS, new Object());
+		query.condition(query.target(), ConditionType.NOT_CONTAINS, new Object(), null);
 	}
 
 	@Test(expected = ObjectQueryException.class)

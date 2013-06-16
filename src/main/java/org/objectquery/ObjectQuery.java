@@ -25,7 +25,6 @@ query.eq(toSearch.getMum().getName(),"elisabeth");
 query.gt(toSearch.getAge(),20);
 query.order(toSearch.getName());
 </code></pre>
- * 
  * <p>
  * The main implementation is GenericObjecQuery but is not garantee that will be
  * the same in future, we suggest to box the creation of ObjectQuery instances

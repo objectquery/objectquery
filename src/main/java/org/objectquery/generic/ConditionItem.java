@@ -5,11 +5,13 @@ public class ConditionItem implements ConditionElement {
 	private PathItem item;
 	private ConditionType type;
 	private Object value;
+	private Object valueTo;
 
-	public ConditionItem(PathItem item, ConditionType type, Object value) {
+	public ConditionItem(PathItem item, ConditionType type, Object value, Object value1) {
 		this.item = item;
 		this.type = type;
 		this.value = value;
+		this.valueTo = value1;
 	}
 
 	public PathItem getItem() {
@@ -22,6 +24,10 @@ public class ConditionItem implements ConditionElement {
 
 	public Object getValue() {
 		return value;
+	}
+
+	public Object getValueTo() {
+		return valueTo;
 	}
 
 	public void clear() {

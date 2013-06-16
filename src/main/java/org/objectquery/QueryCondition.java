@@ -334,6 +334,18 @@ public interface QueryCondition {
 	<C, T extends C> void notLikeNc(C target, T value);
 
 	/**
+	 * Add an between condition with a target and a range( from to ).
+	 * 
+	 * @param target
+	 *            the target of between operation.
+	 * @param from
+	 *            the value from.
+	 * @param to
+	 *            the value to.
+	 */
+	<C, T extends C> void between(C target, T from, T to);
+
+	/**
 	 * Create a condition group or.
 	 * 
 	 * @return the condition group.
