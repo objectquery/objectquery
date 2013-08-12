@@ -6,10 +6,10 @@ import javassist.util.proxy.MethodHandler;
 
 public class ObjectQueryHandler implements MethodHandler {
 
-	private GenericObjectQuery<?> abstractObjectQuery;
+	private GenericBaseQuery<?> abstractObjectQuery;
 	private PathItem path;
 
-	public ObjectQueryHandler(Class<?> clazz, GenericObjectQuery<?> abstractObjectQuery, PathItem parent, String name) {
+	public ObjectQueryHandler(Class<?> clazz, GenericBaseQuery<?> abstractObjectQuery, PathItem parent, String name) {
 		path = new PathItem(clazz, parent, name);
 		this.abstractObjectQuery = abstractObjectQuery;
 	}

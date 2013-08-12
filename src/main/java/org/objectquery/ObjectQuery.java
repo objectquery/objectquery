@@ -17,14 +17,16 @@ import org.objectquery.generic.ProjectionType;
  * </p>
  * <h5>Example Of Usage</h5>
  * 
- * <pre><code>
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
-Person toSearch = query.target();
-query.prj(toSearch.getName());
-query.eq(toSearch.getMum().getName(),"elisabeth");
-query.gt(toSearch.getAge(),20);
-query.order(toSearch.getName());
-</code></pre>
+ * <pre>
+ * <code>
+ * ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+ * Person toSearch = query.target();
+ * query.prj(toSearch.getName());
+ * query.eq(toSearch.getMum().getName(),"elisabeth");
+ * query.gt(toSearch.getAge(),20);
+ * query.order(toSearch.getName());
+ * </code>
+ * </pre>
  * <p>
  * The main implementation is GenericObjecQuery but is not garantee that will be
  * the same in future, we suggest to box the creation of ObjectQuery instances
@@ -36,14 +38,7 @@ query.order(toSearch.getName());
  * @param <T>
  *            The target type of the query.
  */
-public interface ObjectQuery<T> extends QueryCondition {
-
-	/**
-	 * Retrieve the instance to build query.
-	 * 
-	 * @return
-	 */
-	T target();
+public interface ObjectQuery<T> extends BaseQuery<T>, QueryCondition {
 
 	/**
 	 * Add a projection to query.
@@ -92,78 +87,6 @@ public interface ObjectQuery<T> extends QueryCondition {
 	 *            the type of order.
 	 */
 	void order(Object order, ProjectionType projectionType, OrderType type);
-
-	/**
-	 * Box a byte.
-	 * 
-	 * @param b
-	 *            to box.
-	 * @return the boxed byte.
-	 */
-	Byte box(byte b);
-
-	/**
-	 * Box a char.
-	 * 
-	 * @param c
-	 *            to box.
-	 * @return the boxed char.
-	 */
-	Character box(char c);
-
-	/**
-	 * Box a boolean.
-	 * 
-	 * @param b
-	 *            to box
-	 * @return boxed Boolean.
-	 */
-	Boolean box(boolean b);
-
-	/**
-	 * Box an short.
-	 * 
-	 * @param s
-	 *            to box.
-	 * @return the boxed short
-	 */
-	Short box(short s);
-
-	/**
-	 * Box an int.
-	 * 
-	 * @param i
-	 *            to box.
-	 * @return boxed int.
-	 */
-	Integer box(int i);
-
-	/**
-	 * Box an long.
-	 * 
-	 * @param l
-	 *            to box.
-	 * @return boxed long.
-	 */
-	Long box(long l);
-
-	/**
-	 * Box a float.
-	 * 
-	 * @param f
-	 *            to box.
-	 * @return boxed float.
-	 */
-	Float box(float f);
-
-	/**
-	 * Box a double.
-	 * 
-	 * @param d
-	 *            to box.
-	 * @return the boxed double.
-	 */
-	Double box(double d);
 
 	/**
 	 * Declare an having condition on projection.
