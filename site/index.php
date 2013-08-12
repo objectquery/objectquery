@@ -75,7 +75,7 @@ $pages= array("roadmap"=>"roadmap","doc"=>"doc","support"=>"support","tutorial-s
 					<li onclick="selectPage('support')"><a href="?page=support">Support</a></li>
 				</ul>
 			</nav>
-			<img src="img/logo2.png">
+			<img src="img/logo2.png" alt="Object Query">
 		</header>
 		<?
 			if(isset($_GET["page"]))
@@ -84,7 +84,7 @@ $pages= array("roadmap"=>"roadmap","doc"=>"doc","support"=>"support","tutorial-s
 			include($page.".html");
 		?>
 		<footer>
-			<div>Object Query the java mode to build query</div>
+			<div>Object Query the Java way to build query</div>
 		</footer>
 	</body>
 </html>

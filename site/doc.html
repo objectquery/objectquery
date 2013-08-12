@@ -1,5 +1,5 @@
 <section class="active">
-	<header><h2>Documentation<h2></header>
+	<header><h2>Documentation</h2></header>
 	<article>
 		<header>
 			<h3>Tutorials</h3>
@@ -14,7 +14,7 @@
 		</header>
 		<p>
 			Insert the specific maven dependency for each implementation:<br><br>
-			<b>JPA:</b>
+			<b>JPA:</b></p>
 			<pre class="prettyprint lang-xml">
 &lt;dependency&gt;
 	&lt;groupId>org.objectquery&lt;/groupId&gt;
@@ -46,7 +46,6 @@
 	&lt;version>1.5.0&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
-		</p>
 	</article>
 	<article>
 
@@ -55,7 +54,7 @@
 			</header>
 				<b>JPA</b>
 				<p>
-				Direct execute:
+				Direct execute:</P>
 				<pre class="prettyprint lang-java">
 javax.persistence.EntityManager entityManager= ....
 ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
@@ -80,10 +79,9 @@ String jpql = jpqlGenerator.getQuery();
 Map&lt;String,Object&gt; paramenters = jpqlGenerator.getParameters();
 ...
 </pre>
-				</p>
 				<b>JDO</b>
 				<p>
-				Direct execute:
+				Direct execute:</p>
 				<pre class="prettyprint lang-java">
 javax.jdo.PersistenceManager peristenceManager= ....
 ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
@@ -100,10 +98,9 @@ String jpql = jdoqlGenerator.getQuery();
 Map&lt;String,Object&gt; paramenters = jdoqlGenerator.getParameters();
 ...
 </pre>
-			</p>
 				<b>OrientDB</b>
 				<p>
-				Direct execute:
+				Direct execute:</p>
 				<pre class="prettyprint lang-java">
 com.orientechnologies.orient.object.db.OObjectDatabaseTx db= ....
 ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
@@ -120,11 +117,10 @@ String orientdbql = oriendbGenerator.getQuery();
 Map&lt;String,Object&gt; paramenters = oriendbGenerator.getParameters();
 ...
 </pre>
-				</p>
 				<br/>
 				<b>Hibernate</b>
 				<p>
-				Direct execute:
+				Direct execute:</p>
 				<pre class="prettyprint lang-java">
 org.hibernate.Session session= ....
 ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
@@ -149,6 +145,5 @@ String hql = hqlGenerator.getQuery();
 Map&lt;String,Object&gt; paramenters = hqlGenerator.getParameters();
 ...
 </pre>
-				</p>
 	</article>
 </section>
