@@ -9,6 +9,14 @@ import org.objectquery.ObjectQuery;
 public interface InternalQueryBuilder extends InternalConditionBuilder {
 
 	/**
+	 * Initialize the current builder for the specified query type.
+	 * 
+	 * @param type
+	 *            the type of the query.
+	 */
+	void init(QueryType type);
+
+	/**
 	 * Add a projection to query with an operator.
 	 * 
 	 * @param item
@@ -79,11 +87,21 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	 *            the condition value.
 	 */
 	void having(ObjectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value);
-	
+
+	/**
+	 * Create and add a new set Item.
+	 * 
+	 * @param target
+	 *            of the set operation.
+	 * @param value
+	 *            the value of the operation.
+	 */
+	void set(PathItem target, Object value);
+
 	/**
 	 * Clear all object used for build query and the object can be reused for
 	 * build another query.
 	 */
-	public void clear();
+	void clear();
 
 }

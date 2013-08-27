@@ -11,6 +11,6 @@ public class GenericeDeleteQuery<T> extends GenericBaseQuery<T> implements Delet
 	}
 
 	public GenericeDeleteQuery(InternalQueryBuilder builder, Class<T> targetClass) {
-		super(builder, targetClass, new IdentityHashMap<Object, PathItem>());
+		super(builder, targetClass, new IdentityHashMap<Object, PathItem>(), QueryType.DELETE);
 	}
 }

@@ -10,6 +10,8 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 	private List<Order> orders = new ArrayList<Order>();
 	private List<Projection> projections = new ArrayList<Projection>();
 	private List<Having> havings = new ArrayList<Having>();
+	private List<SetValue> sets = new ArrayList<SetValue>();
+	private QueryType queryType;
 
 	public GenericInternalQueryBuilder(GroupType type) {
 		super(type);
@@ -50,7 +52,11 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 	public void having(ObjectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value) {
 		havings.add(new Having(item, projectionType, conditionType, value));
 	}
-	
+
+	public void set(PathItem target, Object value) {
+		sets.add(new SetValue(target, value));
+	}
+
 	public List<Order> getOrders() {
 		return orders;
 	}
@@ -61,6 +67,22 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 
 	public List<Having> getHavings() {
 		return havings;
+	}
+
+	public List<SetValue> getSets() {
+		return sets;
+	}
+
+	public void init(QueryType type) {
+		setType(type);
+	}
+
+	public QueryType getQueryType() {
+		return queryType;
+	}
+
+	public void setType(QueryType type) {
+		this.queryType = type;
 	}
 
 	public void clear() {

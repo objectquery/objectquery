@@ -10,6 +10,7 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 		super(GroupType.AND);
 	}
 
+	private List<String> setsString = new ArrayList<String>();
 	private List<String> conditionsString = new ArrayList<String>();
 	private List<String> projectionsString = new ArrayList<String>();
 	private List<String> ordersString = new ArrayList<String>();
@@ -40,7 +41,8 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 		List<String> ordersString = new ArrayList<String>();
 		List<String> projectionsString = new ArrayList<String>();
 		List<String> havingString = new ArrayList<String>();
-		build(iqb.getConditions(), iqb.getOrders(), iqb.getProjections(), iqb.getHavings(), conditionsString, ordersString, projectionsString, havingString);
+		build(iqb.getConditions(), iqb.getOrders(), iqb.getProjections(), iqb.getHavings(), iqb.getSets(), conditionsString, ordersString, projectionsString,
+				havingString, null);
 		builder.append("select ");
 		Iterator<String> iter = null;
 		if (!projectionsString.isEmpty()) {
@@ -104,11 +106,12 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 	}
 
 	public void build() {
-		build(getConditions(), getOrders(), getProjections(), getHavings(), conditionsString, ordersString, projectionsString, havingString);
+		build(getConditions(), getOrders(), getProjections(), getHavings(), getSets(), conditionsString, ordersString, projectionsString, havingString,
+				setsString);
 	}
 
-	private void build(List<ConditionElement> conditions, List<Order> orders, List<Projection> projections, List<Having> havings,
-			List<String> conditionsString, List<String> ordersString, List<String> projectionsString, List<String> havingString) {
+	private void build(List<ConditionElement> conditions, List<Order> orders, List<Projection> projections, List<Having> havings, List<SetValue> sets,
+			List<String> conditionsString, List<String> ordersString, List<String> projectionsString, List<String> havingString, List<String> setsStrings) {
 
 		for (ConditionElement cond : conditions) {
 			if (cond instanceof ConditionItem) {
@@ -152,6 +155,12 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 			sb.append(" ").append(having.getValue());
 			havingString.add(sb.toString());
 		}
+		for (SetValue val : sets) {
+			StringBuilder sb = new StringBuilder();
+			buildPath(val.getTarget(), sb);
+			sb.append(" ").append(val.getValue().toString());
+			setsStrings.add(sb.toString());
+		}
 	}
 
 	public List<String> getConditionsString() {
@@ -168,6 +177,10 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 
 	public List<String> getHavingString() {
 		return havingString;
+	}
+
+	public List<String> getSetsString() {
+		return setsString;
 	}
 
 	@Override

@@ -10,6 +10,6 @@ public interface InsertQuery<T> extends BaseQuery<T> {
 	 * @param value
 	 *            to set.
 	 */
-	public <S, V extends S> void set(S target, V value);
+	<S, V extends S> void set(S target, V value);
 
 }

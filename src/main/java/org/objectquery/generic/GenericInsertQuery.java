@@ -4,16 +4,16 @@ import java.util.IdentityHashMap;
 
 import javassist.util.proxy.ProxyObject;
 
-import org.objectquery.UpdateQuery;
+import org.objectquery.InsertQuery;
 
-public class GenericUpdateQuery<T> extends GenericBaseQuery<T> implements UpdateQuery<T> {
+public class GenericInsertQuery<T> extends GenericBaseQuery<T> implements InsertQuery<T> {
 
-	public GenericUpdateQuery(Class<T> targetClass) {
+	public GenericInsertQuery(Class<T> targetClass) {
 		this(new GenericInternalQueryBuilder(GroupType.AND), targetClass);
 	}
 
-	public GenericUpdateQuery(InternalQueryBuilder builder, Class<T> targetClass) {
-		super(builder, targetClass, new IdentityHashMap<Object, PathItem>(), QueryType.UPDATE);
+	public GenericInsertQuery(InternalQueryBuilder builder, Class<T> targetClass) {
+		super(builder, targetClass, new IdentityHashMap<Object, PathItem>(), QueryType.INSERT);
 	}
 
 	public <S, V extends S> void set(S target, V value) {
@@ -25,5 +25,4 @@ public class GenericUpdateQuery<T> extends GenericBaseQuery<T> implements Update
 			curValue = value;
 		builder.set(item, curValue);
 	}
-
 }

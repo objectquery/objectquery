@@ -10,5 +10,5 @@ public interface UpdateQuery<T> extends BaseQuery<T>, QueryCondition {
 	 * @param value
 	 *            to set.
 	 */
-	public <S, V extends S> void set(S target, V value);
+	<S, V extends S> void set(S target, V value);
 }

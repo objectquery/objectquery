@@ -23,8 +23,9 @@ public class GenericBaseQuery<T> extends QueryConditionImpl implements BaseQuery
 	protected Class<T> targetClass;
 
 	@SuppressWarnings("unchecked")
-	public GenericBaseQuery(InternalQueryBuilder builder, Class<T> clazz, Map<Object, PathItem> unproxable) {
+	public GenericBaseQuery(InternalQueryBuilder builder, Class<T> clazz, Map<Object, PathItem> unproxable, QueryType queryType) {
 		super(builder);
+		builder.init(queryType);
 		this.builder = builder;
 		this.target = (T) proxy(clazz, null, "");
 		this.targetClass = clazz;
@@ -79,7 +80,7 @@ public class GenericBaseQuery<T> extends QueryConditionImpl implements BaseQuery
 
 	protected PathItem extractItem(Object object) {
 		if (object == null)
-			throw new ObjectQueryException("The given object is null");
+			throw new NullPointerException("The given object is null");
 		PathItem item;
 		if (!(object instanceof ProxyObject)) {
 			if ((item = unproxable.get(object)) == null) {

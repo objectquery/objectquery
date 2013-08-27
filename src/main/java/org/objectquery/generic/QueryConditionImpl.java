@@ -9,22 +9,22 @@ import org.objectquery.QueryCondition;
 
 public class QueryConditionImpl implements QueryCondition {
 
-	private GenericObjectQuery<?> objectQuery;
+	private GenericBaseQuery<?> objectQuery;
 	private InternalConditionBuilder group;
 
 	protected QueryConditionImpl(InternalConditionBuilder group) {
-		this.objectQuery = (GenericObjectQuery<?>) this;
+		this.objectQuery = (GenericBaseQuery<?>) this;
 		this.group = group;
 	}
 
-	public QueryConditionImpl(GenericObjectQuery<?> objectQuery, ConditionGroup group) {
+	public QueryConditionImpl(GenericBaseQuery<?> objectQuery, ConditionGroup group) {
 		this.objectQuery = objectQuery;
 		this.group = group;
 	}
 
 	public void condition(Object base, ConditionType type, Object value, Object value1) {
 		if (base == null)
-			throw new ObjectQueryException("The given object as condition is null");
+			throw new NullPointerException("The given object as condition is null");
 		PathItem item = null;
 		Class<?> baseType = base.getClass();
 		if (!(base instanceof ProxyObject)) {
@@ -40,7 +40,7 @@ public class QueryConditionImpl implements QueryCondition {
 			baseType = base.getClass().getSuperclass();
 		}
 		if (type == null)
-			throw new ObjectQueryException("The given type of condition is null");
+			throw new NullPointerException("The given type of condition is null");
 
 		Object curValue = null;
 		if (value != null) {

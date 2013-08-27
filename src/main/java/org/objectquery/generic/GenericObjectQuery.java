@@ -17,7 +17,7 @@ public class GenericObjectQuery<T> extends GenericBaseQuery<T> implements Object
 	private List<Join> joins = new ArrayList<Join>();
 
 	private GenericObjectQuery(InternalQueryBuilder builder, Class<T> clazz, Map<Object, PathItem> unproxable, boolean subQuery) {
-		super(builder,clazz,unproxable);
+		super(builder,clazz,unproxable, QueryType.SELECT);
 		this.subQuery = subQuery;
 	}
 
