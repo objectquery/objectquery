@@ -14,16 +14,8 @@ public class SetValue {
 		return target;
 	}
 
-	public void setTarget(PathItem target) {
-		this.target = target;
-	}
-
 	public Object getValue() {
 		return value;
-	}
-
-	public void setValue(Object value) {
-		this.value = value;
 	}
 
 }

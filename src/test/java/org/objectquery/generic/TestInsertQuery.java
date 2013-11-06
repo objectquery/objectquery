@@ -13,7 +13,7 @@ public class TestInsertQuery {
 	}
 
 	@Test
-	public void testSetSimpleUpdate() {
+	public void testSetSimpleInsert() {
 		MockQueryBuilder builder = new MockQueryBuilder();
 		GenericInsertQuery<Person> insert = new GenericInsertQuery<Person>(builder, Person.class);
 		Person toUp = insert.target();
@@ -21,5 +21,51 @@ public class TestInsertQuery {
 		builder.build();
 		Assert.assertEquals(1, builder.getSetsString().size());
 		Assert.assertEquals("name value", builder.getSetsString().get(0));
+	}
+
+	@Test
+	public void testSetNestedInsert() {
+		MockQueryBuilder builder = new MockQueryBuilder();
+		GenericInsertQuery<Person> insert = new GenericInsertQuery<Person>(builder, Person.class);
+		Person toUp = insert.target();
+		insert.set(toUp.getDad().getName(), "value");
+		builder.build();
+		Assert.assertEquals(1, builder.getSetsString().size());
+		Assert.assertEquals("dad.name value", builder.getSetsString().get(0));
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongValueInsert() {
+		MockQueryBuilder builder = new MockQueryBuilder();
+		GenericInsertQuery<Person> insert = new GenericInsertQuery<Person>(builder, Person.class);
+		Person toUp = insert.target();
+		insert.set(toUp.getName(), toUp.getDad().getName());
+		builder.build();
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongValueObjInsert() {
+		MockQueryBuilder builder = new MockQueryBuilder();
+		GenericInsertQuery<Person> insert = new GenericInsertQuery<Person>(builder, Person.class);
+		Person toUp = insert.target();
+		insert.set(toUp.getDad(), toUp.getMom());
+		builder.build();
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongFieldInsert() {
+		MockQueryBuilder builder = new MockQueryBuilder();
+		GenericInsertQuery<Person> insert = new GenericInsertQuery<Person>(builder, Person.class);
+		insert.set("value", "value");
+		builder.build();
+	}
+
+	@Test(expected = ObjectQueryException.class)
+	public void testWrongRootInsert() {
+		MockQueryBuilder builder = new MockQueryBuilder();
+		GenericInsertQuery<Person> insert = new GenericInsertQuery<Person>(builder, Person.class);
+		Person toUp = insert.target();
+		insert.set(toUp, new Person());
+		builder.build();
 	}
 }

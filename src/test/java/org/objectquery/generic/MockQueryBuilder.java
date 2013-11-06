@@ -158,7 +158,12 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 		for (SetValue val : sets) {
 			StringBuilder sb = new StringBuilder();
 			buildPath(val.getTarget(), sb);
-			sb.append(" ").append(val.getValue().toString());
+			sb.append(" ");
+			if (val.getValue() instanceof PathItem)
+				buildPath((PathItem) val.getValue(), sb);
+			else
+				sb.append(val.getValue());
+
 			setsStrings.add(sb.toString());
 		}
 	}

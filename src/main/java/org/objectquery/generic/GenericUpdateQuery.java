@@ -18,6 +18,8 @@ public class GenericUpdateQuery<T> extends GenericBaseQuery<T> implements Update
 
 	public <S, V extends S> void set(S target, V value) {
 		PathItem item = extractItem(target);
+		if (item.getParent() == null)
+			throw new ObjectQueryException(" Cannot set the value of the root element");
 		Object curValue = null;
 		if (value instanceof ProxyObject && ((ProxyObject) value).getHandler() instanceof ObjectQueryHandler)
 			curValue = ((ObjectQueryHandler) ((ProxyObject) value).getHandler()).getPath();

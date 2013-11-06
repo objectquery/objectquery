@@ -18,11 +18,10 @@ public class GenericInsertQuery<T> extends GenericBaseQuery<T> implements Insert
 
 	public <S, V extends S> void set(S target, V value) {
 		PathItem item = extractItem(target);
-		Object curValue = null;
-		if (value instanceof ProxyObject && ((ProxyObject) value).getHandler() instanceof ObjectQueryHandler)
-			curValue = ((ObjectQueryHandler) ((ProxyObject) value).getHandler()).getPath();
-		else if ((curValue = unproxable.get(value)) == null)
-			curValue = value;
-		builder.set(item, curValue);
+		if (item.getParent() == null)
+			throw new ObjectQueryException(" Cannot set the value of the root element");
+		if ((value instanceof ProxyObject && ((ProxyObject) value).getHandler() instanceof ObjectQueryHandler) || unproxable.get(value) != null)
+			throw new ObjectQueryException(" Impossible use in an insert operation an expressio as value");
+		builder.set(item, value);
 	}
 }
