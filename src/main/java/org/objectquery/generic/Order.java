@@ -1,6 +1,6 @@
 package org.objectquery.generic;
 
-import org.objectquery.ObjectQuery;
+import org.objectquery.SelectQuery;
 
 public class Order {
 
@@ -8,7 +8,7 @@ public class Order {
 	private ProjectionType projectionType;
 	private OrderType type;
 
-	public Order(ObjectQuery<?> item, ProjectionType projectionType, OrderType type) {
+	public Order(SelectQuery<?> item, ProjectionType projectionType, OrderType type) {
 		this.item = item;
 		this.projectionType = projectionType;
 		this.type = type;
@@ -33,8 +33,8 @@ public class Order {
 	}
 
 	public void clear() {
-		if (item instanceof GenericObjectQuery<?>)
-			((GenericObjectQuery<?>) item).clear();
+		if (item instanceof GenericSelectQuery<?>)
+			((GenericSelectQuery<?>) item).clear();
 		else
 			((PathItem) item).clear();
 		item = null;

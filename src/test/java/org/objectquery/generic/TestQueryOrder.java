@@ -3,7 +3,7 @@ package org.objectquery.generic;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.objectquery.ObjectQuery;
+import org.objectquery.SelectQuery;
 import org.objectquery.generic.domain.Person;
 
 public class TestQueryOrder {
@@ -11,7 +11,7 @@ public class TestQueryOrder {
 	@Test
 	public void testOrders() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 
 		query.order(toSearch.getDog().getName());
@@ -29,7 +29,7 @@ public class TestQueryOrder {
 	@Test
 	public void testOrdersProjection() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 
 		query.order(toSearch.getDog().getName(), ProjectionType.COUNT, OrderType.ASC);
@@ -44,7 +44,7 @@ public class TestQueryOrder {
 	@Test
 	public void testOrdersSubquery() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
 
 		query.order(query.subQuery(Person.class), ProjectionType.COUNT, OrderType.ASC);
 		query.order(query.subQuery(Person.class), ProjectionType.MAX, OrderType.DESC);

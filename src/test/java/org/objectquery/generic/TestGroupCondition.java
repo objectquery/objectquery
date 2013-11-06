@@ -2,7 +2,7 @@ package org.objectquery.generic;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.objectquery.ObjectQuery;
+import org.objectquery.SelectQuery;
 import org.objectquery.QueryCondition;
 import org.objectquery.generic.domain.Person;
 
@@ -11,7 +11,7 @@ public class TestGroupCondition {
 	@Test
 	public void conditionPlainAnd() {
 		MockQueryBuilder tqb = new MockQueryBuilder();
-		ObjectQuery<Person> oq = new GenericObjectQuery<Person>(tqb, Person.class);
+		SelectQuery<Person> oq = new GenericSelectQuery<Person>(tqb, Person.class);
 		Person pers = oq.target();
 		QueryCondition cond = oq.and();
 		cond.eq(pers.getName(), "mary");
@@ -26,7 +26,7 @@ public class TestGroupCondition {
 	@Test
 	public void conditionNestedAnd() {
 		MockQueryBuilder tqb = new MockQueryBuilder();
-		ObjectQuery<Person> oq = new GenericObjectQuery<Person>(tqb, Person.class);
+		SelectQuery<Person> oq = new GenericSelectQuery<Person>(tqb, Person.class);
 		Person pers = oq.target();
 		QueryCondition cond = oq.and();
 		QueryCondition and1 = cond.and();
@@ -47,7 +47,7 @@ public class TestGroupCondition {
 	@Test
 	public void conditionNestedOr() {
 		MockQueryBuilder tqb = new MockQueryBuilder();
-		ObjectQuery<Person> oq = new GenericObjectQuery<Person>(tqb, Person.class);
+		SelectQuery<Person> oq = new GenericSelectQuery<Person>(tqb, Person.class);
 		Person pers = oq.target();
 		QueryCondition cond = oq.or();
 		QueryCondition and1 = cond.or();
@@ -68,7 +68,7 @@ public class TestGroupCondition {
 	@Test
 	public void conditionNestedMixed() {
 		MockQueryBuilder tqb = new MockQueryBuilder();
-		ObjectQuery<Person> oq = new GenericObjectQuery<Person>(tqb, Person.class);
+		SelectQuery<Person> oq = new GenericSelectQuery<Person>(tqb, Person.class);
 		Person pers = oq.target();
 		QueryCondition cond = oq.or();
 		QueryCondition and1 = cond.and();
@@ -89,7 +89,7 @@ public class TestGroupCondition {
 	@Test
 	public void conditionPlainOr() {
 		MockQueryBuilder tqb = new MockQueryBuilder();
-		ObjectQuery<Person> oq = new GenericObjectQuery<Person>(tqb, Person.class);
+		SelectQuery<Person> oq = new GenericSelectQuery<Person>(tqb, Person.class);
 		Person pers = oq.target();
 		QueryCondition cond = oq.or();
 		cond.eq(pers.getName(), "mary");

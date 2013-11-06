@@ -7,7 +7,7 @@ import javassist.util.proxy.ProxyFactory;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.objectquery.ObjectQuery;
+import org.objectquery.SelectQuery;
 import org.objectquery.generic.domain.Dog;
 import org.objectquery.generic.domain.Person;
 
@@ -15,97 +15,97 @@ public class TestGenericObjectQuery {
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectCondition() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.condition(new Object(), null, null, null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testInvalidCall() {
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.target().setDog(null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectProjection() {
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.prj(new Object());
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectProjectionType() {
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.prj(new Object(), null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectOrder() {
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.order(new Object());
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectOrderType() {
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.order(new Object(), null);
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testWrongTypeCondition() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.condition(query.target(), null, null, null);
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testWrongNullCondition() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.condition(null, null, null, null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongValueTypeCondition() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.eq((Object) query.target(), new Object());
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testInWrongValueTypeCondition() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.condition(query.target(), ConditionType.IN, new Object(), null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testNotInWrongValueTypeCondition() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.condition(query.target(), ConditionType.NOT_IN, new Object(), null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testContainsWrongValueTypeCondition() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.condition(query.target(), ConditionType.CONTAINS, new Object(), null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testNotContainsWrongValueTypeCondition() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.condition(query.target(), ConditionType.NOT_CONTAINS, new Object(), null);
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testNullProjection() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.prj(null);
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testNullOrder() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.order(null);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongProxy() throws Exception {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		ProxyFactory pf = new ProxyFactory();
 		Object o = pf.create(null, null, new MethodHandler() {
 
@@ -118,7 +118,7 @@ public class TestGenericObjectQuery {
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongProxyPrjection() throws Exception {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		ProxyFactory pf = new ProxyFactory();
 		Object o = pf.create(null, null, new MethodHandler() {
 
@@ -132,27 +132,27 @@ public class TestGenericObjectQuery {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongNestedQueryType() throws Exception {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
-		query.eq(query.target().getDog(), (ObjectQuery) new GenericObjectQuery<Person>(Person.class));
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
+		query.eq(query.target().getDog(), (SelectQuery) new GenericSelectQuery<Person>(Person.class));
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongNestedQueryProjection() throws Exception {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
-		ObjectQuery<Dog> dogq = new GenericObjectQuery<Dog>(Dog.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
+		SelectQuery<Dog> dogq = new GenericSelectQuery<Dog>(Dog.class);
 		dogq.prj(dogq.target().getOwner());
 		query.eq(query.target().getDog(), dogq);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongBoxValue() throws Exception {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.box(3);
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongBoxType() throws Exception {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		double price = query.target().getHome().getWeight();
 		query.target().getHome().getWeight();
 		query.box(price);
@@ -160,14 +160,14 @@ public class TestGenericObjectQuery {
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongWithoutBox() throws Exception {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.eq(query.target().getHome().getWeight(), 3);
 	}
 
 	@Test
 	public void testSimpleQueryBuild() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.eq(toSearch.getHome().getAddress(), "rue d'anton");
 		query.eq(toSearch.getMom().getName(), "elisabeth");
@@ -184,32 +184,32 @@ public class TestGenericObjectQuery {
 
 	@Test(expected = ObjectQueryException.class)
 	public void testInvalidSubQueryCondition() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
-		query.eq(query.target(), new GenericObjectQuery<Person>(Person.class));
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
+		query.eq(query.target(), new GenericSelectQuery<Person>(Person.class));
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testInvalidSubQueryProjection() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
-		query.prj(new GenericObjectQuery<Person>(Person.class));
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
+		query.prj(new GenericSelectQuery<Person>(Person.class));
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testInvalidSubQueryOrder() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
-		query.order(new GenericObjectQuery<Person>(Person.class));
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
+		query.order(new GenericSelectQuery<Person>(Person.class));
 	}
 
 	@Test(expected = ObjectQueryException.class)
 	public void testInvalidSubQueryProjectionAdd() {
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(Person.class);
 		query.subQuery(Person.class).prj(query.target().getName());
 	}
 
 	@Test
 	public void testClean() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.prj(toSearch.getHome().getAddress());
 		query.prj(query.subQuery(Person.class));

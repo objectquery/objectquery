@@ -3,7 +3,7 @@ package org.objectquery.generic;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.objectquery.ObjectQuery;
+import org.objectquery.SelectQuery;
 
 public class GenericInternalQueryBuilder extends ConditionGroup implements InternalQueryBuilder {
 
@@ -29,7 +29,7 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 		builder.append(item.getName());
 	}
 
-	public void order(ObjectQuery<?> order, ProjectionType projectionType, OrderType type) {
+	public void order(SelectQuery<?> order, ProjectionType projectionType, OrderType type) {
 		orders.add(new Order(order, projectionType, type));
 	}
 
@@ -41,7 +41,7 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 		projections.add(new Projection(item, type));
 	}
 
-	public void projection(ObjectQuery<?> projection, ProjectionType type) {
+	public void projection(SelectQuery<?> projection, ProjectionType type) {
 		projections.add(new Projection(projection, type));
 	}
 
@@ -49,7 +49,7 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 		havings.add(new Having(item, projectionType, conditionType, value));
 	}
 
-	public void having(ObjectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value) {
+	public void having(SelectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value) {
 		havings.add(new Having(item, projectionType, conditionType, value));
 	}
 

@@ -35,8 +35,8 @@ public class ConditionItem implements ConditionElement {
 		item = null;
 		if (value instanceof PathItem)
 			((PathItem) value).clear();
-		else if (value instanceof GenericObjectQuery<?>)
-			((GenericObjectQuery<?>) value).clear();
+		else if (value instanceof GenericSelectQuery<?>)
+			((GenericSelectQuery<?>) value).clear();
 		value = null;
 	}
 }

@@ -1,6 +1,6 @@
 package org.objectquery.generic;
 
-import org.objectquery.ObjectQuery;
+import org.objectquery.SelectQuery;
 
 /**
  * Interface to implement a custom query builder from the specified tecnology.
@@ -34,7 +34,7 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	 * @param type
 	 *            the type of projection to add.
 	 */
-	void projection(ObjectQuery<?> projection, ProjectionType type);
+	void projection(SelectQuery<?> projection, ProjectionType type);
 
 	/**
 	 * Add an sub query order to query.
@@ -46,7 +46,7 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	 * @param type
 	 *            the type of order.
 	 */
-	void order(ObjectQuery<?> order, ProjectionType projectionType, OrderType type);
+	void order(SelectQuery<?> order, ProjectionType projectionType, OrderType type);
 
 	/**
 	 * Add an order to query.
@@ -86,7 +86,7 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	 * @param value
 	 *            the condition value.
 	 */
-	void having(ObjectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value);
+	void having(SelectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value);
 
 	/**
 	 * Create and add a new set Item.

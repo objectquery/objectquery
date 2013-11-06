@@ -1,13 +1,13 @@
 package org.objectquery.generic;
 
-import org.objectquery.ObjectQuery;
+import org.objectquery.SelectQuery;
 
 public class Projection {
 
 	private Object item;
 	private ProjectionType type;
 
-	public Projection(ObjectQuery<?> item, ProjectionType type) {
+	public Projection(SelectQuery<?> item, ProjectionType type) {
 		this.item = item;
 		this.type = type;
 	}
@@ -26,8 +26,8 @@ public class Projection {
 	}
 
 	public void clear() {
-		if (item instanceof GenericObjectQuery<?>)
-			((GenericObjectQuery<?>) item).clear();
+		if (item instanceof GenericSelectQuery<?>)
+			((GenericSelectQuery<?>) item).clear();
 		else
 			((PathItem) item).clear();
 		item = null;

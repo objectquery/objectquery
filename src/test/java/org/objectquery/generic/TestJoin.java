@@ -9,7 +9,7 @@ public class TestJoin {
 	@Test
 	public void testSimpleCreateJoin() {
 		MockQueryBuilder qb = new MockQueryBuilder();
-		GenericObjectQuery<Person> objectQuery = new GenericObjectQuery<Person>(qb, Person.class);
+		GenericSelectQuery<Person> objectQuery = new GenericSelectQuery<Person>(qb, Person.class);
 		Person join = objectQuery.join(Person.class);
 		objectQuery.eq(objectQuery.target().getName(), join.getName());
 		qb.build();
@@ -28,7 +28,7 @@ public class TestJoin {
 	@Test
 	public void testLinkedCreateJoin() {
 		MockQueryBuilder qb = new MockQueryBuilder();
-		GenericObjectQuery<Person> objectQuery = new GenericObjectQuery<Person>(qb, Person.class);
+		GenericSelectQuery<Person> objectQuery = new GenericSelectQuery<Person>(qb, Person.class);
 		Person join = objectQuery.join(objectQuery.target().getMom(), Person.class, JoinType.OUTER);
 		objectQuery.eq(objectQuery.target().getName(), join.getName());
 		qb.build();

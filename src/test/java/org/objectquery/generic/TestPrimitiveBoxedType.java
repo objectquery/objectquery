@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.objectquery.ObjectQuery;
+import org.objectquery.SelectQuery;
 import org.objectquery.generic.domain.BoxedPrimitiveDomain;
 
 public class TestPrimitiveBoxedType {
@@ -18,7 +18,7 @@ public class TestPrimitiveBoxedType {
 	public void testPrimitiveBoxedType() {
 		Date d = new Date();
 		MockQueryBuilder qb = new MockQueryBuilder();
-		ObjectQuery<BoxedPrimitiveDomain> bpd = new GenericObjectQuery<BoxedPrimitiveDomain>(qb, BoxedPrimitiveDomain.class);
+		SelectQuery<BoxedPrimitiveDomain> bpd = new GenericSelectQuery<BoxedPrimitiveDomain>(qb, BoxedPrimitiveDomain.class);
 		BoxedPrimitiveDomain pd = bpd.target();
 		bpd.eq(pd.getAtomicBoolean(), new AtomicBoolean(false));
 		bpd.eq(pd.getAtomicLong(), new AtomicLong(0));

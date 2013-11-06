@@ -2,7 +2,7 @@ package org.objectquery.generic;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.objectquery.ObjectQuery;
+import org.objectquery.SelectQuery;
 import org.objectquery.generic.domain.Person;
 
 public class TestQueryCondition {
@@ -10,7 +10,7 @@ public class TestQueryCondition {
 	@Test
 	public void testPathValueQueryBuild() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.eq(toSearch.getHome().getAddress(), toSearch.getDog().getHome().getAddress());
 		query.eq(toSearch.getDad().getHome(), toSearch.getDog().getHome());
@@ -29,7 +29,7 @@ public class TestQueryCondition {
 	@Test
 	public void testConditionsTypes() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
 		query.eq(toSearch.getMom().getName(), toSearch.getDad().getName());
 		query.contains(toSearch.getFriends(), toSearch.getDad());
@@ -71,9 +71,9 @@ public class TestQueryCondition {
 	@Test
 	public void testConditionsSubquery() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
 		Person toSearch = query.target();
-		ObjectQuery<Person> subQuery = query.subQuery(Person.class);
+		SelectQuery<Person> subQuery = query.subQuery(Person.class);
 		query.eq(toSearch.getMom(), subQuery);
 		query.contains(toSearch.getFriends(), subQuery);
 		query.in(toSearch.getMom(), subQuery);

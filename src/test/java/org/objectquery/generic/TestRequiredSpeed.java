@@ -27,7 +27,7 @@ public class TestRequiredSpeed {
 
 	public void buildQuery() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		GenericObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		GenericSelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
 
 		Person toSearch = query.target();
 		query.eq(toSearch.getHome().getAddress(), toSearch.getDog().getHome().getAddress());

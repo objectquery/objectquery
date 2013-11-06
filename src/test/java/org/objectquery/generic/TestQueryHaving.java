@@ -2,7 +2,7 @@ package org.objectquery.generic;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.objectquery.ObjectQuery;
+import org.objectquery.SelectQuery;
 import org.objectquery.generic.domain.Person;
 
 public class TestQueryHaving {
@@ -10,7 +10,7 @@ public class TestQueryHaving {
 	@Test
 	public void testSimpleHanving() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
 
 		Person target = query.target();
 		query.having(target.getName(), ProjectionType.COUNT).eq(2D);
@@ -23,7 +23,7 @@ public class TestQueryHaving {
 	@Test
 	public void testAllType() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
 
 		Person target = query.target();
 		query.having(target.getName(), ProjectionType.COUNT).eq(2D);
@@ -44,7 +44,7 @@ public class TestQueryHaving {
 	@Test
 	public void testAllCondition() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		ObjectQuery<Person> query = new GenericObjectQuery<Person>(builder, Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
 
 		Person target = query.target();
 		query.having(target.getName(), ProjectionType.COUNT).eq(2D);
