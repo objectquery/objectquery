@@ -85,50 +85,6 @@ public interface QueryCondition {
 	<C, T extends C> void gtEq(C target, ObjectQuery<T> value);
 
 	/**
-	 * Add a max condition between two values.
-	 * 
-	 * @param target
-	 *            the base operation target.
-	 * @param value
-	 *            the operation expected value.
-	 */
-	@Deprecated
-	<C, T extends C> void max(C target, T value);
-
-	/**
-	 * Add a max condition between expression and a query.
-	 * 
-	 * @param target
-	 *            the base operation target.
-	 * @param value
-	 *            the query source of expected value.
-	 */
-	@Deprecated
-	<C, T extends C> void max(C target, ObjectQuery<T> value);
-
-	/**
-	 * Add a max or equals condition between two values.
-	 * 
-	 * @param target
-	 *            the base operation target.
-	 * @param value
-	 *            the operation expected value.
-	 */
-	@Deprecated
-	<C, T extends C> void maxEq(C target, T value);
-	
-	/**
-	 * Add an max or equals condition between expression and a query.
-	 * 
-	 * @param target
-	 *            the base operation target.
-	 * @param value
-	 *            the query source of expected value.
-	 */
-	@Deprecated
-	<C, T extends C> void maxEq(C target, ObjectQuery<T> value);
-
-	/**
 	 * Add a "lesser than" condition between two values.
 	 * 
 	 * @param target
@@ -167,51 +123,6 @@ public interface QueryCondition {
 	 *            the query source of expected value.
 	 */
 	<C, T extends C> void ltEq(C target,ObjectQuery<T> value);
-
-	
-	/**
-	 * Add a min condition between two values.
-	 * 
-	 * @param target
-	 *            the base operation target.
-	 * @param value
-	 *            the operation expected value.
-	 */
-	@Deprecated
-	<C, T extends C> void min(C target, T value);
-	
-	/**
-	 * Add a min condition between expression and a query.
-	 * 
-	 * @param target
-	 *            the base operation target.
-	 * @param value
-	 *            the query source of expected value.
-	 */
-	@Deprecated
-	<C, T extends C> void min(C target, ObjectQuery<T> value);
-
-	/**
-	 * Add a min or equals condition between two values.
-	 * 
-	 * @param target
-	 *            the base operation target.
-	 * @param value
-	 *            the operation expected value.
-	 */
-	@Deprecated
-	<C, T extends C> void minEq(C target, T value);
-
-	/**
-	 * Add a min or equals condition between expression and a query.
-	 * 
-	 * @param target
-	 *            the base operation target.
-	 * @param value
-	 *            the query source of expected value.
-	 */
-	@Deprecated
-	<C, T extends C> void minEq(C target,ObjectQuery<T> value);
 
 	/**
 	 * Add a like condition between two values.
