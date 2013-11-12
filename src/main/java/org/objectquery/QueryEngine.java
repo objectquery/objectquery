@@ -8,8 +8,20 @@ import org.objectquery.generic.GenericUpdateQuery;
 import org.objectquery.generic.GenericeDeleteQuery;
 
 public abstract class QueryEngine<S> {
+	private static final String IMPLEMENTAT_KEY = "org.objectquery.QueryEngine";
 
+	@SuppressWarnings("unchecked")
 	public static <T> QueryEngine<T> instance() {
+		String className = System.getProperty(IMPLEMENTAT_KEY);
+		if (className != null) {
+			try {
+				Class<?> cl = Class.forName(className);
+				return (QueryEngine<T>) cl.newInstance();
+			} catch (Exception e) {
+				throw new RuntimeException("error to load class defined in " + IMPLEMENTAT_KEY + " system property", e);
+			}
+		}
+
 		return null;
 	}
 
