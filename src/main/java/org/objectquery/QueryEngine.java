@@ -1,6 +1,8 @@
 package org.objectquery;
 
 import java.io.InputStream;
+import java.net.URL;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
@@ -14,7 +16,27 @@ public abstract class QueryEngine<S> {
 	private static final String IMPLEMENTATION_KEY = "org.objectquery.QueryEngine";
 
 	@SuppressWarnings("unchecked")
-	public static <T> QueryEngine<T> instance() {
+	public static <T> QueryEngine<T> instance(Class<T> sessionType) {
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
+		try {
+			Enumeration<URL> res = loader.getResources("META-INF/ObjectQueryEngine.properties");
+			Properties p = new Properties();
+			while (res.hasMoreElements()) {
+				p.load(res.nextElement().openStream());
+				String clazz = p.getProperty(sessionType.getName());
+				if (clazz != null) {
+					Class<?> cl = Class.forName(clazz);
+					return (QueryEngine<T>) cl.newInstance();
+				}
+			}
+		} catch (Exception e) {
+			throw new ObjectQueryException("Error on QueryEngine lookup", e);
+		}
+		throw new ObjectQueryException("Impossible to find any QueryEngine implementation in the classpaht for the specifed session type");
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> QueryEngine<T> defaultInstance() {
 		String className = System.getProperty(IMPLEMENTATION_KEY);
 		if (className != null) {
 			try {

@@ -2,8 +2,8 @@ package org.objectquery.generic;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.objectquery.SelectQuery;
 import org.objectquery.QueryCondition;
+import org.objectquery.SelectQuery;
 import org.objectquery.generic.domain.Person;
 
 public class TestGroupCondition {

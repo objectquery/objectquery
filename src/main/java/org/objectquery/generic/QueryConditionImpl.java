@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import javassist.util.proxy.ProxyObject;
 
-import org.objectquery.SelectQuery;
 import org.objectquery.QueryCondition;
+import org.objectquery.SelectQuery;
 
 public class QueryConditionImpl implements QueryCondition {
 
