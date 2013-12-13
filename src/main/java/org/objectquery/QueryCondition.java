@@ -2,6 +2,12 @@ package org.objectquery;
 
 import java.util.Collection;
 
+/**
+ * Base Condition interface that allow to add condition and group of condition.
+ * 
+ * @author tglman
+ * 
+ */
 public interface QueryCondition {
 
 	/**
@@ -43,7 +49,7 @@ public interface QueryCondition {
 	 *            the query source of expected value.
 	 */
 	<C, T extends C> void notEq(C target, SelectQuery<T> value);
-	
+
 	/**
 	 * Add a "grater than" condition between two values.
 	 * 
@@ -73,7 +79,7 @@ public interface QueryCondition {
 	 *            the operation expected value.
 	 */
 	<C, T extends C> void gtEq(C target, T value);
-	
+
 	/**
 	 * Add an "grater than or equals" condition between expression and a query.
 	 * 
@@ -93,7 +99,7 @@ public interface QueryCondition {
 	 *            the operation expected value.
 	 */
 	<C, T extends C> void lt(C target, T value);
-	
+
 	/**
 	 * Add a "lesser than" condition between expression and a query.
 	 * 
@@ -122,7 +128,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T extends C> void ltEq(C target,SelectQuery<T> value);
+	<C, T extends C> void ltEq(C target, SelectQuery<T> value);
 
 	/**
 	 * Add a like condition between two values.
@@ -162,7 +168,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T  extends C> void in(C target, SelectQuery<T> value);
+	<C, T extends C> void in(C target, SelectQuery<T> value);
 
 	/**
 	 * Add a not in condition between two values.
@@ -182,7 +188,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T  extends C> void notIn(C target, SelectQuery<T> value);
+	<C, T extends C> void notIn(C target, SelectQuery<T> value);
 
 	/**
 	 * Add a contains condition between two values.
@@ -193,7 +199,7 @@ public interface QueryCondition {
 	 *            the operation expected value.
 	 */
 	<C, T extends C> void contains(Collection<C> target, T value);
-	
+
 	/**
 	 * Add a contains condition between expression and a query.
 	 * 
@@ -223,7 +229,7 @@ public interface QueryCondition {
 	 *            the query source of expected value.
 	 */
 	<C, T extends C> void notContains(Collection<C> target, SelectQuery<T> value);
-	
+
 	/**
 	 * Add a like condition between two values without case match.
 	 * 

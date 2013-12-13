@@ -78,8 +78,8 @@ public abstract class QueryEngine<S> {
 	 * Create a new select query on the specified target
 	 * 
 	 * usage example: <code>
-	 * QueryEngine<YourSession> engine = ....
-	 * SelectQuery<Person> select = engine.newSelect(Person.class);
+	 * QueryEngine&lt;YourSession&gt; engine = ....
+	 * SelectQuery&lt;Persongt; select = engine.newSelect(Person.class);
 	 * Person target =select.target();
 	 * select.prj(target.getName());
 	 * select.prj(target.getSurname()); 
@@ -97,8 +97,8 @@ public abstract class QueryEngine<S> {
 	 * Create a new delete query on the specified target.
 	 * 
 	 * usage example: <code>
-	 * QueryEngine<YourSession> engine = ....
-	 * DeleteQuery<Person> delete = engine.newDelete(Person.class);
+	 * QueryEngine&lt;YourSessiongt; engine = ....
+	 * DeleteQuery&lt;Persongt; delete = engine.newDelete(Person.class);
 	 * Person target =delete.target();
 	 * delete.eq(target.getName(),"expected name"); 
 	 * </code>
@@ -114,8 +114,8 @@ public abstract class QueryEngine<S> {
 	 * Create a new update query on the specified target.
 	 * 
 	 * usage example: <code>
-	 * QueryEngine<YourSession> engine = ....
-	 * UpdateQuery<Person> update = engine.newUpdate(Person.class);
+	 * QueryEngine&lt;YourSessiongt; engine = ....
+	 * UpdateQuery&lt;Persongt; update = engine.newUpdate(Person.class);
 	 * Person target =update.target(); 
 	 * update.set(target.getName(),"new name");
 	 * update.eq(target.getName(),"expected name"); 
@@ -132,8 +132,8 @@ public abstract class QueryEngine<S> {
 	 * Create a new Insert query on the specified target.
 	 * 
 	 * usage example: <code>
-	 * QueryEngine<YourSession> engine = ....
-	 * InserQuery<Person> insert = engine.newInsert(Person.class);
+	 * QueryEngine&lt;YourSessiongt; engine = ....
+	 * InserQuery&lt;Persongt; insert = engine.newInsert(Person.class);
 	 * Person target =insert.target(); 
 	 * insert.set(target.getName(),"the name");
 	 * insert.set(target.getSurname(),"the surname"); 
@@ -154,7 +154,7 @@ public abstract class QueryEngine<S> {
 	 * SelectQuery select = ...
 	 * Person target = select.target();
 	 * select.eq(target.getName(),"expected name");
-	 * List<Person> result = engine.execute(select,yourSessionInstance);
+	 * List<Persongt; result = engine.execute(select,yourSessionInstance);
 	 * </code>
 	 * 
 	 * @param query

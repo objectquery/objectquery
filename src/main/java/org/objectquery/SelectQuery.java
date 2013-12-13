@@ -6,20 +6,16 @@ import org.objectquery.generic.ProjectionType;
 
 /**
  * <p>
- * ObjectQuery is the main inteface for build a "SELECT" query, it allow to add
+ * SelectQuery is the main interface for build a "SELECT" query, it allow to add
  * projection, condition, order and having clauses using instances of domain
  * classes.
  * </p>
  * 
- * <p>
- * It is typesafe with compile time check, and produce refactor resistent query
- * becouse are defined using the domani spacific classes.
- * </p>
- * <h5>Example Of Usage</h5>
+ * <h5>Example Of Usage:</h5>
  * 
  * <pre>
  * <code>
- * ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+ * SelectQuery&lt;Person&gt; query = new GenericSelectQuery&lt;Person&gt;(Person.class);
  * Person toSearch = query.target();
  * query.prj(toSearch.getName());
  * query.eq(toSearch.getMum().getName(),"elisabeth");
@@ -27,11 +23,6 @@ import org.objectquery.generic.ProjectionType;
  * query.order(toSearch.getName());
  * </code>
  * </pre>
- * <p>
- * The main implementation is GenericObjecQuery but is not garantee that will be
- * the same in future, we suggest to box the creation of ObjectQuery instances
- * in a factory in your code.
- * </p>
  * 
  * @author tglman
  * 
