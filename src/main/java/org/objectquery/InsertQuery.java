@@ -21,6 +21,11 @@ public interface InsertQuery<T> extends BaseQuery<T> {
 	/**
 	 * Assign a value to a field in the insert query.
 	 * 
+	 * example:
+	 * <code>
+	 * query.set(target.getName,"new name");
+	 * </code>
+	 * 
 	 * @param target
 	 *            field target of the value.
 	 * @param value

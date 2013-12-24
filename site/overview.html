@@ -11,7 +11,7 @@
 		</p>
 		<br/>
 <pre class="prettyprint lang-java">
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+SelectQuery&lt;Person&gt; query = new GenericSelectQuery&lt;Person&gt;(Person.class);
 Person toSearch = query.target();
 query.prj(toSearch.getName());
 query.eq(toSearch.getMum().getName(),"elisabeth");

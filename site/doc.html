@@ -57,24 +57,24 @@
 				Direct execute:</P>
 				<pre class="prettyprint lang-java">
 javax.persistence.EntityManager entityManager= ....
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+SelectQuery&lt;Person&gt; query = new GenericSelectQuery&lt;Person&gt;(Person.class);
 ...
-List&lt;Person&gt; res = (List&lt;Person&gt;)JPAObjectQuery.execute(query, entityManager);
+List&lt;Person&gt; res = (List&lt;Person&gt;)JPASelectQuery.execute(query, entityManager);
 ...
 </pre>
 				JPA query generation:
 <pre class="prettyprint lang-java">
 javax.persistence.EntityManager entityManager= ....
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+SelectQuery&lt;Person&gt; query = new GenericSelectQuery&lt;Person&gt;(Person.class);
 ...
-javax.persistence.Query jpaQuery = JPAObjectQuery.buildQuery(query, entityManager);
+javax.persistence.Query jpaQuery = JPASelectQuery.buildQuery(query, entityManager);
 ...
 </pre>
 				JPQL string and parameters generation:
 <pre class="prettyprint lang-java">
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+SelectQuery&lt;Person&gt; query = new GenericSelectQuery&lt;Person&gt;(Person.class);
 ...
-JPQLQueryGenerator jpqlGenerator = JPAObjectQuery.jpqlGenerator(query);
+JPQLQueryGenerator jpqlGenerator = JPASelectQuery.jpqlGenerator(query);
 String jpql = jpqlGenerator.getQuery();
 Map&lt;String,Object&gt; paramenters = jpqlGenerator.getParameters();
 ...
@@ -84,16 +84,16 @@ Map&lt;String,Object&gt; paramenters = jpqlGenerator.getParameters();
 				Direct execute:</p>
 				<pre class="prettyprint lang-java">
 javax.jdo.PersistenceManager peristenceManager= ....
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+SelectQuery&lt;Person&gt; query = new GenericSelectQuery&lt;Person&gt;(Person.class);
 ...
-List&lt;Person&gt; res = (List&lt;Person&gt;)JDOObjectQuery.execute(query, peristenceManager);
+List&lt;Person&gt; res = (List&lt;Person&gt;)JDOSelectQuery.execute(query, peristenceManager);
 ...
 </pre>
 				JDOQL string and parameters generation:
 <pre class="prettyprint lang-java">
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+SelectQuery&lt;Person&gt; query = new GenericSelectQuery&lt;Person&gt;(Person.class);
 ...
-JDOQLQueryGenerator jdoqlGenerator = JDOObjectQuery.jdoqlGenerator(query);
+JDOQLQueryGenerator jdoqlGenerator = JDOSelectQuery.jdoqlGenerator(query);
 String jpql = jdoqlGenerator.getQuery();
 Map&lt;String,Object&gt; paramenters = jdoqlGenerator.getParameters();
 ...
@@ -103,16 +103,16 @@ Map&lt;String,Object&gt; paramenters = jdoqlGenerator.getParameters();
 				Direct execute:</p>
 				<pre class="prettyprint lang-java">
 com.orientechnologies.orient.object.db.OObjectDatabaseTx db= ....
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+SelectQuery&lt;Person&gt; query = new GenericSelectQuery&lt;Person&gt;(Person.class);
 ...
-List&lt;Person&gt; res = (List&lt;Person&gt;)OrientDBObjectQuery.execute(query, db);
+List&lt;Person&gt; res = (List&lt;Person&gt;)OrientDBSelectQuery.execute(query, db);
 ...
 </pre>
 				OrientDB Query string and parameters generation:
 <pre class="prettyprint lang-java">
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+SelectQuery&lt;Person&gt; query = new GenericSelectQuery&lt;Person&gt;(Person.class);
 ...
-OrientDBQueryGenerator oriendbGenerator = OrientDBObjectQuery.oriendbGenerator(query);
+OrientDBQueryGenerator oriendbGenerator = OrientDBSelectQuery.oriendbGenerator(query);
 String orientdbql = oriendbGenerator.getQuery();
 Map&lt;String,Object&gt; paramenters = oriendbGenerator.getParameters();
 ...
@@ -123,24 +123,24 @@ Map&lt;String,Object&gt; paramenters = oriendbGenerator.getParameters();
 				Direct execute:</p>
 				<pre class="prettyprint lang-java">
 org.hibernate.Session session= ....
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+SelectQuery&lt;Person&gt; query = new GenericSelectQuery&lt;Person&gt;(Person.class);
 ...
-List&lt;Person&gt; res = (List&lt;Person&gt;)HibernateObjectQuery.execute(query, session);
+List&lt;Person&gt; res = (List&lt;Person&gt;)HibernateSelectQuery.execute(query, session);
 ...
 </pre>
 				Hibernate query generation:
 <pre class="prettyprint lang-java">
 org.hibernate.Session session= ....
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+SelectQuery&lt;Person&gt; query = new GenericSelectQuery&lt;Person&gt;(Person.class);
 ...
-org.hibernate.Query jpaQuery = HibernateObjectQuery.buildQuery(query, session);
+org.hibernate.Query jpaQuery = HibernateSelectQuery.buildQuery(query, session);
 ...
 </pre>
 				HQL string and parameters generation:
 <pre class="prettyprint lang-java">
-ObjectQuery&lt;Person&gt; query = new GenericObjectQuery&lt;Person&gt;(Person.class);
+SelectQuery&lt;Person&gt; query = new GenericSelectQuery&lt;Person&gt;(Person.class);
 ...
-HQLQueryGenerator hqlGenerator = HibernateObjectQuery.hqlGenerator(query);
+HQLQueryGenerator hqlGenerator = HibernateSelectQuery.hqlGenerator(query);
 String hql = hqlGenerator.getQuery();
 Map&lt;String,Object&gt; paramenters = hqlGenerator.getParameters();
 ...
