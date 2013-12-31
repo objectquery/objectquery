@@ -1,5 +1,12 @@
-<?
-$pages= array("roadmap"=>"roadmap","doc"=>"doc","support"=>"support","tutorial-simple"=>"tutorial-simple","vtutorial"=>"vtutorial");
+<?php
+$files =scandir("pgs");
+$pages= array();
+foreach($files as $cur)
+{
+	if(is_file("pgs/".$cur))
+		$pages["/$cur"]="pgs/$cur";
+		
+}
 ?><!DOCTYPE HTML>
 <html>
 	<head>
@@ -19,8 +26,24 @@ $pages= array("roadmap"=>"roadmap","doc"=>"doc","support"=>"support","tutorial-s
 		{
 			for(var pr in globalPages) 
 			       globalPages[pr].setAttribute("class","");
-			var o = document.getElementById(pageId);
+			var o = globalPages[pageId];
 			if(o)o.setAttribute("class","active");
+			else {
+				var req = new XMLHttpRequest();
+				req.onreadystatechange= function(){
+					if(this.status == 200 && this.readyState == 4){
+						var root = document.getElementById("root");
+						var help = document.createElement("div");
+						help.innerHTML=this.responseText;
+						var cur =help.firstChild;
+						root.appendChild(cur);
+						globalPages[pageId]=cur;
+						cur.setAttribute("class","active");
+					}
+				}
+				req.open("GET","pgs/"+pageId);
+				req.send();
+			}
 		}
 		function initPages()
 		{
@@ -30,7 +53,7 @@ $pages= array("roadmap"=>"roadmap","doc"=>"doc","support"=>"support","tutorial-s
 				var pages=  root.children;
 				for(var i = 0;i<pages.length; i++)
 					if(pages.item(i).localName == "section")
-						globalPages[pages.item(i).getAttribute("id")]=pages.item(i);
+						globalPages[pages.item(i).getAttribute("id")+".html"]=pages.item(i);
 
 				var bd = document.getElementById("menu");
 				var els=  bd.children;
@@ -40,48 +63,47 @@ $pages= array("roadmap"=>"roadmap","doc"=>"doc","support"=>"support","tutorial-s
 				}
 				window.addEventListener('popstate',function(event){
 					console.log(event.state);
-					selectPage(event.state.id);
-				});
+					selectPage(event.state.url);
+				},false);
 				var url=document.location.href;
-				if(url.indexOf("=")!= -1)
-					var id = url.substr(url.indexOf("=")+1);
-				else
-					var id="overview";
-				history.pushState({"id":id},"Object Query ","?page="+id);
+				url =url.substring("http://www.objectquery.org".lenght);
+				if(url.lenght < 2)
+					url="overview.html";
+				history.pushState({"url":url},"Object Query ",url);
 			}
 		}
 		function handleClick(event)
 		{
 			if(!event.target)return;
-			if(event.target.elementName=="li")
+			if(event.target.localName=="li")
 				var dest =event.target.firstElementChild;
 			else
 				var dest=event.target;
 			var url=dest.getAttribute("href");
-			var id = url.substr(url.indexOf("=")+1);
-			selectPage(id);
-			history.pushState({"id":id},"Object Query "+ dest.textContent, dest.href);
+			selectPage(url);
+			history.pushState({"url":url},"Object Query "+ dest.textContent, dest.href);
 			return event.preventDefault();
 		}
 		</script>
 	</head>
-	<body onload="prettyPrint();" id="root">
+	<body onload="prettyPrint();initPages()" id="root">
 		<header>
 			<nav>
 				<ul id="menu">
-					<li onclick="selectPage('overview')"><a href="?page=overview">Overview</a></li>
-					<li ><a href="?page=roadmap">Roadmap/Status</a></li>
-					<li><a href="?page=doc">Documentation</a></li>
-					<li onclick="selectPage('support')"><a href="?page=support">Support</a></li>
+					<li><a href="overview.html">Overview</a></li>
+					<li><a href="roadmap.html">Roadmap/Status</a></li>
+					<li><a href="doc.html">Documentation</a></li>
+					<li><a href="support.html">Support</a></li>
 				</ul>
 			</nav>
 			<img src="img/logo2.png" alt="Object Query">
 		</header>
-		<?
+		<?php
+			$page = $pages[$_SERVER['REQUEST_URI']];
 			if(isset($_GET["page"]))
-				$page = $pages[$_GET["page"]];
-			if(!isset($page))$page="overview";
-			include($page.".html");
+				$page = $pages["/".$_GET["page"]];
+			if(!isset($page))$page="pgs/overview.html";
+			include($page);
 		?>
 		<footer>
 			<div>Object Query the Java way to build query</div>
