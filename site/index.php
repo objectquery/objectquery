@@ -20,7 +20,6 @@ foreach($files as $cur)
 		<link href="prettify/prettify.css" rel="stylesheet" type="text/css" />
 		<script src="prettify/prettify.js" type="text/javascript"></script>
 		<script type="text/javascript">
-		var globalPages= {};
 		
 		function selectPage(pageId)
 		{
@@ -36,7 +35,9 @@ foreach($files as $cur)
 						var help = document.createElement("div");
 						help.innerHTML=this.responseText;
 						var cur =help.firstChild;
+						initPages(cur);
 						root.appendChild(cur);
+						prettyPrint();
 						globalPages[pageId]=cur;
 						cur.setAttribute("class","active");
 					}
@@ -45,31 +46,35 @@ foreach($files as $cur)
 				req.send();
 			}
 		}
-		function initPages()
+		function initPages(base)
 		{
+			if(!base || base ==null) return;
 			if(history)
 			{
-				var root = document.getElementById("root");
-				var pages=  root.children;
-				for(var i = 0;i<pages.length; i++)
-					if(pages.item(i).localName == "section")
-						globalPages[pages.item(i).getAttribute("id")+".html"]=pages.item(i);
+				if(!window.globalPages)
+				{
+					globalPages ={};
+					var root = base.getElementById("root");
+					var pages=  root.children;
+					for(var i = 0;i<pages.length; i++)
+						if(pages.item(i).localName == "section")
+							globalPages[document.location.pathname]=pages.item(i);
+					prettyPrint();
+				}
 
-				var bd = document.getElementById("menu");
-				var els=  bd.children;
+				var els =  base.getElementsByTagName("a");
 				for(var i = 0;i<els.length; i++)
 				{
-					els.item(i).addEventListener('click', handleClick, false);
+					var clazz =els.item(i).getAttribute("class");
+					if(clazz != null && clazz.indexOf("auto")!= -1)
+						els.item(i).addEventListener('click', handleClick, false);
 				}
 				window.addEventListener('popstate',function(event){
-					console.log(event.state);
-					selectPage(event.state.url);
+					if(event.state.page)
+						selectPage(event.state.page);
+					else 
+						selectPage("overview.html");
 				},false);
-				var url=document.location.href;
-				url =url.substring("http://www.objectquery.org".lenght);
-				if(url.lenght < 2)
-					url="overview.html";
-				history.pushState({"url":url},"Object Query ",url);
 			}
 		}
 		function handleClick(event)
@@ -81,19 +86,19 @@ foreach($files as $cur)
 				var dest=event.target;
 			var url=dest.getAttribute("href");
 			selectPage(url);
-			history.pushState({"url":url},"Object Query "+ dest.textContent, dest.href);
+			history.pushState({"page":url},"Object Query "+ dest.textContent, dest.href);
 			return event.preventDefault();
 		}
 		</script>
 	</head>
-	<body onload="prettyPrint();initPages()" id="root">
+	<body onload="initPages(document)" id="root">
 		<header>
 			<nav>
 				<ul id="menu">
-					<li><a href="overview.html">Overview</a></li>
-					<li><a href="roadmap.html">Roadmap/Status</a></li>
-					<li><a href="doc.html">Documentation</a></li>
-					<li><a href="support.html">Support</a></li>
+					<li><a class="auto" href="overview.html">Overview</a></li>
+					<li><a class="auto" href="roadmap.html">Roadmap/Status</a></li>
+					<li><a class="auto" href="doc.html">Documentation</a></li>
+					<li><a class="auto" href="support.html">Support</a></li>
 				</ul>
 			</nav>
 			<img src="img/logo2.png" alt="Object Query">

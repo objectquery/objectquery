@@ -1,11 +1,11 @@
-<section class="active" id="simple-tutorial" >
+<section class="active" >
 	<header>
-		<h2>Simple Tutorial</h2>
+		<h2>Select Tutorial</h2>
 	</header>
 
 	<article>
 		<header>
-			<h3>Requirements</h3>
+			<h4>Requirements</h4>
 		</header>
 		<p>
 			The requirements for build a query with query builder is an java Object Oriented "Domain" that is an group of persisted objects.
@@ -13,7 +13,7 @@
 	</article>
 	<article>
 		<header>
-			<h3>Domain</h3>
+			<h4>Domain</h4>
 		</header>
 <pre class="prettyprint lang-java">
 public class Dog {
@@ -143,6 +143,41 @@ query.eq(query.box(toSearch.getPrice()),4000.0);
 	</p>
 <pre class="prettypring lang-sql">
 select from Home where weight=2 and price=4000.0
+</pre>
+	</article>
+	<article>
+		<header>
+			<h3>Other Operators</h3>
+		</header>
+		<p>Search for an House with weight more than 2 an price less than 4000</p>
+<pre class="prettyprint lang-java">
+SelectQuery&lt;Home&gt; query = new GenericSelectQuery&lt;Home&gt;(Home.class);
+Home toSearch = query.target();
+query.gt(query.box(toSearch.getWeight()),2);
+query.lt(query.box(toSearch.getPrice()),4000.0);
+</pre>
+	<p>
+		Correspondent Pseudo QL
+	</p>
+<pre class="prettypring lang-sql">
+select from Home where weight>2 and price<4000.0
+</pre>
+	</article>
+	<article>
+		<header>
+			<h3>No Case Query</h3>
+		</header>
+		<p>Search for Home with "rue" or "Rue" or "RUE" inside the address</p>
+<pre class="prettyprint lang-java">
+SelectQuery&lt;Home&gt; query = new GenericSelectQuery&lt;Home&gt;(Home.class);
+Home toSearch = query.target();
+query.likeNc(toSearch.getAddress(),"rue");
+</pre>
+	<p>
+		Correspondent Pseudo QL
+	</p>
+<pre class="prettypring lang-sql">
+select from Home where upper(address) like uppder("rue")
 </pre>
 	</article>
 </section>

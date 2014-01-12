@@ -1,0 +1,37 @@
+<section class="active">
+	<header><h2>Delete Tutorial</h2></header>
+	<article>
+		<header>
+			<h4>Example Java Domain</h4>
+		</header>
+<pre class="prettyprint lang-java">
+public class Person {
+	private String name;
+	private String surname;
+	private String address;
+	private Date birthDate;
+	...gets sets...
+}
+</pre>
+	</article>
+	<article>
+		<header>
+			<h3>Simple delete query building</h3>
+		</header>
+		<p>
+			Update the address of a person.
+		</p>
+<pre class="prettyprint lang-java">
+DeleteQuery&lt;Person&gt; query = new GenericDeleteQuery&lt;Person&gt;(Person.class);
+Person toUpdate = query.target();
+query.eq(toUpdate.getName(),"elisabeth");
+query.eq(toUpdate.getSurname(),"bordeaux");
+</pre>
+	<p>
+		Correspondent Pseudo QL
+	</p>
+<pre class="prettypring lang-sql">
+delete Person where mame="elisabeth" and surname="bordeaux"  
+</pre>
+	</article>
+</section>

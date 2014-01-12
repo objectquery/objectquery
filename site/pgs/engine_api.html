@@ -1,0 +1,39 @@
+<section class="active">
+	<header><h2>Engine API<h2></header>
+	<article>
+		<header><h3>Engine API Example</header>
+		<p> In the example will be uset a generic <i>Session</i>, replace it with specific class Session.</p>
+		<b>Select:</b>
+<pre class="prettyprint lang-java">
+Session session = ....
+QueryEngine&lt;Session&gt; engine = QueryEngine.instance(Session.class);
+SelectQuery&lt;Person&gt; query = engine.newSelect(Person.class);
+...
+List&lt;Person&gt; res = (List&lt;Person&gt;)engine.execute(query, session);
+</pre>
+		<b>Update</b>
+<pre class="prettyprint lang-java">
+Session session = ....
+QueryEngine&lt;Session&gt; engine = QueryEngine.instance(Session.class);
+UpdateQuery&lt;Person&gt; query = engine.newUpdate(Person.class);
+...
+int updateCount = engine.execute(query, session);
+</pre>
+		<b>Delete</b>
+<pre class="prettyprint lang-java">
+Session session = ....
+QueryEngine&lt;Session&gt; engine = QueryEngine.instance(Session.class);
+DeleteeQuery&lt;Person&gt; query = engine.newDelete(Person.class);
+...
+int deleteCount = engine.execute(query, session);
+</pre>
+		<b>Insert</b>
+<pre class="prettyprint lang-java">
+Session session = ....
+QueryEngine&lt;Session&gt; engine = QueryEngine.instance(Session.class);
+InsertQuery&lt;Person&gt; query = engine.newInsert(Person.class);
+...
+bolean inserted = engine.execute(query, session);
+</pre>
+	</article>
+</section>

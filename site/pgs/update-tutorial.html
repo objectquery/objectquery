@@ -1,0 +1,57 @@
+<section class="active" id="update-tutorial" >
+	<header><h2>Update Tutorial</h2></header>
+	<article>
+		<header>
+			<h4>Example Java Domain</h4>
+		</header>
+<pre class="prettyprint lang-java">
+public class Person {
+	private String name;
+	private String surname;
+	private String address;
+	private Date birthDate;
+	...gets sets...
+}
+</pre>
+	</article>
+	<article>
+		<header>
+			<h3>Simple update query building</h3>
+		</header>
+		<p>
+			Update the address of a person.
+		</p>
+<pre class="prettyprint lang-java">
+UpdateQuery&lt;Person&gt; query = new GenericUpdateQuery&lt;Person&gt;(Person.class);
+Person toUpdate = query.target();
+query.set(toUpdate.getAddress(),"rue de Paris");
+query.eq(toUpdate.getAddress(),"rue d'anton");
+query.eq(toUpdate.getName(),"elisabeth");
+</pre>
+	<p>
+		Correspondent Pseudo QL
+	</p>
+<pre class="prettypring lang-sql">
+update Person set address = "rue de Paris" where address="rue d'anton" and name="elisabeth" 
+</pre>
+	</article>
+	<article>
+		<header>
+			<h3>Update with a persistant value</h3>
+		</header>
+		<p>
+			Set the surname equals to surname.
+		</p>
+<pre class="prettyprint lang-java">
+UpdateQuery&lt;Person&gt; query = new GenericUpdateQuery&lt;Person&gt;(Person.class);
+Person toUpdate = query.target();
+query.set(toUpdate.getSurname().toUpdate.getName());
+</pre>
+	<p>
+		Correspondent Pseudo QL
+	</p>
+<pre class="prettypring lang-sql">
+update Person set surname = name  
+</pre>
+	</article>
+</section>
