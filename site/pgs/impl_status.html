@@ -1,0 +1,86 @@
+<section class="active">
+	<article>
+		<header><h3>Basic operation implemetation status</h3></header>
+		<table class="roadmap" border="2" style="width:100%">
+			<tr><th >Feature</th><th>Engine</th><th>JPA</th><th>JDO</th><th>Hibernate</th><th>OrientDB</th></tr>
+			<tr><td>select</td><td class="sup">1.0.0</td><td class="sup">1.0.0</td><td class="sup">1.0.0</td><td class="sup">1.0.0</td><td class="sup">1.0.0</td></tr>
+			<tr><td>insert</td><td class="sup">2.0.0</td><td class="unsup">ko</td><td class="unsup">ko</td><td class="unsup">ko</td><td class="sup">2.0.0</td></tr>
+			<tr><td>update</td><td class="sup">2.0.0</td><td class="sup">2.0.0</td><td class="unsup">ko</td><td class="sup">2.0.0</td><td class="sup">2.0.0</td></tr>
+			<tr><td>delete</td><td class="sup">2.0.0</td><td class="sup">2.0.0</td><td class="unsup">ko</td><td class="sup">2.0.0</td><td class="sup">2.0.0</td></tr>
+
+		</table>
+	</article>
+	<article>
+		<header><h3>Implementations Status Grid</h3></header>
+		<table class="roadmap" border="2" style="width:100%">
+			<tr><th colspan="4">Feature</th><th>Engine</th><th>JPA</th><th>JDO</th><th>Hibernate</th><th>OrientDB</th></tr>
+			<tr><td rowspan="16">General Condition</td><td rowspan="14">Simple</td><td>eq</td><td>query.eq(target.getName(),"name")</td><td rowspan="14" class="sup">1.0.0</td><td  rowspan="14" class="sup">1.0.0</td><td  rowspan="14" class="sup">1.0.0</td><td  rowspan="14" class="sup">1.0.0</td><td  rowspan="14" class="sup">1.0.0</td></tr>
+			<tr><td>notEq</td><td>query.notEq(target.getName(),"name")</td></tr>
+			<tr><td>gt</td><td>query.gt(target.getAge(),20)</td></tr>
+			<tr><td>gtEq</td><td>query.gtEq(target.getAge(),20)</td></tr>
+			<tr><td>lt</td><td>query.lt(target.getAge(),20)</td></tr>
+			<tr><td>ltEq</td><td>query.ltEq(target.getAge(),20)</td></tr>
+			<tr><td>in</td><td>query.in(target.getAge(),collection)</td></tr>
+			<tr><td>notIn</td><td>query.notIn(target.getAge(),collection)</td></tr>
+			<tr><td>contains</td><td>query.contains(target.getAge(),collection)</td></tr>
+			<tr><td>notContains</td><td>query.notContains(target.getAge(),collection)</td></tr>
+			<tr><td>like</td><td>query.like(target.getAge(),likeStrin)</td></tr>
+			<tr><td>notLike</td><td>query.notLike(target.getAge(),likeString)</td></tr>
+			<tr><td>likeNoCase</td><td>query.likeNc(target.getAge(),likeString)</td></tr>
+			<tr><td>notLikeNoCase</td><td>query.notLikeNc(target.getAge(),likeString)</td></tr>
+			<tr><td rowspan="2">group</td><td>AND</td><td>query.and()</td><td class="sup" rowspan="2">1.0.0</td><td class="sup" rowspan="2">1.0.0</td><td class="sup" rowspan="2">1.0.0</td><td class="sup" rowspan="2">1.0.0</td><td class="sup" rowspan="2">1.0.0</td></tr>
+			<tr><td>OR</td><td>query.or()</td></tr>
+			<tr><td>Insert</td><td>set a value</td><td>set</td><td>query.set(target.getName(),"the name");</td><td class="sup">2.0.0</td><td class="unsup">ko</td><td class="unsup">ko</td><td class="unsup">ko</td><td class="sup">2.0.0</td></tr>
+			<tr><td>Update</td><td>set a value</td><td>set</td><td>query.set(target.getName(),"the name");</td><td class="sup">2.0.0</td><td class="sup">2.0.0</td><td class="unsup">ko</td><td class="sup">2.0.0</td><td class="sup">2.0.0</td></tr>
+
+			<tr><td rowspan="48" >Select </td><td rowspan="6">Projection</td><td>simple</td><td>query.prj(target.getName())</td><td rowspan="6" class="sup">1.0.0</td><td rowspan="6" class="sup">1.0.0</td><td rowspan="6" class="sup">1.0.0</td><td rowspan="6" class="sup">1.0.0</td><td rowspan="6" class="sup">1.0.0</td></tr>
+			<tr><td>max</td><td>query.prj(target.getName(),ProjectionType.MAX)</td></tr>
+			<tr><td>min</td><td>query.prj(target.getName(),ProjectionType.MIN)</td></tr>
+			<tr><td>count</td><td>query.prj(target.getName(),ProjectionType.COUNT)</td></tr>
+			<tr><td>avg</td><td>query.prj(target.getName(),ProjectionType.AVG)</td></tr>
+			<tr><td>sum</td><td>query.prj(target.getName(),ProjectionType.SUM)</td></tr>
+			<tr><td rowspan="3" >Order</td><td>ASC</td><td>query.order(target.getName())</td><td rowspan="3" class="sup">1.0.0</td><td rowspan="3" class="sup" >1.0.0</td><td rowspan="3" class="sup">1.0.0</td><td rowspan="3" class="sup">1.0.0</td><td rowspan="3" class="sup">1.0.0</td></tr>
+			<tr><td>DESC</td><td>query.order(target.getName(),OrderType.DESC)</td></tr>
+			<tr><td>ASC/DESC ProjectionType</td><td>query.order(target.getName(),ProjectionType.COUNT,OrderType.ASC)</td></tr>
+			<tr><td rowspan="5">Having Group Operation</td><td>max</td><td>query.having(target.getAge(),ProjectionType.MAX)</td><td rowspan="5" class="sup">1.0.0</td><td rowspan="5" class="sup">1.0.0</td><td class="unsup" rowspan="21">ko</td><td rowspan="5" class="sup">1.0.0</td><td rowspan="21" class="unsup">ko</td></tr>
+			<tr><td>min</td><td>query.having(target.getAge(),ProjectionType.MIN)</td></tr>
+			<tr><td>count</td><td>query.having(target.getAge(),ProjectionType.COUNT)</td></tr>
+			<tr><td>avg</td><td>query.having(target.getAge(),ProjectionType.AVG)</td></tr>
+			<tr><td>sum</td><td>query.having(target.getAge(),ProjectionType.SUM)</td></tr>
+			<tr><td rowspan="16">Having Condition</td><td>eq</td><td>query.having(target.getAge(),ProjectionType.MAX).eq(10)</td><td rowspan="6" class="sup">1.0.0 partial</td><td rowspan="6" class="sup">1.0.0partial</td><td rowspan="6" class="sup">1.0.0 partial</td></tr>
+			<tr><td>notEq</td><td>query.having(target.getAge(),ProjectionType.MAX).notEq(10)</td></tr>
+			<tr><td>gt</td><td>query.having(target.getAge(),ProjectionType.MAX).gt(20)</td></tr>
+			<tr><td>gtEq</td><td>query.having(target.getAge(),ProjectionType.MAX).gtEq(20)</td></tr>
+			<tr><td>lt</td><td>query.having(target.getAge(),ProjectionType.MAX).lt(20)</td></tr>
+			<tr><td>ltEq</td><td>query.having(target.getAge(),ProjectionType.MAX).ltEq(20)</td></tr>
+			<tr><td>in</td><td></td><td rowspan="10" class="unsup">ko</td><td rowspan="10" class="unsup">ko</td><td rowspan="10" class="unsup">ko</td></tr>
+			<tr><td>notIn</td><td></td></tr>
+			<tr><td>contains</td><td></td></tr>
+			<tr><td>notContains</td><td></td></tr>
+			<tr><td>like</td><td></td></tr>
+			<tr><td>notLike</td><td></td></tr>
+			<tr><td>likeNoCase</td><td></td></tr>
+			<tr><td>notLikeNoCase</td><td></td></tr>
+			<tr><td>AND</td><td></td></tr>
+			<tr><td>OR</td><td></td></tr>
+			<tr><td rowspan="8">Join</td><td>inner</td><td>query.join(Person.class)</td><td rowspan="8" class="sup" >1.5.0</td><td class="unsup" rowspan="4">ko</td><td rowspan="8" class="unsup">ko</td><td rowspan="4" class="unsup" >ko</td><td rowspan="8" class="unsup">ko</td></tr>
+			<tr><td>left</td><td>query.join(Person.class,JoinType.LEFT)</td></tr>
+			<tr><td>right</td><td>query.join(Person.class,JoinType.RIGHT)</td></tr>
+			<tr><td>outer</td><td>query.join(Person.class,JoinType.OUTER)</td></tr>
+			<tr><td>inner path</td><td>query.join(target.getMom(),Person.class)</td><td rowspan="4" class="sup">1.5.0</td><td rowspan="4" class="sup">1.5.0</td></tr>
+			<tr><td>left path</td><td>query.join(target.getMom(),Person.class,JoinType.LEFT)</td></tr>
+			<tr><td>right path</td><td>query.join(target.getMom(),Person.class,JoinType.RIGHT)</td></tr>
+			<tr><td>outer path</td><td>query.join(target.getMom(),Person.class,JoinType.OUTER)</td></tr>
+			<tr><td rowspan="5">Can Add Subquery In</td><td>projection</td><td>query.prj(subquery)</td><td class="sup" >1.5.0</td><td class="unsup">ko</td><td rowspan="10" class="unsup">ko</td><td class="sup">1.5.0</td><td rowspan="10" class="unsup">ko</td></tr>
+			<tr><td>from</td><td></td><td class="unsup" >ko</td><td class="unsup">ko</td><td class="unsup">ko</td></tr>
+			<tr><td>condition</td><td>query.eq(target.getMom(),subquery)</td><td class="sup" >1.5.0</td><td class="sup">1.5.0</td><td class="sup">1.5.0</td></tr>
+			<tr><td>having</td><td>query.having(subquery,ProjectType.MAX)</td><td class="sup" >1.5.0</td><td class="unsup">ko</td><td class="unsup">ko</td></tr>
+			<tr><td>order</td><td>query.order(subquery,OrderType.ASC)</td><td class="sup" >1.5.0</td><td class="unsup">ko</td><td class="unsup">ko</td></tr>
+			<tr><td rowspan="5">Can Add to A Subquery</td><td>projection</td><td>query.prj(subquery)</td><td class="unsup" >ko</td><td class="unsup">ko</td><td class="unsup">ko</td></tr>
+			<tr><td>from</td><td></td><td class="unsup" >ko</td><td class="unsup">ko</td><td class="unsup">ko</td></tr>
+			<tr><td>condition</td><td>query.eq(target.getMom())</td><td class="sup" >1.5.0</td><td class="sup">1.5.0</td><td class="sup">1.5.0</td></tr>
+			<tr><td>having</td><td>query.having(target.getAge(),ProjectType.MAX)</td><td class="sup">1.5.0</td><td class="sup">1.5.0</td><td class="sup">1.5.0</td></tr>
+			<tr><td>order</td><td>query.order(target.getName(),OrderType.ASC)</td><td class="sup">1.5.0</td><td class="sup">1.5.0</td><td class="sup">1.5.0</td></tr>
+		</table>
+	</article>
+</section>
