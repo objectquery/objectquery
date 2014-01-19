@@ -13,6 +13,10 @@ public interface QueryCondition {
 	/**
 	 * Add an equal condition between two values.
 	 * 
+	 * Example: <code>
+	 * query.eq(query.target().getName(),"example");
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -22,6 +26,11 @@ public interface QueryCondition {
 
 	/**
 	 * Add an equal condition between expression and a query.
+	 * 
+	 * Example: <code>
+	 * SelectQuery<Person> anotherQuery = ...
+	 * query.eq(query.target().getMum(),anoterQuery);
+	 * </code>
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -33,6 +42,10 @@ public interface QueryCondition {
 	/**
 	 * Add a not equal condition between two values.
 	 * 
+	 * Example: <code>
+	 * query.notEq(query.target().getName(),"example");
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -42,6 +55,11 @@ public interface QueryCondition {
 
 	/**
 	 * Add a not equal condition between expression and a query.
+	 * 
+	 * Example: <code>
+	 * SelectQuery<Person> anotherQuery = ...
+	 * query.notEq(query.target().getMum(),anoterQuery);
+	 * </code>
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -53,6 +71,10 @@ public interface QueryCondition {
 	/**
 	 * Add a "grater than" condition between two values.
 	 * 
+	 * Example: <code>
+	 * query.gt(query.target().getHeight(),30);
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -62,6 +84,11 @@ public interface QueryCondition {
 
 	/**
 	 * Add a "grater than" condition between expression and a query.
+	 * 
+	 * Example: <code>
+	 * SelectQuery<Person> anotherQuery = ...
+	 * query.gt(query.target().getMembers(),anoterQuery);
+	 * </code>
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -73,6 +100,10 @@ public interface QueryCondition {
 	/**
 	 * Add a "grater than or equals" condition between two values.
 	 * 
+	 * Example: <code>
+	 * query.gtEq(query.target().getHeight(),30);
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -82,6 +113,11 @@ public interface QueryCondition {
 
 	/**
 	 * Add an "grater than or equals" condition between expression and a query.
+	 * 
+	 * Example: <code>
+	 * SelectQuery<Person> anotherQuery = ...
+	 * query.gtEq(query.target().getMembers(),anoterQuery);
+	 * </code>
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -93,6 +129,10 @@ public interface QueryCondition {
 	/**
 	 * Add a "lesser than" condition between two values.
 	 * 
+	 * Example: <code>
+	 * query.lt(query.target().getHeight(),30);
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -103,6 +143,11 @@ public interface QueryCondition {
 	/**
 	 * Add a "lesser than" condition between expression and a query.
 	 * 
+	 * Example: <code>
+	 * SelectQuery<Person> anotherQuery = ...
+	 * query.lt(query.target().getMembers(),anoterQuery);
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -111,7 +156,11 @@ public interface QueryCondition {
 	<C, T extends C> void lt(C target, SelectQuery<T> value);
 
 	/**
-	 * Add a "lesser than" or equals condition between two values.
+	 * Add a "lesser than" or equals condition between two values. Example:
+	 * 
+	 * Example:  <code>
+	 * query.ltEq(query.target().getHeight(),30);
+	 * </code>
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -123,6 +172,11 @@ public interface QueryCondition {
 	/**
 	 * Add a min or equals condition between expression and a query.
 	 * 
+	 * Example: <code>
+	 * SelectQuery<Person> anotherQuery = ...
+	 * query.ltEq(query.target().getMembers(),anoterQuery);
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -132,6 +186,10 @@ public interface QueryCondition {
 
 	/**
 	 * Add a like condition between two values.
+	 * 
+	 * Example: <code>
+	 * query.like(query.target().getName(),"lk");
+	 * </code>
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -143,6 +201,10 @@ public interface QueryCondition {
 	/**
 	 * Add a not like condition between two values.
 	 * 
+	 * Example: <code>
+	 * query.notLike(query.target().getName(),"lk");
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -152,6 +214,11 @@ public interface QueryCondition {
 
 	/**
 	 * Add an in condition between two values.
+	 * 
+	 * Example: <code>
+	 * Collection<String> inValues = ... 
+	 * query.in(query.target().getName(), inValues);
+	 * </code>
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -163,6 +230,11 @@ public interface QueryCondition {
 	/**
 	 * Add an in condition between expression and a query.
 	 * 
+	 * Example: <code>
+	 * SelectQuery<Person> inValues = ... 
+	 * query.in(query.target().getMum(), inValues);
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -172,6 +244,11 @@ public interface QueryCondition {
 
 	/**
 	 * Add a not in condition between two values.
+	 * 
+	 * Example: <code>
+	 * Collection<String> inValues = ... 
+	 * query.in(query.target().getName(), inValues);
+	 * </code>
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -183,6 +260,11 @@ public interface QueryCondition {
 	/**
 	 * Add a not in condition between expression and a query.
 	 * 
+	 * Example: <code>
+	 * SelectQuery<Person> inValues = ... 
+	 * query.notIn(query.target().getMum(), inValues);
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -192,6 +274,11 @@ public interface QueryCondition {
 
 	/**
 	 * Add a contains condition between two values.
+	 * 
+	 * Example: <code>
+	 * Person contained = ... 
+	 * query.contains(query.target().getFriends(), contained);
+	 * </code>
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -203,6 +290,11 @@ public interface QueryCondition {
 	/**
 	 * Add a contains condition between expression and a query.
 	 * 
+	 * Example: <code>
+	 * SelectQuery<Person> contained = ... 
+	 * query.contains(query.target().getFriends(), contained);
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -212,6 +304,11 @@ public interface QueryCondition {
 
 	/**
 	 * Add a not contains condition between two values.
+	 * 
+	 * Example: <code>
+	 * Person notContained = ... 
+	 * query.notContains(query.target().getFriends(), contained);
+	 * </code>
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -223,6 +320,11 @@ public interface QueryCondition {
 	/**
 	 * Add a not contains condition between expression and a query.
 	 * 
+	 * Example: <code>
+	 * SelectQuery<Person> notContained = ... 
+	 * query.notContains(query.target().getFriends(), notContained);
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -232,6 +334,10 @@ public interface QueryCondition {
 
 	/**
 	 * Add a like condition between two values without case match.
+	 * 
+	 * Example: <code>
+	 * query.likeNc(query.target().getName(), "NoCaseTest");
+	 * </code>
 	 * 
 	 * @param target
 	 *            the base operation target.
@@ -243,6 +349,10 @@ public interface QueryCondition {
 	/**
 	 * Add a not like condition between two values without case match.
 	 * 
+	 * Example: <code>
+	 * query.notLikeNc(query.target().getName(), "NoCaseTest");
+	 * </code>
+	 * 
 	 * @param target
 	 *            the base operation target.
 	 * @param value
@@ -252,6 +362,10 @@ public interface QueryCondition {
 
 	/**
 	 * Add an between condition with a target and a range( from to ).
+	 * 
+	 * Example: <code>
+	 * query.between(query.target().getSize(), 5, 10);
+	 * </code>
 	 * 
 	 * @param target
 	 *            the target of between operation.
@@ -265,12 +379,22 @@ public interface QueryCondition {
 	/**
 	 * Create a condition group or.
 	 * 
+	 * Example: <code>
+	 * QueryCondition<Person> or = query.or();
+	 * or.eq(....
+	 * </code>
+	 * 
 	 * @return the condition group.
 	 */
 	QueryCondition or();
 
 	/**
 	 * Create a condition group and.
+	 *
+	 * Example: <code>
+	 * QueryCondition<Person> and = query.and();
+	 * and.eq(....
+	 * </code>
 	 * 
 	 * @return the condition group.
 	 */
