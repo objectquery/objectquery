@@ -5,12 +5,22 @@ public interface BaseQuery<T> {
 	/**
 	 * Retrieve the instance to build query.
 	 * 
+	 * example: <code>
+	 * SelectQuery<Person> queryPerson = ....
+	 * Person target = queryPerson.target();
+	 * </code>
+	 * 
 	 * @return the instance for query building.
 	 */
 	T target();
 
 	/**
 	 * Box a byte.
+	 * 
+	 * Example:<code>
+	 * SelectQuery<Person> query = ....
+	 * query.eq(query.box(query.target().getByteField()),1b);
+	 * </code>
 	 * 
 	 * @param b
 	 *            to box.
@@ -21,6 +31,11 @@ public interface BaseQuery<T> {
 	/**
 	 * Box a char.
 	 * 
+	 * Example:<code>
+	 * SelectQuery<Person> query = ....
+	 * query.eq(query.box(query.target().getCharField()),'A');
+	 * </code>
+	 * 
 	 * @param c
 	 *            to box.
 	 * @return the boxed char.
@@ -29,6 +44,11 @@ public interface BaseQuery<T> {
 
 	/**
 	 * Box a boolean.
+	 * 
+	 * Example:<code>
+	 * SelectQuery<Person> query = ....
+	 * query.eq(query.box(query.target().getBooleanField()),true);
+	 * </code>
 	 * 
 	 * @param b
 	 *            to box
@@ -39,6 +59,11 @@ public interface BaseQuery<T> {
 	/**
 	 * Box an short.
 	 * 
+	 * Example:<code>
+	 * SelectQuery<Person> query = ....
+	 * query.eq(query.box(query.target().getShortField()),1);
+	 * </code>
+	 * 
 	 * @param s
 	 *            to box.
 	 * @return the boxed short
@@ -47,6 +72,11 @@ public interface BaseQuery<T> {
 
 	/**
 	 * Box an int.
+	 * 
+	 * Example:<code>
+	 * SelectQuery<Person> query = ....
+	 * query.eq(query.box(query.target().getIntField()),1);
+	 * </code>
 	 * 
 	 * @param i
 	 *            to box.
@@ -57,6 +87,11 @@ public interface BaseQuery<T> {
 	/**
 	 * Box an long.
 	 * 
+	 * Example:<code>
+	 * SelectQuery<Person> query = ....
+	 * query.eq(query.box(query.target().getLongField()),1);
+	 * </code>
+	 * 
 	 * @param l
 	 *            to box.
 	 * @return boxed long.
@@ -66,6 +101,11 @@ public interface BaseQuery<T> {
 	/**
 	 * Box a float.
 	 * 
+	 * Example:<code>
+	 * SelectQuery<Person> query = ....
+	 * query.eq(query.box(query.target().getFloadField()),1f);
+	 * </code>
+	 * 
 	 * @param f
 	 *            to box.
 	 * @return boxed float.
@@ -74,6 +114,11 @@ public interface BaseQuery<T> {
 
 	/**
 	 * Box a double.
+	 * 
+	 * Example:<code>
+	 * SelectQuery<Person> query = ....
+	 * query.eq(query.box(query.target().getDoubleField()),1.0);
+	 * </code>
 	 * 
 	 * @param d
 	 *            to box.
