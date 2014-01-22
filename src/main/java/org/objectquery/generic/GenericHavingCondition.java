@@ -41,18 +41,38 @@ public class GenericHavingCondition implements HavingCondition {
 		having(ConditionType.NOT_EQUALS, value);
 	}
 
+	public void gt(Double value) {
+		having(ConditionType.GREATER, value);
+	}
+
+	public void gtEq(Double value) {
+		having(ConditionType.GREATER_EQUALS, value);
+	}
+
+	public void lt(Double value) {
+		having(ConditionType.LESS, value);
+	}
+
+	public void ltEq(Double value) {
+		having(ConditionType.LESS_EQUALS, value);
+	}
+
+	@Deprecated
 	public void max(Double value) {
 		having(ConditionType.GREATER, value);
 	}
 
+	@Deprecated
 	public void maxEq(Double value) {
 		having(ConditionType.GREATER_EQUALS, value);
 	}
 
+	@Deprecated
 	public void min(Double value) {
 		having(ConditionType.LESS, value);
 	}
 
+	@Deprecated
 	public void minEq(Double value) {
 		having(ConditionType.LESS_EQUALS, value);
 	}

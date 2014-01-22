@@ -46,7 +46,7 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 
 	/**
 	 * Add a projection to query with an operator.
-	 *
+	 * 
 	 * Example:<code>
 	 * SelectQuery<Person> query = ....
 	 * query.prj(query.target().getSurname(),ProjectionType.COUNT);
@@ -61,7 +61,7 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 
 	/**
 	 * Add an order condition to query.
-	 *
+	 * 
 	 * Example:<code>
 	 * SelectQuery<Person> query = ....
 	 * query.order(query.target().getName());
@@ -74,7 +74,7 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 
 	/**
 	 * Add an order to query.
-	 *
+	 * 
 	 * Example:<code>
 	 * SelectQuery<Person> query = ....
 	 * query.order(query.target().getName(),OrderType.DESC);
@@ -89,7 +89,7 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 
 	/**
 	 * Add an order to query.
-	 *
+	 * 
 	 * Example:<code>
 	 * SelectQuery<Person> query = ....
 	 * query.order(query.target().getSurname(),ProjectionType.COUNT,OrderType.DESC);
@@ -106,6 +106,11 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 
 	/**
 	 * Declare an having condition on projection.
+	 * 
+	 * Example:<code>
+	 * SelectQuery<Person> query = ....
+	 * query.having(query.target().getSurname(),ProjectionType.COUNT).gt(20);
+	 * </code>
 	 * 
 	 * @param projection
 	 *            target of condition.
