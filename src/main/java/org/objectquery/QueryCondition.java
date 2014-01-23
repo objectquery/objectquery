@@ -28,7 +28,7 @@ public interface QueryCondition {
 	 * Add an equal condition between expression and a query.
 	 * 
 	 * Example: <code>
-	 * SelectQuery<Person> anotherQuery = ...
+	 * SelectQuery&lt;Person&gt; anotherQuery = ...
 	 * query.eq(query.target().getMum(),anoterQuery);
 	 * </code>
 	 * 
@@ -57,7 +57,7 @@ public interface QueryCondition {
 	 * Add a not equal condition between expression and a query.
 	 * 
 	 * Example: <code>
-	 * SelectQuery<Person> anotherQuery = ...
+	 * SelectQuery&lt;Person&gt; anotherQuery = ...
 	 * query.notEq(query.target().getMum(),anoterQuery);
 	 * </code>
 	 * 
@@ -86,7 +86,7 @@ public interface QueryCondition {
 	 * Add a "grater than" condition between expression and a query.
 	 * 
 	 * Example: <code>
-	 * SelectQuery<Person> anotherQuery = ...
+	 * SelectQuery&lt;Person&gt; anotherQuery = ...
 	 * query.gt(query.target().getMembers(),anoterQuery);
 	 * </code>
 	 * 
@@ -115,7 +115,7 @@ public interface QueryCondition {
 	 * Add an "grater than or equals" condition between expression and a query.
 	 * 
 	 * Example: <code>
-	 * SelectQuery<Person> anotherQuery = ...
+	 * SelectQuery&lt;Person&gt; anotherQuery = ...
 	 * query.gtEq(query.target().getMembers(),anoterQuery);
 	 * </code>
 	 * 
@@ -144,7 +144,7 @@ public interface QueryCondition {
 	 * Add a "lesser than" condition between expression and a query.
 	 * 
 	 * Example: <code>
-	 * SelectQuery<Person> anotherQuery = ...
+	 * SelectQuery&lt;Person&gt; anotherQuery = ...
 	 * query.lt(query.target().getMembers(),anoterQuery);
 	 * </code>
 	 * 
@@ -173,7 +173,7 @@ public interface QueryCondition {
 	 * Add a min or equals condition between expression and a query.
 	 * 
 	 * Example: <code>
-	 * SelectQuery<Person> anotherQuery = ...
+	 * SelectQuery&lt;Person&gt; anotherQuery = ...
 	 * query.ltEq(query.target().getMembers(),anoterQuery);
 	 * </code>
 	 * 
@@ -231,7 +231,7 @@ public interface QueryCondition {
 	 * Add an in condition between expression and a query.
 	 * 
 	 * Example: <code>
-	 * SelectQuery<Person> inValues = ... 
+	 * SelectQuery&lt;Person&gt; inValues = ... 
 	 * query.in(query.target().getMum(), inValues);
 	 * </code>
 	 * 
@@ -261,7 +261,7 @@ public interface QueryCondition {
 	 * Add a not in condition between expression and a query.
 	 * 
 	 * Example: <code>
-	 * SelectQuery<Person> inValues = ... 
+	 * SelectQuery&lt;Person&gt; inValues = ... 
 	 * query.notIn(query.target().getMum(), inValues);
 	 * </code>
 	 * 
@@ -291,7 +291,7 @@ public interface QueryCondition {
 	 * Add a contains condition between expression and a query.
 	 * 
 	 * Example: <code>
-	 * SelectQuery<Person> contained = ... 
+	 * SelectQuery&lt;Person&gt; contained = ... 
 	 * query.contains(query.target().getFriends(), contained);
 	 * </code>
 	 * 
@@ -321,7 +321,7 @@ public interface QueryCondition {
 	 * Add a not contains condition between expression and a query.
 	 * 
 	 * Example: <code>
-	 * SelectQuery<Person> notContained = ... 
+	 * SelectQuery&lt;Person&gt; notContained = ... 
 	 * query.notContains(query.target().getFriends(), notContained);
 	 * </code>
 	 * 
@@ -380,7 +380,7 @@ public interface QueryCondition {
 	 * Create a condition group or.
 	 * 
 	 * Example: <code>
-	 * QueryCondition<Person> or = query.or();
+	 * QueryCondition or = query.or();
 	 * or.eq(....
 	 * </code>
 	 * 
@@ -392,7 +392,7 @@ public interface QueryCondition {
 	 * Create a condition group and.
 	 *
 	 * Example: <code>
-	 * QueryCondition<Person> and = query.and();
+	 * QueryCondition and = query.and();
 	 * and.eq(....
 	 * </code>
 	 * 

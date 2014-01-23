@@ -35,7 +35,7 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 	 * Add a projection to query.
 	 * 
 	 * Example:<code>
-	 * SelectQuery<Person> query = ....
+	 * SelectQuery&lt;Person&gt; query = ....
 	 * query.prj(query.target().getName());
 	 * </code>
 	 * 
@@ -48,7 +48,7 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 	 * Add a projection to query with an operator.
 	 * 
 	 * Example:<code>
-	 * SelectQuery<Person> query = ....
+	 * SelectQuery&lt;Person&gt; query = ....
 	 * query.prj(query.target().getSurname(),ProjectionType.COUNT);
 	 * </code>
 	 * 
@@ -63,7 +63,7 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 	 * Add an order condition to query.
 	 * 
 	 * Example:<code>
-	 * SelectQuery<Person> query = ....
+	 * SelectQuery&lt;Person&gt; query = ....
 	 * query.order(query.target().getName());
 	 * </code>
 	 * 
@@ -76,7 +76,7 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 	 * Add an order to query.
 	 * 
 	 * Example:<code>
-	 * SelectQuery<Person> query = ....
+	 * SelectQuery&lt;Person&gt; query = ....
 	 * query.order(query.target().getName(),OrderType.DESC);
 	 * </code>
 	 * 
@@ -91,7 +91,7 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 	 * Add an order to query.
 	 * 
 	 * Example:<code>
-	 * SelectQuery<Person> query = ....
+	 * SelectQuery&lt;Person&gt; query = ....
 	 * query.order(query.target().getSurname(),ProjectionType.COUNT,OrderType.DESC);
 	 * </code>
 	 * 
@@ -108,7 +108,7 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 	 * Declare an having condition on projection.
 	 * 
 	 * Example:<code>
-	 * SelectQuery<Person> query = ....
+	 * SelectQuery&lt;Person&gt; query = ....
 	 * query.having(query.target().getSurname(),ProjectionType.COUNT).gt(20);
 	 * </code>
 	 * 
@@ -123,6 +123,16 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 	/**
 	 * Create a new Sub Query of current query.
 	 * 
+	 * Is needed for all the times you what create a sub-query to use inside the
+	 * current.
+	 * 
+	 * Example: <code>
+	 * SelectQuery&lt:Person&gt; query = ....
+	 * SelectQuery&lt;Home&gt; queryHomes = query.subQuery(Home.class);
+	 * ....
+	 * query.in(query.target().getHome(),queryHomes);
+	 * </code>
+	 * 
 	 * @param target
 	 *            class target of sub query.
 	 * @return the ObjectQuery instance of sub query.
@@ -132,6 +142,12 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 	/**
 	 * Create a join object with the specified type
 	 * 
+	 * Example: <code>
+	 * SelectQuery&lt;Person&gt; query = ...
+	 * Home home = query.join(Home.class);
+	 * query.eq(query.target().getAddress(),home.getAddress());
+	 * </code>
+	 * 
 	 * @param joinClass
 	 *            the type of the join object.
 	 * @return the new join object.
@@ -139,16 +155,30 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 	<J> J join(Class<J> joinClass);
 
 	/**
-	 * Create a join object with the specified type
+	 * Create a join object with the specified type and specific join operator
+	 * 
+	 * Example: <code>
+	 * SelectQuery&lt;Person&gt; query = ...
+	 * Home home = query.join(Home.class,JoinType.LEFT);
+	 * query.eq(query.target().getAddress(),home.getAddress());
+	 * </code>
 	 * 
 	 * @param joinClass
 	 *            the type of the join object.
+	 * @param type
+	 *            the join operator type.
 	 * @return the new join object.
 	 */
 	<J> J join(Class<J> joinClass, JoinType type);
 
 	/**
 	 * Create a join object with the specified type, on the specified base path
+	 * 
+	 * Example: <code>
+	 * SelectQuery&lt;Person&gt; query = ...
+	 * Company company = query.join(target.getCompany(),Company.class);
+	 * query.eq(query.target().getAddress(),company.getAddress());
+	 * </code>
 	 * 
 	 * @param joinPath
 	 *            the path to reach the base object.
@@ -160,11 +190,21 @@ public interface SelectQuery<T> extends BaseQuery<T>, QueryCondition {
 
 	/**
 	 * Create a join object with the specified type, on the specified base path
+	 * and join operator
+	 * 
+	 * Example: <code>
+	 * SelectQuery&lt;Person&gt; query = ...
+	 * Company company = query.join(target.getCompany(),Company.class,JoinType.LEFT);
+	 * query.eq(query.target().getAddress(),company.getAddress());
+	 * </code>
 	 * 
 	 * @param joinPath
 	 *            the path to reach the base object.
 	 * @param joinClass
 	 *            the type of the join object.
+	 * @param type
+	 *            the join operator type.
+	 * 
 	 * @return the new join object.
 	 */
 	<J> J join(J joinPath, Class<J> joinClass, JoinType type);
