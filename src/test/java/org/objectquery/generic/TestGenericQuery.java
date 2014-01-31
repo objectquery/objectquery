@@ -8,10 +8,11 @@ import javassist.util.proxy.ProxyFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.objectquery.SelectQuery;
+import org.objectquery.generic.domain.Cat;
 import org.objectquery.generic.domain.Dog;
 import org.objectquery.generic.domain.Person;
 
-public class TestGenericObjectQuery {
+public class TestGenericQuery {
 
 	@Test(expected = ObjectQueryException.class)
 	public void testWrongObjectCondition() {
@@ -180,6 +181,16 @@ public class TestGenericObjectQuery {
 		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("home.address EQUALS rue d'anton"));
 		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("mom.name EQUALS elisabeth"));
 		Assert.assertTrue("Not present expected order", builder.getOrdersString().contains("name"));
+	}
+
+	@Test
+	public void testInterfaceQuery() {
+		MockQueryBuilder builder = new MockQueryBuilder();
+		SelectQuery<Cat> query = new GenericSelectQuery<Cat>(builder, Cat.class);
+		query.eq(query.target().getName(), "viviane");
+		builder.build();
+		Assert.assertEquals("There is more conditions than expected", builder.getConditionsString().size(), 1);
+		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("name EQUALS viviane"));
 	}
 
 	@Test(expected = ObjectQueryException.class)
