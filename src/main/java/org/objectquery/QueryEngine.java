@@ -18,6 +18,8 @@ public abstract class QueryEngine<S> {
 	/**
 	 * Create a new instance of the query engine for the specified session type.
 	 * 
+	 * the instance created is state-less and multi-threading safe, reuse it.
+	 * 
 	 * @param sessionType
 	 *            the session type used for find the query engine.
 	 * @return a new instance of the query engine.
@@ -45,6 +47,9 @@ public abstract class QueryEngine<S> {
 	/**
 	 * Create an new instance of query engine for the engine implementation
 	 * present in the classpath.
+	 * 
+	 * the instance created is state-less and multi-threading safe, reuse it.
+	 * 
 	 * 
 	 * @return the new instance.
 	 */
