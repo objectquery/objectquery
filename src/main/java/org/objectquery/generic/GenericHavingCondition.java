@@ -1,22 +1,22 @@
 package org.objectquery.generic;
 
+import org.objectquery.BaseSelectQuery;
 import org.objectquery.HavingCondition;
-import org.objectquery.SelectQuery;
 
 public class GenericHavingCondition implements HavingCondition {
 	private InternalQueryBuilder builder;
-	private GenericSelectQuery<?> objectQuery;
+	private GenericSelectQuery<?, ?> objectQuery;
 	private Object item;
 	private ProjectionType type;
 
-	public GenericHavingCondition(InternalQueryBuilder builder, GenericSelectQuery<?> objectQuery, PathItem item, ProjectionType type) {
+	public GenericHavingCondition(InternalQueryBuilder builder, GenericSelectQuery<?, ?> objectQuery, PathItem item, ProjectionType type) {
 		this.builder = builder;
 		this.item = item;
 		this.type = type;
 		this.objectQuery = objectQuery;
 	}
 
-	public GenericHavingCondition(InternalQueryBuilder builder, GenericSelectQuery<?> objectQuery, SelectQuery<?> item, ProjectionType type) {
+	public GenericHavingCondition(InternalQueryBuilder builder, GenericSelectQuery<?, ?> objectQuery, BaseSelectQuery<?> item, ProjectionType type) {
 		this.builder = builder;
 		this.item = item;
 		this.type = type;
@@ -30,7 +30,7 @@ public class GenericHavingCondition implements HavingCondition {
 		if (item instanceof PathItem)
 			builder.having((PathItem) item, type, conditionType, curValue);
 		else
-			builder.having((SelectQuery<?>) item, type, conditionType, curValue);
+			builder.having((BaseSelectQuery<?>) item, type, conditionType, curValue);
 	}
 
 	public void eq(Double value) {

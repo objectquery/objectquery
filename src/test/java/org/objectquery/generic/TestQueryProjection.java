@@ -10,7 +10,7 @@ public class TestQueryProjection {
 	@Test
 	public void addProjectionTest() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		SelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person,Object>(builder, Person.class);
 		Person toSearch = query.target();
 		query.prj(toSearch.getMom().getName());
 		query.prj(toSearch.getMom().getName(), ProjectionType.COUNT);
@@ -32,7 +32,7 @@ public class TestQueryProjection {
 	@Test
 	public void addSubqueryProjectionTest() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		SelectQuery<Person> query = new GenericSelectQuery<Person>(builder, Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person,Object>(builder, Person.class);
 		query.prj(query.subQuery(Person.class));
 		query.prj(query.subQuery(Person.class), ProjectionType.SUM);
 		builder.build();

@@ -1,7 +1,7 @@
 package org.objectquery.generic;
 
 @Deprecated
-public class GenericObjectQuery<T> extends GenericSelectQuery<T> {
+public class GenericObjectQuery<T> extends GenericSelectQuery<T, Object> {
 
 	@Deprecated
 	public GenericObjectQuery(Class<T> targetClass) {

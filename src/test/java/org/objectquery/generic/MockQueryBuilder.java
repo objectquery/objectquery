@@ -35,7 +35,7 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 		}
 	}
 
-	private void stringfyQuery(GenericSelectQuery<?> goq, StringBuilder builder) {
+	private void stringfyQuery(GenericSelectQuery<?, ?> goq, StringBuilder builder) {
 		GenericInternalQueryBuilder iqb = (GenericInternalQueryBuilder) goq.getBuilder();
 		List<String> conditionsString = new ArrayList<String>();
 		List<String> ordersString = new ArrayList<String>();
@@ -92,8 +92,8 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 		sb.append(" ").append(cond.getType()).append(" ");
 		if (cond.getValue() instanceof PathItem)
 			buildPath((PathItem) cond.getValue(), sb);
-		else if (cond.getValue() instanceof GenericSelectQuery<?>) {
-			stringfyQuery((GenericSelectQuery<?>) cond.getValue(), sb);
+		else if (cond.getValue() instanceof GenericSelectQuery<?, ?>) {
+			stringfyQuery((GenericSelectQuery<?, ?>) cond.getValue(), sb);
 		} else
 			sb.append(cond.getValue());
 		if (ConditionType.BETWEEN.equals(cond.getType())) {
@@ -129,7 +129,7 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 			if (ord.getItem() instanceof PathItem)
 				buildPath((PathItem) ord.getItem(), sb);
 			else
-				stringfyQuery((GenericSelectQuery<?>) ord.getItem(), sb);
+				stringfyQuery((GenericSelectQuery<?, ?>) ord.getItem(), sb);
 			if (ord.getProjectionType() != null)
 				sb.append(" ").append(ord.getProjectionType());
 			if (ord.getType() != null)
@@ -141,7 +141,7 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 			if (proj.getItem() instanceof PathItem)
 				buildPath((PathItem) proj.getItem(), sb);
 			else
-				stringfyQuery((GenericSelectQuery<?>) proj.getItem(), sb);
+				stringfyQuery((GenericSelectQuery<?, ?>) proj.getItem(), sb);
 			if (proj.getType() != null)
 				sb.append(" ").append(proj.getType());
 			projectionsString.add(sb.toString());

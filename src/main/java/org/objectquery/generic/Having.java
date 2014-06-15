@@ -1,6 +1,6 @@
 package org.objectquery.generic;
 
-import org.objectquery.SelectQuery;
+import org.objectquery.BaseSelectQuery;
 
 public class Having {
 	private Object item;
@@ -15,7 +15,7 @@ public class Having {
 		this.value = value;
 	}
 
-	public Having(SelectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value) {
+	public Having(BaseSelectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value) {
 		this.item = item;
 		this.projectionType = projectionType;
 		this.conditionType = conditionType;
@@ -41,8 +41,8 @@ public class Having {
 	public void clear() {
 		if (item instanceof PathItem)
 			((PathItem) item).clear();
-		else if (item instanceof GenericSelectQuery<?>)
-			((GenericSelectQuery<?>) item).clear();
+		else if (item instanceof GenericSelectQuery<?, ?>)
+			((GenericSelectQuery<?, ?>) item).clear();
 		item = null;
 		if (value instanceof PathItem)
 			((PathItem) value).clear();

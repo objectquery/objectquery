@@ -95,7 +95,7 @@ public abstract class QueryEngine<S> {
 	 * @return new select query.
 	 */
 	public <T> SelectQuery<T> newSelect(Class<T> target) {
-		return new GenericSelectQuery<T>(target);
+		return new GenericSelectQuery<T, Object>(target);
 	}
 
 	/**

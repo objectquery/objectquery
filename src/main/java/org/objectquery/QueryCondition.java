@@ -37,7 +37,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T extends C> void eq(C target, SelectQuery<T> value);
+	<C, T extends C> void eq(C target, BaseSelectQuery<T> value);
 
 	/**
 	 * Add a not equal condition between two values.
@@ -66,7 +66,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T extends C> void notEq(C target, SelectQuery<T> value);
+	<C, T extends C> void notEq(C target, BaseSelectQuery<T> value);
 
 	/**
 	 * Add a "grater than" condition between two values.
@@ -95,7 +95,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T extends C> void gt(C target, SelectQuery<T> value);
+	<C, T extends C> void gt(C target, BaseSelectQuery<T> value);
 
 	/**
 	 * Add a "grater than or equals" condition between two values.
@@ -124,7 +124,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T extends C> void gtEq(C target, SelectQuery<T> value);
+	<C, T extends C> void gtEq(C target, BaseSelectQuery<T> value);
 
 	/**
 	 * Add a "lesser than" condition between two values.
@@ -153,7 +153,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T extends C> void lt(C target, SelectQuery<T> value);
+	<C, T extends C> void lt(C target, BaseSelectQuery<T> value);
 
 	/**
 	 * Add a "lesser than" or equals condition between two values. Example:
@@ -182,7 +182,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T extends C> void ltEq(C target, SelectQuery<T> value);
+	<C, T extends C> void ltEq(C target, BaseSelectQuery<T> value);
 
 	/**
 	 * Add a like condition between two values.
@@ -240,7 +240,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T extends C> void in(C target, SelectQuery<T> value);
+	<C, T extends C> void in(C target, BaseSelectQuery<T> value);
 
 	/**
 	 * Add a not in condition between two values.
@@ -270,7 +270,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T extends C> void notIn(C target, SelectQuery<T> value);
+	<C, T extends C> void notIn(C target, BaseSelectQuery<T> value);
 
 	/**
 	 * Add a contains condition between two values.
@@ -300,7 +300,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T extends C> void contains(Collection<C> target, SelectQuery<T> value);
+	<C, T extends C> void contains(Collection<C> target, BaseSelectQuery<T> value);
 
 	/**
 	 * Add a not contains condition between two values.
@@ -330,7 +330,7 @@ public interface QueryCondition {
 	 * @param value
 	 *            the query source of expected value.
 	 */
-	<C, T extends C> void notContains(Collection<C> target, SelectQuery<T> value);
+	<C, T extends C> void notContains(Collection<C> target, BaseSelectQuery<T> value);
 
 	/**
 	 * Add a like condition between two values without case match.

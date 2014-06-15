@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import javassist.util.proxy.ProxyObject;
 
+import org.objectquery.BaseSelectQuery;
 import org.objectquery.QueryCondition;
-import org.objectquery.SelectQuery;
 
 public class QueryConditionImpl implements QueryCondition {
 
@@ -44,10 +44,10 @@ public class QueryConditionImpl implements QueryCondition {
 
 		Object curValue = null;
 		if (value != null) {
-			if (value instanceof GenericSelectQuery<?>) {
+			if (value instanceof GenericSelectQuery<?, ?>) {
 				// TODO: Be careful because in the future can be possible
 				// another implementation.
-				GenericSelectQuery<?> val = (GenericSelectQuery<?>) value;
+				GenericSelectQuery<?, ?> val = (GenericSelectQuery<?, ?>) value;
 				if (!val.isSubQuery())
 					throw new ObjectQueryException(
 							"The given sub query is not a sub query instance, use the method ObjectQuery.subQuery to obtain a sub query instance");
@@ -99,7 +99,7 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.EQUALS, value, null);
 	}
 
-	public <C, T extends C> void eq(C target, SelectQuery<T> value) {
+	public <C, T extends C> void eq(C target, BaseSelectQuery<T> value) {
 		condition(target, ConditionType.EQUALS, value, null);
 	}
 
@@ -107,7 +107,7 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.NOT_EQUALS, value, null);
 	}
 
-	public <C, T extends C> void notEq(C target, SelectQuery<T> value) {
+	public <C, T extends C> void notEq(C target, BaseSelectQuery<T> value) {
 		condition(target, ConditionType.NOT_EQUALS, value, null);
 	}
 
@@ -115,7 +115,7 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.GREATER, value, null);
 	}
 
-	public <C, T extends C> void gt(C target, SelectQuery<T> value) {
+	public <C, T extends C> void gt(C target, BaseSelectQuery<T> value) {
 		condition(target, ConditionType.GREATER, value, null);
 	}
 
@@ -123,7 +123,7 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.GREATER_EQUALS, value, null);
 	}
 
-	public <C, T extends C> void gtEq(C target, SelectQuery<T> value) {
+	public <C, T extends C> void gtEq(C target, BaseSelectQuery<T> value) {
 		condition(target, ConditionType.GREATER_EQUALS, value, null);
 	}
 
@@ -131,7 +131,7 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.LESS, value, null);
 	}
 
-	public <C, T extends C> void lt(C target, SelectQuery<T> value) {
+	public <C, T extends C> void lt(C target, BaseSelectQuery<T> value) {
 		condition(target, ConditionType.LESS, value, null);
 
 	}
@@ -140,7 +140,7 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.LESS_EQUALS, value, null);
 	}
 
-	public <C, T extends C> void ltEq(C target, SelectQuery<T> value) {
+	public <C, T extends C> void ltEq(C target, BaseSelectQuery<T> value) {
 		condition(target, ConditionType.LESS_EQUALS, value, null);
 	}
 
@@ -156,7 +156,7 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.IN, value, null);
 	}
 
-	public <C, T extends C> void in(C target, SelectQuery<T> value) {
+	public <C, T extends C> void in(C target, BaseSelectQuery<T> value) {
 		condition(target, ConditionType.IN, value, null);
 	}
 
@@ -164,7 +164,7 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.NOT_IN, value, null);
 	}
 
-	public <C, T extends C> void notIn(C target, SelectQuery<T> value) {
+	public <C, T extends C> void notIn(C target, BaseSelectQuery<T> value) {
 		condition(target, ConditionType.NOT_IN, value, null);
 	}
 
@@ -172,7 +172,7 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.CONTAINS, value, null);
 	}
 
-	public <C, T extends C> void contains(Collection<C> target, SelectQuery<T> value) {
+	public <C, T extends C> void contains(Collection<C> target, BaseSelectQuery<T> value) {
 		condition(target, ConditionType.CONTAINS, value, null);
 	}
 
@@ -180,7 +180,7 @@ public class QueryConditionImpl implements QueryCondition {
 		condition(target, ConditionType.NOT_CONTAINS, value, null);
 	}
 
-	public <C, T extends C> void notContains(Collection<C> target, SelectQuery<T> value) {
+	public <C, T extends C> void notContains(Collection<C> target, BaseSelectQuery<T> value) {
 		condition(target, ConditionType.NOT_CONTAINS, value, null);
 	}
 

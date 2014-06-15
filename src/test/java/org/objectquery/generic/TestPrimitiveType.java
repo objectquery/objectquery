@@ -2,7 +2,7 @@ package org.objectquery.generic;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.objectquery.SelectQuery;
+import org.objectquery.BaseSelectQuery;
 import org.objectquery.generic.domain.PrimitiveDomain;
 
 public class TestPrimitiveType {
@@ -10,7 +10,7 @@ public class TestPrimitiveType {
 	@Test
 	public void testPrimitiveType() {
 		MockQueryBuilder qb = new MockQueryBuilder();
-		SelectQuery<PrimitiveDomain> query = new GenericSelectQuery<PrimitiveDomain>(qb, PrimitiveDomain.class);
+		BaseSelectQuery<PrimitiveDomain> query = new GenericSelectQuery<PrimitiveDomain, Object>(qb, PrimitiveDomain.class);
 		PrimitiveDomain pd = query.target();
 		query.eq(query.box(pd.isBool()), false);
 		query.eq(query.box(pd.getInte()), 0);

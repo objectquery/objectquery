@@ -1,6 +1,6 @@
 package org.objectquery.generic;
 
-import org.objectquery.SelectQuery;
+import org.objectquery.BaseSelectQuery;
 
 /**
  * Interface to implement a custom query builder from the specified tecnology.
@@ -21,20 +21,25 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	 * 
 	 * @param item
 	 *            the projection object to add.
+	 * @param mapper
+	 *            if is not null the mapper mapped field for the projection.
 	 * @param type
 	 *            the type of projection to add.
+	 * 
 	 */
-	void projection(PathItem item, ProjectionType type);
+	void projection(PathItem item, PathItem mapper, ProjectionType type);
 
 	/**
 	 * Add a sub Query projection to query with an operator.
 	 * 
-	 * @param item
+	 * @param projection
 	 *            the sub Query projection object to add.
+	 * @param mapper
+	 *            if is not null the mapper mapped field for the projection.
 	 * @param type
 	 *            the type of projection to add.
 	 */
-	void projection(SelectQuery<?> projection, ProjectionType type);
+	void projection(BaseSelectQuery<?> projection, PathItem mapper, ProjectionType type);
 
 	/**
 	 * Add an sub query order to query.
@@ -46,7 +51,7 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	 * @param type
 	 *            the type of order.
 	 */
-	void order(SelectQuery<?> order, ProjectionType projectionType, OrderType type);
+	void order(BaseSelectQuery<?> order, ProjectionType projectionType, OrderType type);
 
 	/**
 	 * Add an order to query.
@@ -86,7 +91,7 @@ public interface InternalQueryBuilder extends InternalConditionBuilder {
 	 * @param value
 	 *            the condition value.
 	 */
-	void having(SelectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value);
+	void having(BaseSelectQuery<?> item, ProjectionType projectionType, ConditionType conditionType, Object value);
 
 	/**
 	 * Create and add a new set Item.

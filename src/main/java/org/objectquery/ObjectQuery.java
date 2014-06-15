@@ -7,6 +7,6 @@ package org.objectquery;
  * @param <T>
  */
 @Deprecated
-public interface ObjectQuery<T> extends SelectQuery<T> {
+public interface ObjectQuery<T> extends BaseSelectQuery<T> {
 
 }
