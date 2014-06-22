@@ -99,6 +99,30 @@ public abstract class QueryEngine<S> {
 	}
 
 	/**
+	 * Create a new select query with a result mapped to a different object.
+	 * 
+	 * usage example: <code>
+	 * QueryEngine&lt;YourSession&gt; engine = ....
+	 * SelectQuery&lt;Person,PersonDTOgt; select = engine.newSelect(Person.class,PersonDTO.class);
+	 * Person target =select.target();
+	 * PersonDTO mapper =select.mapper();
+	 * select.prj(target.getName(),mapper.getName());
+	 * select.prj(target.getSurname(),mapper.getSurname()); 
+	 * select.eq(target.getName(),"expected name"); 
+	 * </code>
+	 * 
+	 * @param target
+	 *            the target type to query.
+	 * @param mapper
+	 *            the result type where to map the projection.
+	 * 
+	 * @return
+	 */
+	public <T, M> SelectMapQuery<T, M> newSelectMap(Class<T> target, Class<M> mapper) {
+		return new GenericSelectQuery<T, M>(target, mapper);
+	}
+
+	/**
 	 * Create a new delete query on the specified target.
 	 * 
 	 * usage example: <code>
@@ -169,6 +193,27 @@ public abstract class QueryEngine<S> {
 	 * @return the result of the select
 	 */
 	public abstract <RET extends List<?>> RET execute(SelectQuery<?> query, S engineSession);
+
+	/**
+	 * Execute a select and return a list of result.
+	 * 
+	 * usage example: <code>
+	 * QueryEngine engine = ... 
+	 * SelectQuery select = ...
+	 * Person target = select.target();
+	 * PersonDTO mapper= select.mapper();
+	 * select.eq(target.getName(),mapper.getName());
+	 * select.eq(target.getName(),"expected name");
+	 * List lt;PersonDTOgt; result = engine.execute(select,yourSessionInstance);
+	 * </code>
+	 * 
+	 * @param query
+	 *            to execute
+	 * @param engineSession
+	 *            current implementation session
+	 * @return the result of the select
+	 */
+	public abstract <RET extends List<M>, M> RET execute(SelectMapQuery<?, M> query, S engineSession);
 
 	/**
 	 * Execute a delete and return the number of deleted records.

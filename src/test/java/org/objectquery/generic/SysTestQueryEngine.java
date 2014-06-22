@@ -5,6 +5,7 @@ import java.util.List;
 import org.objectquery.DeleteQuery;
 import org.objectquery.InsertQuery;
 import org.objectquery.QueryEngine;
+import org.objectquery.SelectMapQuery;
 import org.objectquery.SelectQuery;
 import org.objectquery.UpdateQuery;
 
@@ -32,6 +33,11 @@ public class SysTestQueryEngine extends QueryEngine<Object> {
 	public int execute(UpdateQuery<?> query, Object engineSession) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	@Override
+	public <RET extends List<M>, M> RET execute(SelectMapQuery<?, M> query, Object engineSession) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

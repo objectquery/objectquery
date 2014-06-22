@@ -144,6 +144,11 @@ public class MockQueryBuilder extends GenericInternalQueryBuilder {
 				stringfyQuery((GenericSelectQuery<?, ?>) proj.getItem(), sb);
 			if (proj.getType() != null)
 				sb.append(" ").append(proj.getType());
+			if (proj.getMapper() != null) {
+				sb.append(" ");
+				buildPath((PathItem) proj.getItem(), sb);
+			}
+
 			projectionsString.add(sb.toString());
 		}
 		for (Having having : havings) {
