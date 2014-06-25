@@ -1,6 +1,7 @@
 package org.objectquery.generic;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.objectquery.BaseSelectQuery;
 import org.objectquery.SelectQuery;
@@ -11,7 +12,7 @@ public class TestSubQuery {
 	@Test
 	public void testSubquerySimple() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		SelectQuery<Person> query = new GenericSelectQuery<Person,Object>(builder, Person.class);
+		SelectQuery<Person> query = new GenericSelectQuery<Person, Object>(builder, Person.class);
 
 		BaseSelectQuery<Person> subQuery = query.subQuery(Person.class);
 		subQuery.eq(subQuery.target().getName(), "test");
@@ -19,14 +20,14 @@ public class TestSubQuery {
 
 		builder.build();
 
-		Assert.assertEquals("A.dad EQUALS select  from Person AA0 where AA0.name EQUALS test", builder.getConditionsString().get(0));
+		assertEquals("A.dad EQUALS select  from Person AA0 where AA0.name EQUALS test", builder.getConditionsString().get(0));
 
 	}
 
 	@Test
 	public void testBackReferenceSubquery() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		GenericSelectQuery<Person,Object> query = new GenericSelectQuery<Person,Object>(builder, Person.class);
+		GenericSelectQuery<Person, Object> query = new GenericSelectQuery<Person, Object>(builder, Person.class);
 		Person target = query.target();
 		BaseSelectQuery<Person> subQuery = query.subQuery(Person.class);
 		subQuery.eq(subQuery.target().getName(), target.getDog().getName());
@@ -34,15 +35,15 @@ public class TestSubQuery {
 
 		builder.build();
 
-		Assert.assertEquals(1, builder.getConditions().size());
-		Assert.assertEquals("A.dad EQUALS select  from Person AA0 where AA0.name EQUALS A.dog.name", builder.getConditionsString().get(0));
+		assertEquals(1, builder.getConditions().size());
+		assertEquals("A.dad EQUALS select  from Person AA0 where AA0.name EQUALS A.dog.name", builder.getConditionsString().get(0));
 	}
 
 	@Test
 	public void testDoubleSubQuery() {
 
 		MockQueryBuilder builder = new MockQueryBuilder();
-		GenericSelectQuery<Person,Object> query = new GenericSelectQuery<Person,Object>(builder, Person.class);
+		GenericSelectQuery<Person, Object> query = new GenericSelectQuery<Person, Object>(builder, Person.class);
 		Person target = query.target();
 		BaseSelectQuery<Person> subQuery = query.subQuery(Person.class);
 		query.eq(target.getDad(), subQuery);
@@ -54,8 +55,8 @@ public class TestSubQuery {
 		doubSubQuery.eq(doubSubQuery.target().getMom().getName(), query.target().getMom().getName());
 
 		builder.build();
-		Assert.assertEquals(1, builder.getConditions().size());
-		Assert.assertEquals(
+		assertEquals(1, builder.getConditions().size());
+		assertEquals(
 				"A.dad EQUALS select  from Person AA0 where AA0.name EQUALS A.dog.name AND AA0.mom EQUALS select  from Person AA0A0 where AA0A0.mom.name EQUALS AA0.mom.name AND AA0A0.mom.name EQUALS A.mom.name",
 				builder.getConditionsString().get(0));
 
@@ -64,7 +65,7 @@ public class TestSubQuery {
 	@Test
 	public void testMultipleReferenceSubquery() {
 		MockQueryBuilder builder = new MockQueryBuilder();
-		GenericSelectQuery<Person,Object> query = new GenericSelectQuery<Person,Object>(builder, Person.class);
+		GenericSelectQuery<Person, Object> query = new GenericSelectQuery<Person, Object>(builder, Person.class);
 		Person target = query.target();
 		BaseSelectQuery<Person> subQuery = query.subQuery(Person.class);
 		BaseSelectQuery<Person> subQuery1 = query.subQuery(Person.class);
@@ -72,9 +73,9 @@ public class TestSubQuery {
 		query.eq(target.getMom(), subQuery1);
 		builder.build();
 
-		Assert.assertEquals(2, builder.getConditions().size());
-		Assert.assertEquals("A.dad EQUALS select  from Person AA0", builder.getConditionsString().get(0));
-		Assert.assertEquals("A.mom EQUALS select  from Person AA1", builder.getConditionsString().get(1));
+		assertEquals(2, builder.getConditions().size());
+		assertEquals("A.dad EQUALS select  from Person AA0", builder.getConditionsString().get(0));
+		assertEquals("A.mom EQUALS select  from Person AA1", builder.getConditionsString().get(1));
 	}
 
 }

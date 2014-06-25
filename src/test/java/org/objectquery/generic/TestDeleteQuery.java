@@ -1,6 +1,7 @@
 package org.objectquery.generic;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.objectquery.generic.domain.Person;
 
@@ -19,6 +20,6 @@ public class TestDeleteQuery {
 		personQuery.eq(personQuery.target().getName(), "test");
 
 		GenericInternalQueryBuilder builder = (GenericInternalQueryBuilder) personQuery.getBuilder();
-		Assert.assertEquals(builder.getQueryType(), QueryType.DELETE);
+		assertEquals(builder.getQueryType(), QueryType.DELETE);
 	}
 }

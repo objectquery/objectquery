@@ -1,11 +1,13 @@
 package org.objectquery.generic;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.lang.reflect.Method;
 
 import javassist.util.proxy.MethodHandler;
 import javassist.util.proxy.ProxyFactory;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.objectquery.BaseSelectQuery;
 import org.objectquery.SelectQuery;
@@ -176,12 +178,12 @@ public class TestGenericQuery {
 		query.order(toSearch.getName());
 
 		builder.build();
-		Assert.assertEquals("There is more conditions than expected", builder.getConditionsString().size(), 2);
-		Assert.assertEquals("There is more orders than expected", builder.getOrdersString().size(), 1);
+		assertEquals("There is more conditions than expected", builder.getConditionsString().size(), 2);
+		assertEquals("There is more orders than expected", builder.getOrdersString().size(), 1);
 
-		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("home.address EQUALS rue d'anton"));
-		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("mom.name EQUALS elisabeth"));
-		Assert.assertTrue("Not present expected order", builder.getOrdersString().contains("name"));
+		assertTrue("Not present expected condition", builder.getConditionsString().contains("home.address EQUALS rue d'anton"));
+		assertTrue("Not present expected condition", builder.getConditionsString().contains("mom.name EQUALS elisabeth"));
+		assertTrue("Not present expected order", builder.getOrdersString().contains("name"));
 	}
 
 	@Test
@@ -190,8 +192,8 @@ public class TestGenericQuery {
 		SelectQuery<Cat> query = new GenericSelectQuery<Cat, Object>(builder, Cat.class);
 		query.eq(query.target().getName(), "viviane");
 		builder.build();
-		Assert.assertEquals("There is more conditions than expected", builder.getConditionsString().size(), 1);
-		Assert.assertTrue("Not present expected condition", builder.getConditionsString().contains("name EQUALS viviane"));
+		assertEquals("There is more conditions than expected", builder.getConditionsString().size(), 1);
+		assertTrue("Not present expected condition", builder.getConditionsString().contains("name EQUALS viviane"));
 	}
 
 	@Test(expected = ObjectQueryException.class)

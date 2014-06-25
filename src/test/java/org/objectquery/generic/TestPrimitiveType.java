@@ -1,6 +1,7 @@
 package org.objectquery.generic;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.objectquery.BaseSelectQuery;
 import org.objectquery.generic.domain.PrimitiveDomain;
@@ -23,15 +24,15 @@ public class TestPrimitiveType {
 
 		qb.build();
 
-		Assert.assertEquals(" wrong number of condition", qb.getConditionsString().size(), 8);
-		Assert.assertEquals("bool EQUALS false", qb.getConditionsString().get(0));
-		Assert.assertEquals("inte EQUALS 0", qb.getConditionsString().get(1));
-		Assert.assertEquals("longe EQUALS 0", qb.getConditionsString().get(2));
-		Assert.assertEquals("bytee EQUALS 0", qb.getConditionsString().get(3));
-		Assert.assertEquals("chare EQUALS A", qb.getConditionsString().get(4));
-		Assert.assertEquals("doublee EQUALS 0.0", qb.getConditionsString().get(5));
-		Assert.assertEquals("floate EQUALS 0.0", qb.getConditionsString().get(6));
-		Assert.assertEquals("shorte EQUALS 0", qb.getConditionsString().get(7));
+		assertEquals(" wrong number of condition", qb.getConditionsString().size(), 8);
+		assertEquals("bool EQUALS false", qb.getConditionsString().get(0));
+		assertEquals("inte EQUALS 0", qb.getConditionsString().get(1));
+		assertEquals("longe EQUALS 0", qb.getConditionsString().get(2));
+		assertEquals("bytee EQUALS 0", qb.getConditionsString().get(3));
+		assertEquals("chare EQUALS A", qb.getConditionsString().get(4));
+		assertEquals("doublee EQUALS 0.0", qb.getConditionsString().get(5));
+		assertEquals("floate EQUALS 0.0", qb.getConditionsString().get(6));
+		assertEquals("shorte EQUALS 0", qb.getConditionsString().get(7));
 	}
 
 }

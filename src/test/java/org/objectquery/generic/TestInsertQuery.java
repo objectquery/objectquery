@@ -1,6 +1,7 @@
 package org.objectquery.generic;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.objectquery.generic.domain.Person;
 
@@ -9,7 +10,7 @@ public class TestInsertQuery {
 	@Test
 	public void testCreation() {
 		GenericInsertQuery<Person> insert = new GenericInsertQuery<Person>(Person.class);
-		Assert.assertEquals(((GenericInternalQueryBuilder) insert.getBuilder()).getQueryType(), QueryType.INSERT);
+		assertEquals(((GenericInternalQueryBuilder) insert.getBuilder()).getQueryType(), QueryType.INSERT);
 	}
 
 	@Test
@@ -19,8 +20,8 @@ public class TestInsertQuery {
 		Person toUp = insert.target();
 		insert.set(toUp.getName(), "value");
 		builder.build();
-		Assert.assertEquals(1, builder.getSetsString().size());
-		Assert.assertEquals("name value", builder.getSetsString().get(0));
+		assertEquals(1, builder.getSetsString().size());
+		assertEquals("name value", builder.getSetsString().get(0));
 	}
 
 	@Test
@@ -30,8 +31,8 @@ public class TestInsertQuery {
 		Person toUp = insert.target();
 		insert.set(toUp.getDad().getName(), "value");
 		builder.build();
-		Assert.assertEquals(1, builder.getSetsString().size());
-		Assert.assertEquals("dad.name value", builder.getSetsString().get(0));
+		assertEquals(1, builder.getSetsString().size());
+		assertEquals("dad.name value", builder.getSetsString().get(0));
 	}
 
 	@Test(expected = ObjectQueryException.class)

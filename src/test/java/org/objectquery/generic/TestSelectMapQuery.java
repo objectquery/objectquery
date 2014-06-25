@@ -1,8 +1,9 @@
 package org.objectquery.generic;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertThat;
+
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
-import org.junit.matchers.JUnitMatchers;
 import org.objectquery.SelectMapQuery;
 import org.objectquery.generic.domain.Person;
 import org.objectquery.generic.domain.PersonDTO;
@@ -16,7 +17,7 @@ public class TestSelectMapQuery {
 		query.prj(query.target().getName(), query.mapper().getName());
 
 		mock.build();
-		Assert.assertThat(mock.getProjectionsString(), JUnitMatchers.hasItem("name name"));
+		assertThat(mock.getProjectionsString(), CoreMatchers.hasItem("name name"));
 
 	}
 
