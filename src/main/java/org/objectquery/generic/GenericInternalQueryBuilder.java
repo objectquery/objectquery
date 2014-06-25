@@ -1,5 +1,6 @@
 package org.objectquery.generic;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,16 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 			builder.append(separator);
 		}
 		builder.append(item.getName());
+	}
+
+	public static void setMappingValue(Object instance, PathItem field, Object value) {
+		try {
+			String name = field.getName();
+			Method set = instance.getClass().getMethod("set" + Character.toUpperCase(name.charAt(0)) + name.substring(1), field.getClazz());
+			set.invoke(instance, value);
+		} catch (Exception e) {
+			throw new ObjectQueryException("Error setting mapper value", e);
+		}
 	}
 
 	public void order(BaseSelectQuery<?> order, ProjectionType projectionType, OrderType type) {
