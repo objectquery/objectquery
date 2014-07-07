@@ -1,8 +1,10 @@
 package org.objectquery.generic;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.objectquery.BaseSelectQuery;
 
@@ -30,13 +32,46 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 		builder.append(item.getName());
 	}
 
-	public static void setMappingValue(Object instance, PathItem field, Object value) {
+	public static void setMappingValue(Object instance, PathItem field, Object value) throws Exception {
+		String name = field.getName();
+		Method set = instance.getClass().getMethod("set" + Character.toUpperCase(name.charAt(0)) + name.substring(1), field.getClazz());
+		set.invoke(instance, value);
+
+	}
+
+	public static Object getValue(Object instance, PathItem field) throws Exception {
+		String name = field.getName();
+		Method set = instance.getClass().getMethod("get" + Character.toUpperCase(name.charAt(0)) + name.substring(1));
+		return set.invoke(instance);
+	}
+
+	public static Object setMapping(Class<?> target, List<Projection> projections, Map<String, Object> values) {
 		try {
-			String name = field.getName();
-			Method set = instance.getClass().getMethod("set" + Character.toUpperCase(name.charAt(0)) + name.substring(1), field.getClazz());
-			set.invoke(instance, value);
+			Object targetInst = target.newInstance();
+			for (Projection projection : projections) {
+				StringBuilder path = new StringBuilder();
+				PathItem mapper = projection.getMapper();
+				buildPath(mapper, path, "_");
+				Object value = values.get(path.toString());
+				setMappingValue(getParentObject(targetInst, mapper.getParent()), mapper, value);
+			}
+			return targetInst;
 		} catch (Exception e) {
-			throw new ObjectQueryException("Error setting mapper value", e);
+			throw new ObjectQueryException("Error filling the mapped result ", e);
+		}
+	}
+
+	public static Object getParentObject(Object targetInst, PathItem parent) throws Exception {
+		if (parent.getParent() == null) {
+			return targetInst;
+		} else {
+			Object cur = getParentObject(targetInst, parent.getParent());
+			Object toRet = getValue(cur, parent);
+			if (toRet == null) {
+				toRet = parent.getClazz().newInstance();
+				setMappingValue(cur, parent, toRet);
+			}
+			return toRet;
 		}
 	}
 
