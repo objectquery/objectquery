@@ -23,7 +23,7 @@ public class TestGenericInternalQueryBuilder {
 	}
 
 	@Test(expected = Exception.class)
-	public void testSimpleFailSetter() throws Exception {
+	public void testFailSimpleSetter() throws Exception {
 		PersonDTO dto = new PersonDTO();
 		GenericInternalQueryBuilder.setMappingValue(dto, new PathItem(String.class, null, "not-name"), "the value");
 		assertEquals(dto.getName(), "the value");
@@ -37,10 +37,23 @@ public class TestGenericInternalQueryBuilder {
 		assertEquals(name, "the value");
 	}
 
+	@Test(expected = NoSuchMethodException.class)
+	public void testFailSimpleGetValue() throws Exception {
+		PersonDTO dto = new PersonDTO();
+		GenericInternalQueryBuilder.getValue(dto, new PathItem(String.class, null, "none"));
+	}
+
 	@Test
 	public void testGetParent() throws Exception {
 		PersonDTO dto = new PersonDTO();
 		Object parent = GenericInternalQueryBuilder.getParentObject(dto, new PathItem(AddressDTO.class, new PathItem(PersonDTO.class, null, ""), "addressDTO"));
+		assertTrue(parent instanceof AddressDTO);
+	}
+
+	@Test(expected = NoSuchMethodException.class)
+	public void testFailGetParent() throws Exception {
+		PersonDTO dto = new PersonDTO();
+		Object parent = GenericInternalQueryBuilder.getParentObject(dto, new PathItem(AddressDTO.class, new PathItem(PersonDTO.class, null, ""), "none"));
 		assertTrue(parent instanceof AddressDTO);
 	}
 
