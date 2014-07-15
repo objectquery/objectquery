@@ -64,7 +64,7 @@ public class TestGenericInternalQueryBuilder {
 		List<Projection> projections = new ArrayList<>();
 		projections.add(new Projection(new PathItem(null, null, null), new PathItem(String.class, new PathItem(AddressDTO.class, new PathItem(PersonDTO.class,
 				null, ""), "addressDTO"), "street"), null));
-		PersonDTO restult = (PersonDTO) GenericInternalQueryBuilder.setMapping(PersonDTO.class, projections, values);
+		PersonDTO restult = GenericInternalQueryBuilder.setMapping(PersonDTO.class, projections, values);
 		assertNotNull(restult);
 		assertNotNull(restult.getAddressDTO());
 		assertEquals(restult.getAddressDTO().getStreet(), "hello");
