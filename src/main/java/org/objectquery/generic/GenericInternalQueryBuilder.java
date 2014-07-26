@@ -45,13 +45,14 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 		return set.invoke(instance);
 	}
 
-	public static Object setMapping(Class<?> target, List<Projection> projections, Map<String, Object> values) {
+	public static <T> T setMapping(Class<T> target, List<Projection> projections, Map<String, Object> values) {
 		try {
-			Object targetInst = target.newInstance();
+			T targetInst = target.newInstance();
+			StringBuilder path = new StringBuilder();
 			for (Projection projection : projections) {
-				StringBuilder path = new StringBuilder();
+				path.setLength(0);
+				buildAlias(projection, path);
 				PathItem mapper = projection.getMapper();
-				buildPath(mapper, path, "_");
 				Object value = values.get(path.toString());
 				setMappingValue(getParentObject(targetInst, mapper.getParent()), mapper, value);
 			}
@@ -73,6 +74,11 @@ public class GenericInternalQueryBuilder extends ConditionGroup implements Inter
 			}
 			return toRet;
 		}
+	}
+
+	public static void buildAlias(Projection projection, StringBuilder builder) {
+		PathItem mapper = projection.getMapper();
+		buildPath(mapper, builder, "_");
 	}
 
 	public void order(BaseSelectQuery<?> order, ProjectionType projectionType, OrderType type) {

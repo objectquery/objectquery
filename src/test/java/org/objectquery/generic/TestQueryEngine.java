@@ -12,7 +12,7 @@ import org.objectquery.UpdateQuery;
 public class TestQueryEngine extends QueryEngine<Object> {
 
 	@Override
-	public <RET extends List<?>> RET execute(SelectQuery<?> query, Object engineSession) {
+	public List<?> execute(SelectQuery<?> query, Object engineSession) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -36,7 +36,7 @@ public class TestQueryEngine extends QueryEngine<Object> {
 	}
 
 	@Override
-	public <RET extends List<M>, M> RET execute(SelectMapQuery<?, M> query, Object engineSession) {
+	public <M> List<M> execute(SelectMapQuery<?, M> query, Object engineSession) {
 		// TODO Auto-generated method stub
 		return null;
 	}

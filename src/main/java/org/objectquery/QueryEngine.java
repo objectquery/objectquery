@@ -192,7 +192,7 @@ public abstract class QueryEngine<S> {
 	 *            current implementation session
 	 * @return the result of the select
 	 */
-	public abstract <RET extends List<?>> RET execute(SelectQuery<?> query, S engineSession);
+	public abstract List<?> execute(SelectQuery<?> query, S engineSession);
 
 	/**
 	 * Execute a select and return a list of result.
@@ -213,7 +213,7 @@ public abstract class QueryEngine<S> {
 	 *            current implementation session
 	 * @return the result of the select
 	 */
-	public abstract <RET extends List<M>, M> RET execute(SelectMapQuery<?, M> query, S engineSession);
+	public abstract <M> List<M> execute(SelectMapQuery<?, M> query, S engineSession);
 
 	/**
 	 * Execute a delete and return the number of deleted records.
