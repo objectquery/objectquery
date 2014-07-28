@@ -11,7 +11,6 @@ public class TestQueryEngineFactory {
 	@Test
 	public void testCreateFromDiscover() {
 		QueryEngine<Object> q = QueryEngine.defaultInstance();
-		System.out.println(q);
 		assertTrue(q instanceof TestQueryEngine);
 	}
 

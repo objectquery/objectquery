@@ -50,39 +50,4 @@ public interface HavingCondition {
 	 */
 	void ltEq(Double value);
 
-	/**
-	 * Add an max condition on having.
-	 * 
-	 * @param value
-	 *            the operation expected value.
-	 */
-	@Deprecated
-	void max(Double value);
-
-	/**
-	 * Add an max or equals condition on having.
-	 * 
-	 * @param value
-	 *            the operation expected value.
-	 */
-	@Deprecated
-	void maxEq(Double value);
-
-	/**
-	 * Add an min condition on having.
-	 * 
-	 * @param value
-	 *            the operation expected value.
-	 */
-	@Deprecated
-	void min(Double value);
-
-	/**
-	 * Add an min or equals condition on having.
-	 * 
-	 * @param value
-	 *            the operation expected value.
-	 */
-	@Deprecated
-	void minEq(Double value);
 }

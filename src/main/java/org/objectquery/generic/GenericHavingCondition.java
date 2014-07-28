@@ -57,24 +57,4 @@ public class GenericHavingCondition implements HavingCondition {
 		having(ConditionType.LESS_EQUALS, value);
 	}
 
-	@Deprecated
-	public void max(Double value) {
-		having(ConditionType.GREATER, value);
-	}
-
-	@Deprecated
-	public void maxEq(Double value) {
-		having(ConditionType.GREATER_EQUALS, value);
-	}
-
-	@Deprecated
-	public void min(Double value) {
-		having(ConditionType.LESS, value);
-	}
-
-	@Deprecated
-	public void minEq(Double value) {
-		having(ConditionType.LESS_EQUALS, value);
-	}
-
 }

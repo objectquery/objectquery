@@ -50,10 +50,10 @@ public class TestQueryHaving {
 		Person target = query.target();
 		query.having(target.getName(), ProjectionType.COUNT).eq(2D);
 		query.having(target.getName(), ProjectionType.COUNT).notEq(2D);
-		query.having(target.getName(), ProjectionType.COUNT).max(2D);
-		query.having(target.getName(), ProjectionType.COUNT).maxEq(2D);
-		query.having(target.getName(), ProjectionType.COUNT).min(2D);
-		query.having(target.getName(), ProjectionType.COUNT).minEq(2D);
+		query.having(target.getName(), ProjectionType.COUNT).gt(2D);
+		query.having(target.getName(), ProjectionType.COUNT).gtEq(2D);
+		query.having(target.getName(), ProjectionType.COUNT).lt(2D);
+		query.having(target.getName(), ProjectionType.COUNT).ltEq(2D);
 		builder.build();
 		assertEquals(6, builder.getHavingString().size());
 		assertEquals("name COUNT EQUALS 2.0", builder.getHavingString().get(0));

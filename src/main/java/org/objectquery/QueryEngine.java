@@ -1,10 +1,9 @@
 package org.objectquery;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
+
+import javax.imageio.spi.ServiceRegistry;
 
 import org.objectquery.generic.GenericInsertQuery;
 import org.objectquery.generic.GenericSelectQuery;
@@ -24,24 +23,19 @@ public abstract class QueryEngine<S> {
 	 *            the session type used for find the query engine.
 	 * @return a new instance of the query engine.
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T> QueryEngine<T> instance(Class<T> sessionType) {
-		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		try {
-			Enumeration<URL> res = loader.getResources("META-INF/ObjectQueryEngine.properties");
-			Properties p = new Properties();
-			while (res.hasMoreElements()) {
-				p.load(res.nextElement().openStream());
-				String clazz = p.getProperty(sessionType.getName());
-				if (clazz != null) {
-					Class<?> cl = Class.forName(clazz);
-					return (QueryEngine<T>) cl.newInstance();
-				}
+			Iterator<QueryEngineFactory> factories = ServiceRegistry.lookupProviders(QueryEngineFactory.class);
+			QueryEngine<T> res;
+			while (factories.hasNext()) {
+				res = factories.next().createQueryEngine(sessionType);
+				if (res != null)
+					return res;
 			}
 		} catch (Exception e) {
 			throw new ObjectQueryException("Error on QueryEngine lookup", e);
 		}
-		throw new ObjectQueryException("Impossible to find any QueryEngine implementation in the classpaht for the specifed session type");
+		throw new ObjectQueryException("Impossible to find any QueryEngine implementation in the classpath for the specifed session type");
 	}
 
 	/**
@@ -64,19 +58,18 @@ public abstract class QueryEngine<S> {
 				throw new RuntimeException("error to load class defined in " + IMPLEMENTATION_KEY + " system property", e);
 			}
 		}
-		ClassLoader loader = Thread.currentThread().getContextClassLoader();
-		InputStream stream = loader.getResourceAsStream("META-INF/ObjectQueryEngine.properties");
-		if (stream == null)
-			throw new ObjectQueryException("Impossible to find any implementation of QueryEngine in the classpath");
 		try {
-			Properties prop = new Properties();
-			prop.load(stream);
-			Class<?> cl = Class.forName(prop.getProperty(IMPLEMENTATION_KEY));
-			return (QueryEngine<T>) cl.newInstance();
+			Iterator<QueryEngineFactory> factories = ServiceRegistry.lookupProviders(QueryEngineFactory.class);
+			QueryEngine<T> res;
+			while (factories.hasNext()) {
+				res = factories.next().createDefaultQueryEngine();
+				if (res != null)
+					return res;
+			}
 		} catch (Exception e) {
-			throw new ObjectQueryException("error to load class defined in the property " + IMPLEMENTATION_KEY
-					+ " of the file META-INF/ObjectQueryEngine.properties", e);
+			throw new ObjectQueryException("Error on QueryEngine lookup", e);
 		}
+		throw new ObjectQueryException("Impossible to find any default QueryEngine implementation in the classpath");
 	}
 
 	/**
