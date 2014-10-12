@@ -1,6 +1,5 @@
 package org.objectquery;
 
-import org.objectquery.generic.ProjectionType;
 
 public interface SelectMapQuery<T, M> extends BaseSelectQuery<T> {
 
@@ -28,23 +27,5 @@ public interface SelectMapQuery<T, M> extends BaseSelectQuery<T> {
 	 *            the corresponding field to map.
 	 */
 	<PT> void prj(PT projection, PT mapper);
-
-	/**
-	 * Add a projection to a query mapping the return value.
-	 * 
-	 * Example:<code>
-	 * SelectQuery&lt;Person,PersonDTO&gt; query = ....
-	 * PersonDTO mapTo = query.mapper(PersonDto.class);
-	 * query.prj(query.target().getName(),mapTo.getNameCount(),ProjectionType.COUNT);
-	 * </code>
-	 * 
-	 * @param projection
-	 *            the projection to add.
-	 * @param mapper
-	 *            the corresponding field to map.
-	 * @param type
-	 *            the type of projection to add.
-	 */
-	<PT> void prj(PT projection, PT mapper, ProjectionType type);
 
 }
