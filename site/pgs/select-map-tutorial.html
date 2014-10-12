@@ -1,0 +1,74 @@
+<section class="active" >
+	<header>
+		<h2>Select Map Tutorial</h2>
+	</header>
+	<article>
+		<header>
+			<h4>Domain</h4>
+		</header>
+<pre class="prettyprint lang-java">
+public class Person {
+	private String name;
+	private String surname;
+	private List&lt;Person&gt; friends;
+	private Person mum;
+	private Person dud;
+	private Home home;
+	private Dog dog;
+	...gets sets...
+}
+</pre>
+<pre class="prettyprint lang-java">
+public class Home {
+	public enum HomeType {KENNEL,HOUSE};
+	private String address;
+	private HomeType type;
+	private int weight;
+	private double price;
+	...gets sets...
+}
+</pre>
+	</article>
+	<article>
+		<header><h4>Mapping Domain (ex Simple DTO)</h4></header>
+<pre class="prettyprint lang-java">
+public class PersonDTO {
+	private String name;
+	private String surname;
+	private AdressDTO address;
+	...gets sets...
+}
+</pre>
+<pre class="prettyprint lang-java">
+public class AddressDTO {
+	private String address;
+	...gets sets...
+}
+</pre>
+	</article>
+	</article>
+	<article>
+		<header>
+			<h3>Projection</h3>
+		</header>
+		<p>
+			Select name,surname and address of person and fill the relative dto.
+		</p>
+		<pre class="prettyprint lang-java">
+QueryEngine&lt;?&gt; engine = ...
+SelectMapQuery&lt;Person,PersonDTO&gt; query = engine.newSelectMap(Person.class,PersonDTO.class)
+Person toSearch = query.target();
+PersonDTO mapper = query.mapper();
+query.prj(toSearch.getName(),mapper.getName());
+query.prj(toSearch.getSurname(),mapper.getSuname());
+query.prj(toSearch.getHome().getAddress(),mapper.getAddress().getAddress());
+List<PersonDTO> res = engine.execute(query,...);
+</pre>
+	<p>
+		Correspondent Pseudo QL
+	</p>
+<pre class="prettypring lang-sql">
+select name,surname,home.address from Person 
+</pre>
+	</article>
+</section>

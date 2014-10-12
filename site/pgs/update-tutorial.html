@@ -22,7 +22,8 @@ public class Person {
 			Update the address of a person.
 		</p>
 <pre class="prettyprint lang-java">
-UpdateQuery&lt;Person&gt; query = new GenericUpdateQuery&lt;Person&gt;(Person.class);
+QueryEngine&lt;?&gt; engine = ...
+UpdateQuery&lt;Person&gt; query = engine.newUpdate(Person.class);
 Person toUpdate = query.target();
 query.set(toUpdate.getAddress(),"rue de Paris");
 query.eq(toUpdate.getAddress(),"rue d'anton");
@@ -43,7 +44,8 @@ update Person set address = "rue de Paris" where address="rue d'anton" and name=
 			Set the surname equals to surname.
 		</p>
 <pre class="prettyprint lang-java">
-UpdateQuery&lt;Person&gt; query = new GenericUpdateQuery&lt;Person&gt;(Person.class);
+QueryEngine&lt;?&gt; engine = ...
+UpdateQuery&lt;Person&gt; query = engine.newUpdate(Person.class);
 Person toUpdate = query.target();
 query.set(toUpdate.getSurname().toUpdate.getName());
 </pre>

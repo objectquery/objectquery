@@ -4,10 +4,10 @@
 		<table class="roadmap" border="2" style="width:100%">
 			<tr><th >Feature</th><th>Engine</th><th>JPA</th><th>JDO</th><th>Hibernate</th><th>OrientDB</th></tr>
 			<tr><td>select</td><td class="sup">1.0.0</td><td class="sup">1.0.0</td><td class="sup">1.0.0</td><td class="sup">1.0.0</td><td class="sup">1.0.0</td></tr>
+			<tr><td>select map</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td></tr>
 			<tr><td>insert</td><td class="sup">2.0.0</td><td class="unsup">ko</td><td class="unsup">ko</td><td class="unsup">ko</td><td class="sup">2.0.0</td></tr>
 			<tr><td>update</td><td class="sup">2.0.0</td><td class="sup">2.0.0</td><td class="unsup">ko</td><td class="sup">2.0.0</td><td class="sup">2.0.0</td></tr>
 			<tr><td>delete</td><td class="sup">2.0.0</td><td class="sup">2.0.0</td><td class="unsup">ko</td><td class="sup">2.0.0</td><td class="sup">2.0.0</td></tr>
-
 		</table>
 	</article>
 	<article>
@@ -32,7 +32,9 @@
 			<tr><td>OR</td><td>query.or()</td></tr>
 			<tr><td>Insert</td><td>set a value</td><td>set</td><td>query.set(target.getName(),"the name");</td><td class="sup">2.0.0</td><td class="unsup">ko</td><td class="unsup">ko</td><td class="unsup">ko</td><td class="sup">2.0.0</td></tr>
 			<tr><td>Update</td><td>set a value</td><td>set</td><td>query.set(target.getName(),"the name");</td><td class="sup">2.0.0</td><td class="sup">2.0.0</td><td class="unsup">ko</td><td class="sup">2.0.0</td><td class="sup">2.0.0</td></tr>
-
+			<tr><td rowspan="2" >Select Map</td><td rowspan="2">Projection</td><td>simple</td><td>query.prj(target.getName(),mapper.getName())</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td></tr>
+			<td>mapper double level</td><td>query.prj(target.getName(),mapper.getContainer().getName())</td><td  class="sup">2.5.0</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td><td class="unsup">ko</td><td class="sup">2.5.0</td></tr>
+			<td>simple</td><td>query.prj(target.getName(),mapper.getName())</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td><td class="sup">2.5.0</td></tr>
 			<tr><td rowspan="48" >Select </td><td rowspan="6">Projection</td><td>simple</td><td>query.prj(target.getName())</td><td rowspan="6" class="sup">1.0.0</td><td rowspan="6" class="sup">1.0.0</td><td rowspan="6" class="sup">1.0.0</td><td rowspan="6" class="sup">1.0.0</td><td rowspan="6" class="sup">1.0.0</td></tr>
 			<tr><td>max</td><td>query.prj(target.getName(),ProjectionType.MAX)</td></tr>
 			<tr><td>min</td><td>query.prj(target.getName(),ProjectionType.MIN)</td></tr>

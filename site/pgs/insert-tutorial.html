@@ -22,6 +22,8 @@ public class Person {
 			Insert a new person
 		</p>
 <pre class="prettyprint lang-java">
+QueryEngine&lt;?&gt; engine = ...
+InsertQuery&lt;Person&gt; query = engine.newInsert(Person.class);
 InsertQuery&lt;Person&gt; query = new GenericUpdateQuery&lt;Person&gt;(Person.class);
 Person toInser = query.target();
 query.set(toUpdate.getName(),"elisabeth");

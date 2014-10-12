@@ -22,7 +22,8 @@ public class Person {
 			Update the address of a person.
 		</p>
 <pre class="prettyprint lang-java">
-DeleteQuery&lt;Person&gt; query = new GenericDeleteQuery&lt;Person&gt;(Person.class);
+QueryEngine engine = ...
+DeleteQuery&lt;Person&gt; query = engine.newDelete(Person.class);
 Person toUpdate = query.target();
 query.eq(toUpdate.getName(),"elisabeth");
 query.eq(toUpdate.getSurname(),"bordeaux");
